@@ -1,6 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { validateConfig, safeName, checkPng, parseDownloadPath } = require('../runner-utils.cjs');
+const { validateConfig, safeName, checkPng, parseDownloadPath, uniqueDownloadItems } = require('../runner-utils.cjs');
 const original = require('../../collection.config.json');
 
 test('reject output traversal and external CDP endpoints', () => {
@@ -21,4 +21,9 @@ test('decode browser download paths from chrome file-icon URLs', () => {
   assert.equal(parseDownloadPath('chrome://fileicon/?path=C%3A%5CUsers%5CTest%5Cimage.png'),
     'C:\\Users\\Test\\image.png');
   assert.equal(parseDownloadPath('not a URL'), null);
+});
+test('count each browser download path once', () => {
+  const item = path => ({ path: `chrome://fileicon/?path=${encodeURIComponent(path)}` });
+  assert.deepEqual(uniqueDownloadItems([item('C:\\a.png'), item('C:\\a.png'), item('C:\\b.png')]),
+    [item('C:\\a.png'), item('C:\\b.png')]);
 });

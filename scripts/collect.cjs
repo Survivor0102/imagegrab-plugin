@@ -2,7 +2,7 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const { chromium } = require('playwright');
-const { validateConfig, usable, checkPng, parseDownloadPath } = require('./runner-utils.cjs');
+const { validateConfig, usable, checkPng, parseDownloadPath, uniqueDownloadItems } = require('./runner-utils.cjs');
 const repoRoot = path.resolve(__dirname, '..');
 
 async function guardPage(page) {
@@ -38,15 +38,27 @@ async function listDownloads(page) {
 }
 
 async function loadAllDownloads(page) {
-  for (let i = 0; i < 8; i++) {
+  let stable = 0;
+  let previous = -1;
+  for (let i = 0; i < 200; i++) {
     await page.evaluate(() => {
       const root = document.querySelector('downloads-manager')?.shadowRoot;
       const list = root?.querySelector('#mainContainer');
       if (list) list.scrollTop = list.scrollHeight;
     });
-    await page.waitForTimeout(150);
+    await page.waitForTimeout(200);
+    const state = await page.evaluate(() => {
+      const root = document.querySelector('downloads-manager')?.shadowRoot;
+      const items = root?.querySelectorAll('downloads-item').length || 0;
+      const total = Number(root?.querySelector('#downloadsList')?.getAttribute('aria-rowcount')) || 0;
+      return { items, total };
+    });
+    if (state.total > 0 && state.items >= state.total) break;
+    stable = state.items === previous ? stable + 1 : 0;
+    if (stable >= 4) break;
+    previous = state.items;
   }
-  return listDownloads(page);
+  return uniqueDownloadItems(await listDownloads(page));
 }
 
 async function runBatch(context, page, batch, config, runDir, report, progress) {

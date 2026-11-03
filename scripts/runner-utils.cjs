@@ -48,4 +48,12 @@ function parseDownloadPath(iconUrl) {
     return new URL(iconUrl).searchParams.get('path');
   } catch { return null; }
 }
-module.exports = { safeName, validateConfig, usable, checkPng, parseDownloadPath };
+function uniqueDownloadItems(items) {
+  const byPath = new Map();
+  for (const item of items) {
+    const filePath = parseDownloadPath(item.path);
+    if (filePath) byPath.set(filePath, item);
+  }
+  return [...byPath.values()];
+}
+module.exports = { safeName, validateConfig, usable, checkPng, parseDownloadPath, uniqueDownloadItems };

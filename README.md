@@ -9,7 +9,8 @@
 - [手动安装和使用](docs/安装与手动使用.md)：无需自动化环境的操作方法。
 - [已验证的结果与限制](docs/验证结果与限制.md)：候选数、成功落盘数和未完成能力分别说明。
 - [历史批次采集函数](scripts/historical/collect-keyword-batch.js)：从成功会话提取，仅供追溯；不应当作独立运行器。
-- [独立批次运行器](scripts/collect.cjs)：本次归档后编写，有明确前置条件，但尚未在仓库外的全新环境完成端到端重跑。
+- [独立批次运行器](scripts/collect.cjs)：已在原课程浏览器 Profile 中通过 doctor 和 smoke，并完成两批共 100 张的真实批次验证；全量 300 张复跑按用户要求中止，尚未完成。
+- [复现能力核验记录](evidence/2026-11-03/replication-readiness.md)：区分同机实测、部分批次结果和未验证边界。
 - [校验记录与文件清单](evidence/2026-11-03/)：300 张图片的文件大小、PNG 文件头检查和 SHA-256，以及插件源码快照校验值。
 - [插件安装包](dist/imagegrab-extension-1.0.0.zip)：与 `imagegrab-extension/` 源码内容一致。
 
@@ -29,14 +30,14 @@
 
 1. 安装 Node.js 20 或更新版本。
 2. 执行 `npm ci`，再执行 `npm test` 和 `npm run verify`。
-3. 在目标 Chrome Profile 的 `chrome://extensions/` 中开启开发者模式，加载解压后的 `imagegrab-extension/`，然后打开淘宝并刷新页面。
+3. 在目标 Chrome Profile 的 `chrome://extensions/` 中开启开发者模式，加载解压后的 `imagegrab-extension/`，然后打开淘宝并刷新页面。若由专用启动命令运行，则需在该次 Chrome 启动时传入 `--load-extension=<扩展目录>`；扩展不是淘宝账号的一部分，也不会自动出现在另一套 Profile 或未带该启动参数的实例中。
 4. 确保该 Chrome 实例由用户自行按其本机安全策略开启 loopback CDP `127.0.0.1:9333`；不要把 CDP 端口暴露到公网。若同一 Profile 已被打开，不要启动第二个 Chrome 进程。
 5. 在 `collection.config.json` 中检查关键词、页码、数量和输出目录，先运行 `npm run doctor`。
 6. 医生检查通过后先运行 `npm run smoke`，确认少量真实下载落盘；再运行 `npm run collect` 执行完整批次。
 
 运行器会拒绝登录/验证页面、检查浏览器下载历史、复制实际文件并验证 PNG 头；失败会在唯一的新运行目录中保留 `run.json`。不要把输出目录设到仓库源码、浏览器 Profile 或其他项目目录。
 
-`npm test` 只验证本地输入校验和文件处理；`npm run doctor` 只验证当前浏览器页面与插件按钮；`npm run smoke` 才是少量实时下载；`npm run collect` 才重跑全批。**本次归档尚未通过全新安装后的 `doctor`、`smoke` 或全量 `collect` 验收。实际执行时的浏览器缺少 ImageGrab 注入，`doctor` 已如实失败。**
+`npm test` 只验证本地输入校验和文件处理；`npm run doctor` 只验证当前浏览器页面与插件按钮；`npm run smoke` 才是少量实时下载；`npm run collect` 才重跑全批。2026-11-03 后续在原课程 Profile 中完成了 `doctor`、3 张 smoke 下载及 100 张真实批次验证；完整 300 张复跑没有完成。首次 smoke 暴露出下载历史长列表未加载完整的问题，运行器已改为等待列表加载并按实际路径去重，最终 smoke 通过。详情见[复现能力核验记录](evidence/2026-11-03/replication-readiness.md)。这属于同机、同登录态实测，不等于全新电脑或其他账户已验证。
 
 ## 文件结构
 
