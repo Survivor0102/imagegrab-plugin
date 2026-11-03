@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>选品研究台 · ImageGrab</title>
+  <link rel="stylesheet" href="research.css">
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="research.html"><span class="brand-mark">IG</span><span>选品研究台</span></a>
+    <div class="header-actions">
+      <button id="import-button" class="icon-button" title="导入 JSON" aria-label="导入 JSON">↑</button>
+      <button id="export-button" class="icon-button" title="导出备份 JSON" aria-label="导出备份 JSON">↓</button>
+      <button id="csv-button" class="button secondary">导出表格</button>
+      <button id="new-product" class="button primary">＋ 新建商品</button>
+      <input id="import-file" type="file" accept="application/json,.json" hidden>
+    </div>
+  </header>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <p class="nav-label">工作区</p>
+      <button class="nav-item active" data-view="products"><span>▦</span>商品池 <b id="product-count">0</b></button>
+      <button class="nav-item" data-view="offers"><span>⇄</span>货源比较 <b id="offer-count">0</b></button>
+      <button class="nav-item" data-view="certificates"><span>✓</span>认证核验</button>
+      <div class="sidebar-foot"><span class="local-dot"></span><span>数据保存在此浏览器</span></div>
+    </aside>
+    <main class="main-content">
+      <div class="page-heading">
+        <div><p class="eyebrow">1688 / SOURCING WORKSPACE</p><h1 id="view-title">商品池</h1><p id="view-description" class="muted">从榜单和搜索结果收集候选商品，再补全采购与上架资料。</p></div>
+        <label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="搜索品名、品牌、供应商"></label>
+      </div>
+      <section class="summary-strip" aria-label="数据概览">
+        <div><span>商品记录</span><strong id="metric-products">0</strong></div>
+        <div><span>供应商报价</span><strong id="metric-offers">0</strong></div>
+        <div><span>待补资料</span><strong id="metric-incomplete">0</strong></div>
+        <div><span>待核认证</span><strong id="metric-certificates">0</strong></div>
+      </section>
+      <div class="toolbar-row">
+        <div class="segmented" role="group" aria-label="商品来源筛选">
+          <button class="segment active" data-filter="all">全部</button>
+          <button class="segment" data-filter="ranking">榜单</button>
+          <button class="segment" data-filter="similar">同款寻源</button>
+          <button class="segment" data-filter="manual">手动</button>
+        </div>
+        <span id="result-count" class="muted"></span>
+      </div>
+      <div class="work-area">
+        <section class="table-wrap" aria-label="商品列表">
+          <table><thead><tr><th>商品</th><th>来源</th><th>参考价 / 起订</th><th>货源数</th><th>资料状态</th><th></th></tr></thead><tbody id="product-rows"></tbody></table>
+          <div id="empty-state" class="empty-state"><span class="empty-icon">▧</span><strong>研究台还没有商品</strong><p>打开 1688 榜单、搜索结果或商品页，点击“加入选品研究”收集当前可见商品。</p><button id="empty-create" class="button secondary">手动建档</button></div>
+        </section>
+        <aside id="detail-panel" class="detail-panel" hidden></aside>
+      </div>
+    </main>
+  </div>
+  <dialog id="product-dialog" class="editor-dialog">
+    <form id="product-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">PRODUCT RECORD</p><h2 id="dialog-title">新建商品</h2></div><button type="button" class="icon-button" data-close title="关闭" aria-label="关闭">×</button></div>
+      <input type="hidden" name="productId">
+      <div class="form-grid">
+        <label class="wide">品名<input name="title" required maxlength="180"></label>
+        <label>品牌<input name="brand"></label><label>类目<input name="category"></label>
+        <label>研究来源<select name="sourceType"><option value="ranking">榜单选品</option><option value="similar">同款寻源</option><option value="manual">手动建档</option></select></label>
+        <label>来源排名<input name="rank" type="number" min="1"></label>
+        <label class="wide">商品链接<input name="sourceUrl" type="url"></label>
+        <label class="wide">图片链接（每行一条）<textarea name="images" rows="3"></textarea></label>
+        <label class="wide">规格参数 / 可见资料<textarea name="specs" rows="4"></textarea></label>
+        <label>产地<input name="origin"></label><label>内部备注<input name="notes"></label>
+      </div>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close>取消</button><button class="button primary" value="save">保存商品</button></div>
+    </form>
+  </dialog>
+  <dialog id="offer-dialog" class="editor-dialog">
+    <form id="offer-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">SUPPLIER OFFER</p><h2>添加候选货源</h2></div><button type="button" class="icon-button" data-close title="关闭" aria-label="关闭">×</button></div>
+      <input type="hidden" name="productId">
+      <div class="form-grid">
+        <label>供应商名称<input name="supplierName"></label><label>发货地 / 产地<input name="location"></label>
+        <label class="wide">供应商主页<input name="supplierUrl" type="url"></label>
+        <label class="wide">货源链接<input name="url" type="url" required></label>
+        <label>价格 / 阶梯价<input name="priceText"></label><label>起订量<input name="moqText"></label>
+        <label>页面销量文字<input name="salesText"></label><label>供应商资质备注<input name="qualification"></label>
+      </div>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close>取消</button><button class="button primary" value="save">保存货源</button></div>
+    </form>
+  </dialog>
+  <dialog id="certificate-dialog" class="editor-dialog">
+    <form id="certificate-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">COMPLIANCE EVIDENCE</p><h2>添加认证记录</h2></div><button type="button" class="icon-button" data-close title="关闭" aria-label="关闭">×</button></div>
+      <input type="hidden" name="productId">
+      <div class="form-grid">
+        <label>认证类型<input name="type" placeholder="CCC / 食品接触 / 化妆品备案"></label><label>证书编号<input name="number"></label>
+        <label>认证机构<input name="issuer"></label><label>核验状态<select name="status"><option value="unverified">待核验</option><option value="verified">已核验</option><option value="invalid">未通过</option></select></label>
+        <label class="wide">核验来源 / 证据链接<input name="evidenceUrl" type="url"></label>
+        <label class="wide">备注<textarea name="notes" rows="2"></textarea></label>
+      </div>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close>取消</button><button class="button primary" value="save">保存记录</button></div>
+    </form>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="research.js"></script>
+</body>
+</html>

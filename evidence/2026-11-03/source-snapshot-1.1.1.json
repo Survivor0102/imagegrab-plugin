@@ -1,0 +1,51 @@
+{
+  "extension_version": "1.1.1",
+  "snapshot_kind": "ImageGrab 1.1.1 source snapshot; synthetic integration tests and live Taobao search validation; detail page blocked by platform warning",
+  "files": [
+    {
+      "path": "imagegrab-extension/README.md",
+      "bytes": 864,
+      "sha256": "eb7b974fcc22399d1dfff5e236349cd4c63940ccd7adb8a15ea340708be5bb6d"
+    },
+    {
+      "path": "imagegrab-extension/background.js",
+      "bytes": 1043,
+      "sha256": "bbeadaecc42567f3fd629df72732c5ecf084ebebd5a0d3a9254324e770c1f877"
+    },
+    {
+      "path": "imagegrab-extension/content.css",
+      "bytes": 899,
+      "sha256": "2c821c9dd110099edf0bfe4ee4d685e989fef829417115dd26d75e69f2021d3c"
+    },
+    {
+      "path": "imagegrab-extension/content.js",
+      "bytes": 6958,
+      "sha256": "84dba7ae91567c5556f3b8678356b6ec1bd78920afa9f9ff6d625ded2356784a"
+    },
+    {
+      "path": "imagegrab-extension/gallery.css",
+      "bytes": 2826,
+      "sha256": "6a00df2ec3cdba11b1beb47aac10f8b2834eecdc8a1665a1c9463c6446b794c1"
+    },
+    {
+      "path": "imagegrab-extension/gallery.html",
+      "bytes": 1523,
+      "sha256": "b482913a94f8e157aff7b98809e94d5045e3a7a3839d0aed15fbe935caa9e314"
+    },
+    {
+      "path": "imagegrab-extension/gallery.js",
+      "bytes": 5521,
+      "sha256": "f706276bb646c710abcdf4abb4d4c3bd3e7895c0af1f967477f8c351f066dc3f"
+    },
+    {
+      "path": "imagegrab-extension/manifest.json",
+      "bytes": 828,
+      "sha256": "ebd4bcf1343b1bb37d11a1895d90394989f6665ff231f822400d0011eb4b20e1"
+    },
+    {
+      "path": "imagegrab-extension/sales.js",
+      "bytes": 704,
+      "sha256": "b0c926b2c2770d888826f1e630dfe671c813281bf7b2a4c89624724c83d554be"
+    }
+  ]
+}

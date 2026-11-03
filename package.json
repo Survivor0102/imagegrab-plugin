@@ -2,10 +2,11 @@
   "name": "imagegrab-collection-workflow",
   "version": "1.0.0",
   "private": true,
-  "description": "Reproducible runner for the archived ImageGrab 1.0.0 extension",
+  "description": "ImageGrab extension and reproducible collection workflow",
   "engines": { "node": ">=20" },
   "scripts": {
     "verify": "node scripts/verify-snapshot.cjs",
+    "snapshot": "node scripts/update-source-snapshot.cjs",
     "doctor": "node scripts/collect.cjs --check",
     "smoke": "node scripts/collect.cjs --smoke",
     "collect": "node scripts/collect.cjs",

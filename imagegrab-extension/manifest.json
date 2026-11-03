@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
   "name": "图提取 · ImageGrab",
-  "version": "1.1.1",
-  "description": "提取商品图片，并关联页面可见的商品标题、链接和销量文字。",
+  "version": "1.2.0",
+  "description": "采集商品图片、记录可见信息并整理选品与供应商档案。",
   "permissions": ["activeTab", "scripting", "downloads", "storage", "tabs"],
   "host_permissions": [
-    "*://*.taobao.com/*", "*://*.tmall.com/*", "*://*.jd.com/*",
+    "*://*.taobao.com/*", "*://*.tmall.com/*", "*://*.1688.com/*", "*://*.jd.com/*",
     "*://*.pinduoduo.com/*", "*://*.yangkeduo.com/*"
   ],
   "background": { "service_worker": "background.js" },
@@ -15,6 +15,9 @@
       "*://*.pinduoduo.com/*", "*://*.yangkeduo.com/*"
     ],
     "js": ["sales.js", "content.js"], "css": ["content.css"], "run_at": "document_idle"
+  }, {
+    "matches": ["*://*.1688.com/*"],
+    "js": ["research-capture.js"], "run_at": "document_idle"
   }],
   "action": { "default_title": "图提取 · ImageGrab" },
   "options_page": "gallery.html"

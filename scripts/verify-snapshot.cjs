@@ -5,14 +5,14 @@ const root = path.resolve(__dirname, '..');
 const read = (name) => JSON.parse(fs.readFileSync(path.join(root, name), 'utf8'));
 const assert = (ok, message) => { if (!ok) throw new Error(message); };
 
-const snapshot = read('evidence/2026-11-03/source-snapshot.json');
+const manifest = read('imagegrab-extension/manifest.json');
+const snapshot = read(`evidence/2026-11-03/source-snapshot-${manifest.version}.json`);
 for (const row of snapshot.files) {
   const content = fs.readFileSync(path.join(root, row.path));
   assert(content.length === row.bytes, `Size mismatch: ${row.path}`);
   assert(crypto.createHash('sha256').update(content).digest('hex') === row.sha256,
     `SHA-256 mismatch: ${row.path}`);
 }
-const manifest = read('imagegrab-extension/manifest.json');
 assert(manifest.version === snapshot.extension_version, 'Extension version mismatch');
 const report = read('evidence/2026-11-03/file-verification.json');
 const images = read('evidence/2026-11-03/image-file-manifest.json');
