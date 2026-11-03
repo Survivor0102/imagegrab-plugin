@@ -99,6 +99,46 @@ test('1688 page capture reads visible listing fields and opens the local researc
   }
 });
 
+test('automatic capture follows visible pagination, deduplicates products, and stops at the end', { timeout: 30000 }, async () => {
+  const browser = await chromium.launch({ executablePath: chromePath, headless: true });
+  try {
+    const page = await browser.newPage();
+    const store = {};
+    await page.setContent(`<main><section id="listing"></section><nav class="pagination"><button id="previous" disabled>上一页</button><span id="current" aria-current="page">1</span><button id="next">下一页</button></nav></main>`);
+    await page.evaluate(() => {
+      window.__page = 1;
+      const render = () => {
+        const id = window.__page;
+        const duplicate = window.__page === 2 ? '<article><a href="https://detail.1688.com/offer/1.html"><img src="https://img.example.test/1.jpg"><span style="display:block">测试商品 1</span></a></article>' : '';
+        document.querySelector('#listing').innerHTML = `${duplicate}<article><a href="https://detail.1688.com/offer/${id}.html"><img src="https://img.example.test/${id}.jpg"><span style="display:block">测试商品 ${id}</span><span style="display:block">¥12.50</span></a></article>`;
+        document.querySelector('#current').textContent = String(window.__page);
+        document.querySelector('#previous').disabled = window.__page === 1;
+        document.querySelector('#next').disabled = window.__page === 3;
+      };
+      document.querySelector('#next').addEventListener('click', () => { window.__page++; render(); });
+      render();
+    });
+    await page.evaluate(storeValue => {
+      window.__store = storeValue;
+      window.chrome = {
+        storage: { local: { get: async key => ({ [key]: window.__store[key] }), set: async values => Object.assign(window.__store, values), remove: async key => { delete window.__store[key]; } } },
+        runtime: { sendMessage(message, callback) { window.__messages ||= []; window.__messages.push(message); callback?.({ ok: true }); } },
+        tabs: { create: async () => ({ id: 1 }) }
+      };
+    }, store);
+    await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/research-capture.js') });
+    await page.locator('#imagegrab-research-auto-button').click();
+    await page.waitForFunction(() => window.__store.imagegrabResearchAutoJob?.running === false, null, { timeout: 12000 });
+    const job = await page.evaluate(() => window.__store.imagegrabResearchAutoJob);
+    assert.equal(job.pageCount, 3);
+    assert.equal(job.products.length, 3);
+    assert.equal(job.finishReason, '未找到可用的下一页控件');
+    assert.equal((await page.evaluate(() => window.__messages)).at(-1).type, 'FINISH_RESEARCH_AUTO');
+  } finally {
+    await browser.close();
+  }
+});
+
 test('CSV export neutralizes spreadsheet formulas in captured product text', { timeout: 30000 }, async () => {
   const browser = await chromium.launch({ executablePath: chromePath, headless: true });
   try {

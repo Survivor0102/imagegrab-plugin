@@ -7,6 +7,7 @@
   "scripts": {
     "verify": "node scripts/verify-snapshot.cjs",
     "snapshot": "node scripts/update-source-snapshot.cjs",
+    "test:live-1688": "node scripts/verify-live-1688.cjs",
     "doctor": "node scripts/collect.cjs --check",
     "smoke": "node scripts/collect.cjs --smoke",
     "collect": "node scripts/collect.cjs",

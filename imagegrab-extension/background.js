@@ -21,6 +21,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       .catch(error => sendResponse({ ok: false, error: error.message }));
     return true;
   }
+  if (message?.type === 'FINISH_RESEARCH_AUTO') {
+    chrome.storage.local.get('imagegrabResearchAutoJob')
+      .then(result => {
+        const job = result.imagegrabResearchAutoJob || {};
+        return chrome.storage.local.set({ imagegrabResearchCapture: {
+          products: Array.isArray(job.products) ? job.products.slice(0, 1000) : [],
+          capturedAt: Date.now(), sourceUrl: job.sourceUrl || '', pageTitle: job.pageTitle || '',
+          pageCount: job.pageCount || 0, finishReason: job.finishReason || '已结束'
+        }});
+      })
+      .then(() => chrome.tabs.create({ url: chrome.runtime.getURL('research.html') }))
+      .then(() => sendResponse({ ok: true }))
+      .catch(error => sendResponse({ ok: false, error: error.message }));
+    return true;
+  }
 });
-chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegrabVersion: '1.2.0' }));
+chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegrabVersion: '1.3.0' }));
 chrome.action.onClicked.addListener(() => chrome.tabs.create({ url: chrome.runtime.getURL('research.html') }));

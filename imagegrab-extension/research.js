@@ -21,7 +21,7 @@
     if (!capture || !Array.isArray(capture.products) || !capture.products.length) return;
     const sourceType = capturedSourceType(capture.sourceUrl || '', capture.pageTitle || '');
     let added = 0;
-    for (const row of capture.products.slice(0, 100)) {
+    for (const row of capture.products.slice(0, 1000)) {
       const normalizedUrl = safeUrl(row.url) || safeUrl(capture.sourceUrl);
       let product = state.products.find(x => normalizedUrl && x.sourceUrl === normalizedUrl);
       if (!product) {
@@ -38,7 +38,8 @@
     }
     await save();
     await chrome.storage.local.remove(CAPTURE_KEY);
-    toast(`已导入 ${added} 条新商品，货源已归档`);
+    const progress = capture.pageCount ? `；自动采集 ${capture.pageCount} 页，${capture.finishReason || '已结束'}` : '';
+    toast(`已导入 ${added} 条新商品，货源已归档${progress}`);
   }
 
   function filteredProducts() {

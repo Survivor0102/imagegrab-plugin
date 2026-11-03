@@ -20,9 +20,11 @@ const files = fs.readdirSync(sourceRoot, { withFileTypes: true })
 
 const snapshot = {
   extension_version: manifest.version,
-  snapshot_kind: 'ImageGrab source integrity snapshot; synthetic DOM tests only; no live 1688 validation implied',
+  snapshot_kind: 'ImageGrab source integrity snapshot; see validation notes for synthetic tests and live-site status',
   files
 };
 const destination = path.join(root, `evidence/2026-11-03/source-snapshot-${manifest.version}.json`);
-fs.writeFileSync(destination, `${JSON.stringify(snapshot, null, 2)}\n`, 'utf8');
-console.log(`Wrote ${path.relative(root, destination)} (${files.length} files).`);
+const serialized = `${JSON.stringify(snapshot, null, 2)}\n`;
+fs.writeFileSync(destination, serialized, 'utf8');
+fs.writeFileSync(path.join(root, 'evidence/2026-11-03/source-snapshot.json'), serialized, 'utf8');
+console.log(`Wrote ${path.relative(root, destination)} and current snapshot (${files.length} files).`);
