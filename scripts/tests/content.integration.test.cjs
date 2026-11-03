@@ -26,6 +26,7 @@ test('ImageGrab associates visible sales on search and detail DOMs and renders t
       <article class="product-card"><a href="https://item.taobao.com/item.htm?id=11" title="红色商品"><img alt="红色商品" width="320" height="320" style="width:320px;height:320px" src="https://img.alicdn.com/duplicate.jpg"></a><span>月销 1.2万+</span></article>
       <article class="product-card"><a href="https://item.taobao.com/item.htm?id=12" title="蓝色商品"><img alt="蓝色商品" width="320" height="320" style="width:320px;height:320px" src="https://img.alicdn.com/blue.jpg"></a><span>已售 328 件</span></article>
       <article class="product-card"><a href="https://item.taobao.com/item.htm?id=13" title="重复图商品"><img alt="重复图商品" width="320" height="320" style="width:320px;height:320px" src="https://img.alicdn.com/duplicate.jpg"></a><span>月销 900</span></article>
+      <div class="doubleCardAdapt--fixture"><a class="doubleCardWrapperAdapt--mEcC7olq" href="https://mclick.simba.taobao.com/cc_im?id=987654321"><img class="mainImg--sPh_U37m" width="320" height="320" style="width:320px;height:320px" src="https://img.alicdn.com/taobao-tracked.jpg"><div class="title--fixture">复古通勤女包</div><span>6000+人付款</span><span>旗舰店</span></a></div>
       <span>推荐区 月销 88万+</span>
     </body></html>`);
     await page.evaluate(() => {
@@ -48,6 +49,10 @@ test('ImageGrab associates visible sales on search and detail DOMs and renders t
     assert.equal(blue.product.productUrl, 'https://item.taobao.com/item.htm?id=12');
     assert.equal(blue.product.salesText, '已售 328 件');
     assert.equal(duplicate.product.ambiguous, true);
+    const tracked = searchRows.find(row => row.url.endsWith('/taobao-tracked.jpg'));
+    assert.equal(tracked.product.title, '复古通勤女包');
+    assert.equal(tracked.product.productUrl, 'https://mclick.simba.taobao.com/cc_im?id=987654321');
+    assert.equal(tracked.product.salesText, '6000+人付款');
     assert.equal(searchRows.some(row => row.product?.salesText === '月销 88万+'), false);
 
     await page.goto('https://item.taobao.com/item.htm?id=21');

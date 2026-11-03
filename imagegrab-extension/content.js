@@ -18,7 +18,7 @@
     const key = url.split('#')[0];
     if (!map.has(key)) map.set(key, { url: key, width: w, height: h, source });
   }
-  const PRODUCT_URL = /(?:item\.taobao\.com\/item\.htm|detail\.tmall\.com\/item\.htm|item\.jd\.com\/\d+\.html|detail\.jd\.com\/item\.htm|yangkeduo\.com\/goods\.html)/i;
+  const PRODUCT_URL = /(?:item\.taobao\.com\/item\.htm|detail\.tmall\.com\/item\.htm|(?:mclick|click)\.simba\.taobao\.com\/cc_im|item\.jd\.com\/\d+\.html|detail\.jd\.com\/item\.htm|yangkeduo\.com\/goods\.html)/i;
   function visibleText(element) {
     if (!element) return '';
     const style = getComputedStyle(element);
@@ -31,7 +31,8 @@
       || anchors.find(item => PRODUCT_URL.test(item.href) && item.querySelector('img'));
     if (!anchor) return { title: '', url: '' };
     const imageAlt = anchor.querySelector('img')?.alt || '';
-    const title = visibleText(anchor) || anchor.getAttribute('title') || anchor.getAttribute('aria-label') || imageAlt;
+    const titleNode = anchor.querySelector('[class*="title--"], [class*="descWrapper--"]');
+    const title = visibleText(titleNode) || anchor.getAttribute('title') || anchor.getAttribute('aria-label') || imageAlt || visibleText(anchor);
     return { title: title.slice(0, 180), url: anchor.href };
   }
   function cardProductContext(image) {

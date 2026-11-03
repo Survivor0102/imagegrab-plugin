@@ -14,4 +14,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 });
-chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegrabVersion: '1.1.0' }));
+chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegrabVersion: '1.1.1' }));
