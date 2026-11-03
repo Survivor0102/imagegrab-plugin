@@ -1,0 +1,16 @@
+{
+  "endpoint": "http://127.0.0.1:9333",
+  "outputDirectory": "output",
+  "pageTimeoutMs": 45000,
+  "downloadTimeoutMs": 180000,
+  "navigationDelayMs": 10000,
+  "batches": [
+    { "keyword": "运动鞋", "page": 1, "count": 50 },
+    { "keyword": "运动鞋", "page": 2, "count": 50 },
+    { "keyword": "女包", "page": 1, "count": 50 },
+    { "keyword": "台灯", "page": 1, "count": 46 },
+    { "keyword": "台灯", "page": 2, "count": 4 },
+    { "keyword": "手机壳", "page": 1, "count": 50 },
+    { "keyword": "双肩包", "page": 1, "count": 50 }
+  ]
+}

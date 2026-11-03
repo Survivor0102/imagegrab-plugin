@@ -8,7 +8,8 @@
 - [当次实际命令摘录](docs/2026-11-03-实际命令摘录.md)：从原始工具记录提取，保留调用顺序和时间，本机路径用占位符代替。
 - [手动安装和使用](docs/安装与手动使用.md)：无需自动化环境的操作方法。
 - [已验证的结果与限制](docs/验证结果与限制.md)：候选数、成功落盘数和未完成能力分别说明。
-- [历史批次采集函数](scripts/historical/collect-keyword-batch.js)：从成功会话提取，依赖文档中的会话变量，不是独立命令行程序。
+- [历史批次采集函数](scripts/historical/collect-keyword-batch.js)：从成功会话提取，仅供追溯；不应当作独立运行器。
+- [独立批次运行器](scripts/collect.cjs)：本次归档后编写，有明确前置条件，但尚未在仓库外的全新环境完成端到端重跑。
 - [校验记录与文件清单](evidence/2026-11-03/)：300 张图片的文件大小、PNG 文件头检查和 SHA-256，以及插件源码快照校验值。
 - [插件安装包](dist/imagegrab-extension-1.0.0.zip)：与 `imagegrab-extension/` 源码内容一致。
 
@@ -21,6 +22,21 @@
 5. 在画廊中检查并勾选图片，点击“下载选中”。
 
 本次成功的真实站点验证为淘宝；清单中配置的其他电商域名不等于已经逐站测试通过。
+
+## 复现历史采集
+
+历史成功不仅需要源码，还依赖已登录、允许本地 CDP 的 Chrome Profile，并且必须将该插件加载到同一个 Chrome 实例。登录资料不会放在本仓库，GitHub 上的代码本身不能复刻登录态。
+
+1. 安装 Node.js 20 或更新版本。
+2. 执行 `npm ci`，再执行 `npm test` 和 `npm run verify`。
+3. 在目标 Chrome Profile 的 `chrome://extensions/` 中开启开发者模式，加载解压后的 `imagegrab-extension/`，然后打开淘宝并刷新页面。
+4. 确保该 Chrome 实例由用户自行按其本机安全策略开启 loopback CDP `127.0.0.1:9333`；不要把 CDP 端口暴露到公网。若同一 Profile 已被打开，不要启动第二个 Chrome 进程。
+5. 在 `collection.config.json` 中检查关键词、页码、数量和输出目录，先运行 `npm run doctor`。
+6. 医生检查通过后先运行 `npm run smoke`，确认少量真实下载落盘；再运行 `npm run collect` 执行完整批次。
+
+运行器会拒绝登录/验证页面、检查浏览器下载历史、复制实际文件并验证 PNG 头；失败会在唯一的新运行目录中保留 `run.json`。不要把输出目录设到仓库源码、浏览器 Profile 或其他项目目录。
+
+`npm test` 只验证本地输入校验和文件处理；`npm run doctor` 只验证当前浏览器页面与插件按钮；`npm run smoke` 才是少量实时下载；`npm run collect` 才重跑全批。**本次归档尚未通过全新安装后的 `doctor`、`smoke` 或全量 `collect` 验收。实际执行时的浏览器缺少 ImageGrab 注入，`doctor` 已如实失败。**
 
 ## 文件结构
 
