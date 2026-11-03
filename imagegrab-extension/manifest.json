@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "图提取 · ImageGrab",
+  "version": "1.0.0",
+  "description": "从电商详情页提取商品图片，集中预览并批量下载为 PNG。",
+  "permissions": ["activeTab", "scripting", "downloads", "storage", "tabs"],
+  "host_permissions": [
+    "*://*.taobao.com/*", "*://*.tmall.com/*", "*://*.jd.com/*",
+    "*://*.pinduoduo.com/*", "*://*.yangkeduo.com/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [{
+    "matches": [
+      "*://*.taobao.com/*", "*://*.tmall.com/*", "*://*.jd.com/*",
+      "*://*.pinduoduo.com/*", "*://*.yangkeduo.com/*"
+    ],
+    "js": ["content.js"], "css": ["content.css"], "run_at": "document_idle"
+  }],
+  "action": { "default_title": "图提取 · ImageGrab" },
+  "options_page": "gallery.html"
+}

@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>图提取 · 图片画廊</title><link rel="stylesheet" href="gallery.css"></head>
+<body>
+  <header class="topbar"><div><p class="eyebrow">IMAGEGRAB / GALLERY</p><h1>商品图片画廊</h1><p id="source-meta" class="muted">正在读取提取结果…</p></div>
+    <div class="toolbar"><button id="select-all" class="button button-ghost">全选</button><button id="invert-selection" class="button button-ghost">反选</button><span id="selected-count" class="count">已选 0 张</span><button id="download-selected" class="button button-primary">下载选中</button></div>
+  </header>
+  <main><div id="status" class="status" role="status">正在准备图片…</div><section id="gallery" class="gallery" aria-live="polite"></section></main>
+  <template id="image-card-template"><article class="image-card"><label class="check-wrap"><input type="checkbox" class="image-check"><span>选择</span></label><div class="preview-wrap"><img class="preview" alt="商品图片预览" loading="lazy"></div><div class="card-info"><span class="image-index"></span><span class="image-size"></span></div><button class="single-download button button-small">下载 PNG</button></article></template>
+  <script src="gallery.js"></script>
+</body>
+</html>

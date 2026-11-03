@@ -1,0 +1,2 @@
+# Preserve the exact bytes of the tested extension and its snapshot hashes.
+* -text

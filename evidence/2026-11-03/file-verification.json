@@ -1,0 +1,62 @@
+{
+  "collection_date": "2026-11-03",
+  "verified_at": "2026-11-03T13:05:29.211389+08:00",
+  "platform": "淘宝",
+  "browser": "Chrome for Testing 154.0.8037.98",
+  "profile": "Profile 2 (existing course session)",
+  "extension_version": "1.0.0",
+  "total_files": 300,
+  "total_bytes": 177415295,
+  "groups": [
+    {
+      "keyword": "双肩包",
+      "files": 50,
+      "zero_bytes": 0,
+      "invalid_png_signature": 0,
+      "total_bytes": 37209259
+    },
+    {
+      "keyword": "台灯",
+      "files": 50,
+      "zero_bytes": 0,
+      "invalid_png_signature": 0,
+      "total_bytes": 18812202
+    },
+    {
+      "keyword": "女包",
+      "files": 50,
+      "zero_bytes": 0,
+      "invalid_png_signature": 0,
+      "total_bytes": 38834026
+    },
+    {
+      "keyword": "手机壳",
+      "files": 50,
+      "zero_bytes": 0,
+      "invalid_png_signature": 0,
+      "total_bytes": 22699527
+    },
+    {
+      "keyword": "运动鞋",
+      "files": 100,
+      "zero_bytes": 0,
+      "invalid_png_signature": 0,
+      "total_bytes": 59860281
+    }
+  ],
+  "validation": [
+    "existing local files re-counted",
+    "all files nonempty",
+    "all files have PNG signature",
+    "SHA-256 recorded at archival time"
+  ],
+  "not_validated": [
+    "per-image semantic relevance",
+    "unique product count",
+    "visual image deduplication",
+    "per-file product/source URL mapping",
+    "sales",
+    "flavor/SKU mapping"
+  ],
+  "image_binaries_included": false
+}

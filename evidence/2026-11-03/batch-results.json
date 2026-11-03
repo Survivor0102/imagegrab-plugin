@@ -1,0 +1,71 @@
+{
+  "note": "运动鞋第1页50张由前置分步操作完成，未伪造为collectKeywordBatch返回值。以下为后续六批实际返回结果。",
+  "batches": [
+    {
+      "source_line": 1813,
+      "kw": "运动鞋",
+      "pageNo": 2,
+      "candidates": 78,
+      "usable": 71,
+      "requested": 50,
+      "status": "处理完成：50/50 张已启动下载。",
+      "fresh": 50,
+      "saved": 50
+    },
+    {
+      "source_line": 1828,
+      "kw": "女包",
+      "pageNo": 1,
+      "candidates": 75,
+      "usable": 63,
+      "requested": 50,
+      "status": "处理完成：50/50 张已启动下载。",
+      "fresh": 50,
+      "saved": 50
+    },
+    {
+      "source_line": 1843,
+      "kw": "台灯",
+      "pageNo": 1,
+      "candidates": 62,
+      "usable": 46,
+      "requested": 50,
+      "status": "处理完成：46/46 张已启动下载。",
+      "fresh": 46,
+      "saved": 46
+    },
+    {
+      "source_line": 1858,
+      "kw": "台灯",
+      "pageNo": 2,
+      "candidates": 65,
+      "usable": 48,
+      "requested": 4,
+      "status": "处理完成：4/4 张已启动下载。",
+      "fresh": 4,
+      "saved": 4
+    },
+    {
+      "source_line": 1873,
+      "kw": "手机壳",
+      "pageNo": 1,
+      "candidates": 68,
+      "usable": 52,
+      "requested": 50,
+      "status": "处理完成：50/50 张已启动下载。",
+      "fresh": 50,
+      "saved": 50
+    },
+    {
+      "source_line": 1888,
+      "kw": "双肩包",
+      "pageNo": 1,
+      "candidates": 72,
+      "usable": 68,
+      "requested": 50,
+      "status": "处理完成：50/50 张已启动下载。",
+      "fresh": 50,
+      "saved": 50
+    }
+  ]
+}

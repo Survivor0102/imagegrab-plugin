@@ -1,0 +1,14 @@
+# Local dependencies, browser state and generated collection files
+node_modules/
+runtime/
+downloads/
+output/
+chrome-profile/
+browser-profile/
+playwright-artifacts*/
+*.log
+.env
+.env.*
+!.env.example
+Thumbs.db
+Desktop.ini
