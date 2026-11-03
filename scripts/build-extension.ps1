@@ -2,7 +2,7 @@ param([string]$OutputPath)
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $source = Join-Path $repoRoot 'imagegrab-extension'
-$manifest = Get-Content -LiteralPath (Join-Path $source 'manifest.json') -Raw | ConvertFrom-Json
+$manifest = Get-Content -LiteralPath (Join-Path $source 'manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 if (-not $OutputPath) {
     $OutputPath = Join-Path $repoRoot ('dist/imagegrab-extension-' + $manifest.version + '.zip')
 }

@@ -11,6 +11,11 @@ function render() {
   state.images.forEach((item, index) => {
     const fragment = document.querySelector('#image-card-template').content.cloneNode(true), card = fragment.querySelector('.image-card'), checkbox = fragment.querySelector('.image-check'), image = fragment.querySelector('.preview'), size = fragment.querySelector('.image-size');
     fragment.querySelector('.image-index').textContent = `#${String(index + 1).padStart(3, '0')}`;
+    const product = item.product || {};
+    fragment.querySelector('.product-title').textContent = product.ambiguous ? '商品关联不确定' : (product.title || '未识别商品标题');
+    fragment.querySelector('.product-sales').textContent = product.ambiguous ? '存在多个商品链接，已取消销量关联' : (product.salesText || '页面未识别到销量');
+    const productLink = fragment.querySelector('.product-link');
+    if (product.productUrl) { productLink.href = product.productUrl; productLink.hidden = false; }
     checkbox.checked = state.selected.has(index); checkbox.addEventListener('change', () => { checkbox.checked ? state.selected.add(index) : state.selected.delete(index); updateCount(); });
     image.src = item.url; image.alt = `商品图片 ${index + 1}`;
     image.addEventListener('load', () => { size.textContent = `${image.naturalWidth} × ${image.naturalHeight}`; });

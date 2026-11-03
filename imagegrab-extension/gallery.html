@@ -6,7 +6,7 @@
     <div class="toolbar"><button id="select-all" class="button button-ghost">全选</button><button id="invert-selection" class="button button-ghost">反选</button><span id="selected-count" class="count">已选 0 张</span><button id="download-selected" class="button button-primary">下载选中</button></div>
   </header>
   <main><div id="status" class="status" role="status">正在准备图片…</div><section id="gallery" class="gallery" aria-live="polite"></section></main>
-  <template id="image-card-template"><article class="image-card"><label class="check-wrap"><input type="checkbox" class="image-check"><span>选择</span></label><div class="preview-wrap"><img class="preview" alt="商品图片预览" loading="lazy"></div><div class="card-info"><span class="image-index"></span><span class="image-size"></span></div><button class="single-download button button-small">下载 PNG</button></article></template>
+  <template id="image-card-template"><article class="image-card"><label class="check-wrap"><input type="checkbox" class="image-check"><span>选择</span></label><div class="preview-wrap"><img class="preview" alt="商品图片预览" loading="lazy"></div><div class="card-info"><span class="image-index"></span><span class="image-size"></span></div><p class="product-title"></p><p class="product-sales"></p><a class="product-link" target="_blank" rel="noopener noreferrer" hidden>打开商品</a><button class="single-download button button-small">下载 PNG</button></article></template>
   <script src="gallery.js"></script>
 </body>
 </html>

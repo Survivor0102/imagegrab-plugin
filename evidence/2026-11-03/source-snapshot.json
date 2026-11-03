@@ -1,11 +1,16 @@
 {
-  "extension_version": "1.0.0",
-  "snapshot_kind": "byte-identical copy of current local extension; no functional modification",
+  "extension_version": "1.1.0",
+  "snapshot_kind": "ImageGrab 1.1.0 local source snapshot; visible sales extraction and isolated-browser integration test; live Taobao validation pending",
   "files": [
     {
+      "path": "imagegrab-extension/README.md",
+      "bytes": 864,
+      "sha256": "eb7b974fcc22399d1dfff5e236349cd4c63940ccd7adb8a15ea340708be5bb6d"
+    },
+    {
       "path": "imagegrab-extension/background.js",
-      "bytes": 1044,
-      "sha256": "f852406b428176189522cb5098f96f8c4c80ed673542cdd62a863a872b76c4e3"
+      "bytes": 1043,
+      "sha256": "8a7e2a6b4e47866463be71cb3d1dae793906d1051ba7772f669f73a6fc228999"
     },
     {
       "path": "imagegrab-extension/content.css",
@@ -14,33 +19,33 @@
     },
     {
       "path": "imagegrab-extension/content.js",
-      "bytes": 3328,
-      "sha256": "18bff3ca9ee6e6a0532a368b8a73d5576daf62c7adbf16af8b8e13c9a7fabdef"
+      "bytes": 6796,
+      "sha256": "0768c82d9dded40f5da95c1c144f42fdafd88408eac0b266f90f6d189dc530c6"
     },
     {
       "path": "imagegrab-extension/gallery.css",
-      "bytes": 2565,
-      "sha256": "a94a517c61bf0428731bb77007e1b98e2d5a05ce6850b8d99808b024d7c01ab2"
+      "bytes": 2826,
+      "sha256": "6a00df2ec3cdba11b1beb47aac10f8b2834eecdc8a1665a1c9463c6446b794c1"
     },
     {
       "path": "imagegrab-extension/gallery.html",
-      "bytes": 1376,
-      "sha256": "88f847efd1e08d88ee7ced0a729144b7982bd8dc0a87af115ee3f28948ad4cf7"
+      "bytes": 1523,
+      "sha256": "b482913a94f8e157aff7b98809e94d5045e3a7a3839d0aed15fbe935caa9e314"
     },
     {
       "path": "imagegrab-extension/gallery.js",
-      "bytes": 4985,
-      "sha256": "648e3c6190e183b38e7bbd114062225329549ac324e05ec5a9d14c2824694173"
+      "bytes": 5521,
+      "sha256": "f706276bb646c710abcdf4abb4d4c3bd3e7895c0af1f967477f8c351f066dc3f"
     },
     {
       "path": "imagegrab-extension/manifest.json",
-      "bytes": 808,
-      "sha256": "a59f1017ee43f33f4d259a16e4e899d08b1b17c8ff2a591484a9844bb7cea1d3"
+      "bytes": 828,
+      "sha256": "d4e5a792e16f8ff06b9df453f0d0feacf25e5be3c7c0669dc97ce36a1c532f0e"
     },
     {
-      "path": "imagegrab-extension/README.md",
-      "bytes": 864,
-      "sha256": "eb7b974fcc22399d1dfff5e236349cd4c63940ccd7adb8a15ea340708be5bb6d"
+      "path": "imagegrab-extension/sales.js",
+      "bytes": 704,
+      "sha256": "b0c926b2c2770d888826f1e630dfe671c813281bf7b2a4c89624724c83d554be"
     }
   ]
 }

@@ -9,7 +9,7 @@
     "doctor": "node scripts/collect.cjs --check",
     "smoke": "node scripts/collect.cjs --smoke",
     "collect": "node scripts/collect.cjs",
-    "test": "node --test scripts/tests/runner.test.cjs"
+    "test": "node --test scripts/tests/*.test.cjs"
   },
   "dependencies": { "playwright": "1.62.1" }
 }

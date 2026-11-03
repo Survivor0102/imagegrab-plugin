@@ -7,4 +7,7 @@
 main { max-width:1440px; margin:0 auto; padding:24px clamp(16px,4vw,56px) 60px; } .status { margin-bottom:18px; padding:12px 14px; color:#1e40af; background:var(--soft); border:1px solid #bfdbfe; border-radius:12px; } .status.error { color:#991b1b; background:#fef2f2; border-color:#fecaca; }
 .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px; } .image-card { position:relative; display:flex; flex-direction:column; gap:10px; padding:12px; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 6px 20px rgba(15,23,42,.04); } .check-wrap { display:flex; align-items:center; gap:7px; color:var(--muted); font-size:12px; }
 .preview-wrap { display:grid; place-items:center; height:180px; overflow:hidden; background:#f1f5f9; border-radius:10px; } .preview { max-width:100%; max-height:100%; object-fit:contain; } .card-info { display:flex; justify-content:space-between; gap:8px; color:var(--muted); font-size:12px; }
+.product-title { margin:0; min-height:2.8em; display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; font-size:13px; }
+.product-sales { margin:0; color:#166534; font-size:12px; }
+.product-link { color:#1d4ed8; font-size:12px; }
 @media (max-width:720px) { .topbar { align-items:stretch; flex-direction:column; } .toolbar { justify-content:start; } .muted { max-width:100%; } }

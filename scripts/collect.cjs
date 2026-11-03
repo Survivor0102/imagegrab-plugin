@@ -171,7 +171,7 @@ async function main() {
     runDir = path.join(config.outputDirectory, `${new Date().toISOString().replace(/[:.]/g, '-')}-${process.pid}`);
     await fs.mkdir(runDir); // Never reuse or overwrite a previous collection.
     report = { startedAt: new Date().toISOString(), mode: args.includes('--smoke') ? 'smoke' : 'full',
-      environment, extensionVersion: '1.0.0', node: process.version,
+      environment, extensionVersion: JSON.parse(await fs.readFile(path.join(ROOT, 'imagegrab-extension/manifest.json'), 'utf8')).version, node: process.version,
       playwright: require('playwright/package.json').version, requested: batches.reduce((s, x) => s + x.count, 0),
       state: 'running', batches: [], files: [] };
     await progress();
