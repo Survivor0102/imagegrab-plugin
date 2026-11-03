@@ -5,9 +5,13 @@
   const STOP_BUTTON_ID = 'imagegrab-research-stop-button';
   const AUTO_KEY = 'imagegrabResearchAutoJob';
   const AUTO_LIMIT = 1000;
+  const TAB_TOKEN_KEY = 'imagegrabResearchTabToken';
+  const tabToken = sessionStorage.getItem(TAB_TOKEN_KEY) || crypto.randomUUID();
+  sessionStorage.setItem(TAB_TOKEN_KEY, tabToken);
   const OFFER_URL = /(?:detail\.1688\.com\/offer\/|offer\.1688\.com\/offer\/|1688\.com\/offer\/)/i;
+  const RANKING_URL = /air\.1688\.com\/kapp\/1688-global\/sales\/ranking/i;
   const PRICE = /(?:¥|￥)\s*[\d,.]+(?:\s*[-~至]\s*(?:¥|￥)?\s*[\d,.]+)?/;
-  const SALES = /(?:成交\s*[\d,.]+\s*(?:笔|件)?|\d[\d,.]*(?:万|千)?\+?\s*(?:人付款|人已付款|笔成交|件成交|件已售|人收货))/i;
+  const SALES = /(?:成交\s*[\d,.]+\s*(?:笔|件)?|\d[\d,.]*(?:万|千|K|M)?\+?\s*(?:人付款|人已付款|笔成交|件成交|件已售|人收货|月销量))/i;
   const MOQ = /(?:起批|起订|\d+\s*(?:件|个|套|箱)起批)/;
   const RANK = /(?:第\s*(\d{1,4})\s*名|(?:^|\s)#\s*(\d{1,4})|TOP\s*(\d{1,4}))/i;
 
@@ -20,6 +24,19 @@
   function supplierFrom(node) {
     const link = [...node.querySelectorAll('a[href]')].find(a => /(?:shop|company|dianpu|wangpu).*1688\.com|\.1688\.com\/page\//i.test(a.href));
     return { name: text(link), url: link?.href || '' };
+  }
+
+  function rankingPage() { return RANKING_URL.test(location.href); }
+
+  function collectRankingCards() {
+    return new Promise((resolve, reject) => {
+      chrome.runtime.sendMessage({ type: 'READ_RANKING_CARDS' }, result => {
+        const error = chrome.runtime.lastError;
+        if (error) { reject(new Error(error.message)); return; }
+        if (!result?.ok) { reject(new Error(result?.error || '榜单卡片读取失败')); return; }
+        resolve(Array.isArray(result.products) ? result.products : []);
+      });
+    });
   }
   function parseCard(anchor) {
     let card = anchor;
@@ -41,7 +58,8 @@
     const rankMatch = body.match(RANK);
     return { title: title.slice(0, 180), url: anchor.href, images: imageUrls(card), priceText, salesText, moqText, rank: rankMatch?.[1] || rankMatch?.[2] || rankMatch?.[3] || '', supplierName: supplier.name, supplierUrl: supplier.url, visibleText: body.slice(0, 900) };
   }
-  function collect() {
+  async function collect() {
+    if (rankingPage()) return collectRankingCards();
     const detail = location.pathname.includes('/offer/') && OFFER_URL.test(location.href);
     const links = [...document.querySelectorAll('a[href]')].filter(a => OFFER_URL.test(a.href));
     const rows = new Map();
@@ -59,7 +77,19 @@
   }
   function pageSignature() {
     const urls = [...document.querySelectorAll('a[href]')].filter(a => OFFER_URL.test(a.href)).map(a => a.href);
-    return `${location.href}|${urls.slice(0, 3).join(',')}|${urls.slice(-3).join(',')}`;
+    const rankingTitles = rankingPage() ? [...document.querySelectorAll('.cgf-card-title')].map(node => text(node)) : [];
+    return `${location.href}|${urls.slice(0, 3).join(',')}|${urls.slice(-3).join(',')}|${rankingTitles.slice(0, 3).join(',')}|${rankingTitles.slice(-3).join(',')}`;
+  }
+  function scrollRankingList() {
+    let container = document.querySelector('.cgf-product-card')?.parentElement;
+    while (container && container !== document.body && container !== document.documentElement) {
+      if (container.scrollHeight > container.clientHeight + 1 && /auto|scroll/.test(getComputedStyle(container).overflowY)) {
+        container.scrollTo({ top: container.scrollHeight, behavior: 'instant' });
+        return;
+      }
+      container = container.parentElement;
+    }
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
   }
   function visible(element) {
     const rect = element.getBoundingClientRect();
@@ -95,16 +125,18 @@
     const autoButton = document.getElementById(AUTO_BUTTON_ID);
     const stopButton = document.getElementById(STOP_BUTTON_ID);
     if (!autoButton || !stopButton) return;
-    autoButton.textContent = job?.running ? `采集中 ${job.products?.length || 0}/${AUTO_LIMIT}` : '自动采集榜单';
+    const running = job?.running && job.ownerTabToken === tabToken;
+    autoButton.textContent = running ? `采集中 ${job.products?.length || 0}/${AUTO_LIMIT}` : '自动采集榜单';
     autoButton.disabled = Boolean(job?.running);
-    stopButton.hidden = !job?.running;
+    stopButton.hidden = !running;
   }
   function waitForPageChange(previous, timeoutMs = 20000) {
     return new Promise(resolve => {
       const started = Date.now();
       const timer = setInterval(async () => {
         const job = await readJob();
-        if (!job?.running || job.stopRequested) { clearInterval(timer); resolve('stopped'); return; }
+        if (!job?.running || job.ownerTabToken !== tabToken || job.stopRequested) { clearInterval(timer); resolve('stopped'); return; }
+        if (challengeVisible()) { clearInterval(timer); resolve('challenge'); return; }
         if (pageSignature() !== previous) { clearInterval(timer); resolve('changed'); return; }
         if (Date.now() - started >= timeoutMs) { clearInterval(timer); resolve('timeout'); }
       }, 500);
@@ -122,13 +154,17 @@
     try {
       while (true) {
         const job = await readJob();
-        if (!job?.running) { updateButtons(job); return; }
+        if (!job?.running || job.ownerTabToken !== tabToken) { updateButtons(job); return; }
         if (job.stopRequested) { await finishAuto(job, '用户停止'); return; }
         if (challengeVisible()) { await finishAuto(job, '页面要求登录或安全验证'); return; }
         if (job.products.length >= AUTO_LIMIT) { await finishAuto(job, `达到 ${AUTO_LIMIT} 条上限`); return; }
         const signature = pageSignature();
         if (job.processedPages.includes(signature)) { await finishAuto(job, '检测到重复页面，已停止'); return; }
-        const rows = collect();
+        const rows = await collect();
+        if (!rows.length) { await finishAuto(job, '当前页面未读取到受支持的商品卡片'); return; }
+        const latest = await readJob();
+        if (!latest?.running || latest.ownerTabToken !== tabToken) return;
+        if (latest.stopRequested) { await finishAuto(latest, '用户停止'); return; }
         const products = new Map(job.products.map(item => [item.url, item]));
         for (const row of rows) {
           if (!row.url || !/^https?:/i.test(row.url)) continue;
@@ -144,6 +180,14 @@
         job.updatedAt = Date.now();
         await saveJob(job); updateButtons(job);
         if (job.products.length >= AUTO_LIMIT) { await finishAuto(job, `达到 ${AUTO_LIMIT} 条上限`); return; }
+        if (rankingPage()) {
+          const previous = pageSignature();
+          scrollRankingList();
+          const result = await waitForPageChange(previous, 8000);
+          if (result === 'changed') { await new Promise(resolve => window.setTimeout(resolve, 1200)); continue; }
+          await finishAuto(await readJob(), result === 'stopped' ? '用户停止' : result === 'challenge' ? '页面要求登录或安全验证' : '列表滚动后未检测到新增商品（已停止）');
+          return;
+        }
         const next = findNextPage();
         if (!next) { await finishAuto(job, '未找到可用的下一页控件'); return; }
         const previous = pageSignature();
@@ -151,6 +195,7 @@
         const result = await waitForPageChange(previous);
         if (result === 'timeout') { await finishAuto(await readJob(), '点击下一页后页面未变化'); return; }
         if (result === 'stopped') { await finishAuto(await readJob(), '用户停止'); return; }
+        if (result === 'challenge') { await finishAuto(await readJob(), '页面要求登录或安全验证'); return; }
         await new Promise(resolve => window.setTimeout(resolve, 1500));
       }
     } catch (error) {
@@ -165,9 +210,17 @@
     const button = document.createElement('button');
     button.id = BUTTON_ID; button.type = 'button'; button.textContent = '加入选品研究';
     button.title = '整理当前页面可见的 1688 商品资料到本地研究台';
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
       button.disabled = true; button.textContent = '正在整理…';
-      const products = collect();
+      let products = [];
+      try {
+        products = await collect();
+        if (!products.length) throw new Error('未读取到受支持的商品卡片');
+      } catch (error) {
+        button.disabled = false; button.textContent = '整理失败';
+        window.setTimeout(() => { button.textContent = '加入选品研究'; }, 2500);
+        return;
+      }
       chrome.runtime.sendMessage({ type: 'OPEN_RESEARCH', products, sourceUrl: location.href, pageTitle: document.title }, result => {
         button.disabled = false; button.textContent = result?.ok ? `已整理 ${products.length} 条` : '整理失败';
         window.setTimeout(() => { button.textContent = '加入选品研究'; }, 2500);
@@ -177,7 +230,8 @@
     autoButton.id = AUTO_BUTTON_ID; autoButton.type = 'button'; autoButton.textContent = '自动采集榜单';
     autoButton.title = `从当前页开始逐页采集，最多 ${AUTO_LIMIT} 条；遇到验证、分页异常或重复页会停止`;
     autoButton.addEventListener('click', async () => {
-      const job = { running: true, stopRequested: false, products: [], processedPages: [], pageCount: 0, startedAt: Date.now(), sourceUrl: location.href, pageTitle: document.title };
+      if ((await readJob())?.running) return;
+      const job = { running: true, ownerTabToken: tabToken, stopRequested: false, products: [], processedPages: [], pageCount: 0, startedAt: Date.now(), sourceUrl: location.href, pageTitle: document.title };
       await saveJob(job); updateButtons(job); runAutoCapture();
     });
     const stopButton = document.createElement('button');
@@ -186,7 +240,7 @@
     stopButton.addEventListener('click', async () => { const job = await readJob(); if (job?.running) { job.stopRequested = true; await saveJob(job); updateButtons(job); } });
     controls.append(button, autoButton, stopButton);
     document.documentElement.appendChild(controls);
-    readJob().then(job => { updateButtons(job); if (job?.running) runAutoCapture(); });
+    readJob().then(job => { updateButtons(job); if (job?.running && job.ownerTabToken === tabToken) runAutoCapture(); });
   }
   addButton();
   new MutationObserver(addButton).observe(document.documentElement, { childList: true, subtree: true });

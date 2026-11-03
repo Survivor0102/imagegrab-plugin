@@ -1,0 +1,666 @@
+{
+  "recordedDate": "2026-11-04",
+  "kind": "Real installed extension on user-authorized ordinary Chrome; not a fixture",
+  "browser": {
+    "name": "Google Chrome",
+    "version": "155.0.8059.86",
+    "profile": "Default",
+    "connection": "Built-in local remote debugging + native WebSocket CDP"
+  },
+  "rankingScope": {
+    "name": "全网销量榜",
+    "category": "工艺品",
+    "country": "中国",
+    "metric": "近30天订单总量排行",
+    "source": "AlphaShop",
+    "requestedTop1000Verified": false
+  },
+  "extensionResult": {
+    "version": "1.3.1",
+    "job": {
+      "finishReason": "列表滚动后未检测到新增商品（已停止）",
+      "finishedAt": 1793728353924,
+      "pageCount": 1,
+      "pageTitle": "榜单",
+      "processedPages": [
+        "https://air.1688.com/kapp/1688-global/sales/ranking?rankingName=Most_Popular&countryCode=CN&platform=cbu&cateId=1044181&cateLevel=2|||批发大孔木珠6-50mm手工串珠原木散珠荷木圆珠DIY禾木饰品配件,钻贴亚克力免胶自粘宝石贴纸可爱图案儿童手工diy多巴胺钻石贴,跨境创意夜光小幽灵萌粒 diy装饰品挂配件迷你微景观万圣节小摆件|原木色木夹子2.5-7.2cm收纳夹厂家批发照片夹彩色便签夹子,彩色塑料计数圆片25 30 37mm数数片 小学儿童数学认知教具数数币,铝彩色铃铛一字扁铃铝铃 DIY手工配件舞蹈手链铃铛节日装饰批发"
+      ],
+      "products": [
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN013ZNZfi2DACMX1NURK_!!2214271038568-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN013ZNZfi2DACMX1NURK_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01awCgQo2DACHUhi1oi_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN018GG4Fk2DACGfXZVLn_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN014BFIOI2DACGX2YtWl_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01o8Wa7q2DACGeGAjkf_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "1.2M 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "批发大孔木珠6-50mm手工串珠原木散珠荷木圆珠DIY禾木饰品配件",
+          "url": "https://detail.1688.com/offer/678400004650.html",
+          "visibleText": "批发大孔木珠6-50mm手工串珠原木散珠荷木圆珠DIY禾木饰品配件 ¥ 0 . 01 4年前上新 1.2M 月销量 1% 环比增长 3 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01hkDwDWGwhoD1chua_!!2223142963547-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01hkDwDWGwhoD1chua_!!2223142963547-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01ZraICAmVqeC1chub_!!2223142963547-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01ZRVwrtvjhBH1chua_!!2223142963547-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01g17DAGCdL2J1chua_!!2223142963547-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN017Jasatz4cCH1chua_!!2223142963547-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.98",
+          "rank": "",
+          "salesText": "1.2M 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "钻贴亚克力免胶自粘宝石贴纸可爱图案儿童手工diy多巴胺钻石贴",
+          "url": "https://detail.1688.com/offer/1090156626299.html",
+          "visibleText": "钻贴亚克力免胶自粘宝石贴纸可爱图案儿童手工diy多巴胺钻石贴 ¥ 0 . 98 23天前上新 1.2M 月销量 - 环比增长 12 月收藏 - 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01oP5Ol71sRy3jeBrUg_!!2217842805764-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01oP5Ol71sRy3jeBrUg_!!2217842805764-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01Sg8E4D1sRy3elP5mr_!!2217842805764-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01LjpZyn1sRy3k2mNks_!!2217842805764-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01OUWtLf1sRy3jeAvGi_!!2217842805764-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01rC7hl51sRy3ju9kG0_!!2217842805764-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.15",
+          "rank": "",
+          "salesText": "1.0M 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "跨境创意夜光小幽灵萌粒 diy装饰品挂配件迷你微景观万圣节小摆件",
+          "url": "https://detail.1688.com/offer/1046777033752.html",
+          "visibleText": "跨境创意夜光小幽灵萌粒 diy装饰品挂配件迷你微景观万圣节小摆件 ¥ 0 . 15 6个月前上新 1.0M 月销量 - 环比增长 59 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01EflCnu2CXGxFBvv4A_!!2212867628483-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01EflCnu2CXGxFBvv4A_!!2212867628483-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01NBOG4n2CXGxEShj8F_!!2212867628483-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01IOOlc42CXGxFBvRtr_!!2212867628483-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01kKEFJB2CXGxEJuCRY_!!2212867628483-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01ZQGA222CXGxEfEF9J_!!2212867628483-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "1.0M 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "塑料元宝金条金砖钱币如意玉米大米花生金豆瓜子聚宝盆相框配件",
+          "url": "https://detail.1688.com/offer/1031687819523.html",
+          "visibleText": "塑料元宝金条金砖钱币如意玉米大米花生金豆瓜子聚宝盆相框配件 ¥ 0 . 01 7个月前上新 1.0M 月销量 10% 环比增长 2 月收藏 - 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01lqruJ01vjmHOpNVc4_!!2218417386209-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01lqruJ01vjmHOpNVc4_!!2218417386209-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN015tuU9L1vjmHNhWVbh_!!2218417386209-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01rg77ga1vjmHJ46Ppj_!!2218417386209-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01Ccgefp1vjmHOCVARN_!!2218417386209-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "1.0M 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "厂家批发一字扁铁铃铛鸭嘴芝麻铃电镀宠物逗猫棒配件diy手工材料",
+          "url": "https://detail.1688.com/offer/997172278114.html",
+          "visibleText": "厂家批发一字扁铁铃铛鸭嘴芝麻铃电镀宠物逗猫棒配件diy手工材料 ¥ 0 . 01 11个月前上新 1.0M 月销量 300% 环比增长 0 月收藏 - 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01fSZm8B1CnkYNWaunK_!!2207282500126-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01fSZm8B1CnkYNWaunK_!!2207282500126-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01nW6pXL1CnkYNuQgLk_!!2207282500126-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01uUhE0b1Cnkjmtr7By_!!2207282500126-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN0185PgVl1Cnkjlq4tsN_!!2207282500126-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.03",
+          "rank": "",
+          "salesText": "981.5K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "厂家批发2.5/3/3.5/4.5/6/7.2cm小木夹子彩色木夹子木头夹照片夹",
+          "url": "https://detail.1688.com/offer/625762574533.html",
+          "visibleText": "厂家批发2.5/3/3.5/4.5/6/7.2cm小木夹子彩色木夹子木头夹照片夹 ¥ 0 . 03 5+年前上新 981.5K 月销量 2% 环比增长 0 月收藏 - 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01o2vIFR1RxZYmP7kBr_!!981562178-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01o2vIFR1RxZYmP7kBr_!!981562178-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01eNWCEV1RxZKwg7Mwg_!!981562178-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01EufaBI1RxZLAc0dIa_!!981562178-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01B0ewB71RxZYg6RomD_!!981562178-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.05",
+          "rank": "",
+          "salesText": "957.4K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "一字金色铃铛批发彩色宠物铃铛万圣节圣诞节装饰小铃铛手工diy",
+          "url": "https://detail.1688.com/offer/44123692194.html",
+          "visibleText": "一字金色铃铛批发彩色宠物铃铛万圣节圣诞节装饰小铃铛手工diy ¥ 0 . 05 5+年前上新 957.4K 月销量 6% 环比增长 13 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01wQxuDo1zPOvO8imtL_!!2214307076706-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01wQxuDo1zPOvO8imtL_!!2214307076706-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01w26c4T1zPOqeGdfje_!!2214307076706-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01OLn3Z11zPOvIZsXQA_!!2214307076706-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01zIxMVc1zPOygAwfoT_!!2214307076706-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.03",
+          "rank": "",
+          "salesText": "764.3K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "厂家批发2.5~7.2cm木色小木夹彩色木夹子DIY装饰照片夹木质相片夹",
+          "url": "https://detail.1688.com/offer/678930678711.html",
+          "visibleText": "厂家批发2.5~7.2cm木色小木夹彩色木夹子DIY装饰照片夹木质相片夹 ¥ 0 . 03 4年前上新 764.3K 月销量 - 环比增长 0 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01x264iv2JMSdWxfTNV_!!2213096449407-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01x264iv2JMSdWxfTNV_!!2213096449407-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01584eeS2JMSmWi5g5q_!!2213096449407-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01cWD1Ic2JMSgeNaOlC_!!2213096449407-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01s3FNtP2JMSY0XwTMd_!!2213096449407-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "754.1K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "厂家批发2-11毫米竹制两头平圆棒竹棒竹制品竹签DIY竹条竹棍现货",
+          "url": "https://detail.1688.com/offer/723904474374.html",
+          "visibleText": "厂家批发2-11毫米竹制两头平圆棒竹棒竹制品竹签DIY竹条竹棍现货 ¥ 0 . 01 3年前上新 754.1K 月销量 - 环比增长 4 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01jhkb6422ZQbn672Mg_!!2211071657134-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01jhkb6422ZQbn672Mg_!!2211071657134-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01mevxrjZCpUF2XrKe_!!2211071657134-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01bzAklY22ZQboIDsb1_!!2211071657134-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01Ybf8EO22ZQbijLDCz_!!2211071657134-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.04",
+          "rank": "",
+          "salesText": "747.6K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "厂家直供竹篾条竹条竹制手工打磨光滑特色竹篾片DIY竹编材料彩色",
+          "url": "https://detail.1688.com/offer/960608463551.html",
+          "visibleText": "厂家直供竹篾条竹条竹制手工打磨光滑特色竹篾片DIY竹编材料彩色 ¥ 0 . 04 1年前上新 747.6K 月销量 1% 环比增长 12 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01tOmb8D1OVgUdBqEmU_!!2215596121711-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01tOmb8D1OVgUdBqEmU_!!2215596121711-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN010Hdv2P1OVgUX2DATL_!!2215596121711-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01WUk6UZ1OVgUcK2zxT_!!2215596121711-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01d0gHir1OVgUX2Dq3Y_!!2215596121711-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "675.5K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "扁嘴铃铛 一字小铃铛 逗猫宠物铃铛 6-14mm一字铃铛 金色铃铛",
+          "url": "https://detail.1688.com/offer/708854449130.html",
+          "visibleText": "扁嘴铃铛 一字小铃铛 逗猫宠物铃铛 6-14mm一字铃铛 金色铃铛 ¥ 0 . 01 3年前上新 675.5K 月销量 2% 环比增长 9 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01APYMes1upRT8gCmoJ_!!2218598036086-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01APYMes1upRT8gCmoJ_!!2218598036086-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01epqXJc1upRW1cgPZS_!!2218598036086-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01e2vhnJ1upRRv1JYvf_!!2218598036086-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01eNYycY1upRW1ci9br_!!2218598036086-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "660.4K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "现货木珠6-50mm带孔手工串珠原木珠荷木圆珠diy饰品配件木珠",
+          "url": "https://detail.1688.com/offer/838240548243.html",
+          "visibleText": "现货木珠6-50mm带孔手工串珠原木珠荷木圆珠diy饰品配件木珠 ¥ 0 . 01 2年前上新 660.4K 月销量 1% 环比增长 23 月收藏 4.90 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/18014663806_1341405260.jpg",
+            "https://cbu01.alicdn.com/img/ibank/18014663806_1341405260.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/14421484729_1341405260.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/11291879583_1341405260.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/11481326319_1341405260.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.30",
+          "rank": "",
+          "salesText": "646.8K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "现货批发 蜂蜜棒实木搅拌棒取蜜棒 蜜蜂棒咖啡奶茶果酱木质搅拌棒",
+          "url": "https://detail.1688.com/offer/593815170153.html",
+          "visibleText": "现货批发 蜂蜜棒实木搅拌棒取蜜棒 蜜蜂棒咖啡奶茶果酱木质搅拌棒 ¥ 0 . 30 5+年前上新 646.8K 月销量 - 环比增长 2 月收藏 - 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN017RWmSU1SFtWkdUSkJ_!!2218954412218-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN017RWmSU1SFtWkdUSkJ_!!2218954412218-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01MPFMUR1SFtbWgVO4b_!!2218954412218-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01RYKjy41SFtbbTSpeU_!!2218954412218-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01L02wBO1SFtbWgTdjq_!!2218954412218-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "611.5K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "现货厂家直销原木色荷木木珠有孔DIY饰品配件手工串珠辅料散珠珍",
+          "url": "https://detail.1688.com/offer/857856377766.html",
+          "visibleText": "现货厂家直销原木色荷木木珠有孔DIY饰品配件手工串珠辅料散珠珍 ¥ 0 . 01 1年前上新 611.5K 月销量 - 环比增长 13 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01kQXv2X1o4pEAKJQxR_!!2214538085172-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01kQXv2X1o4pEAKJQxR_!!2214538085172-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01Cf0jhT1o4pEEyLX9g_!!2214538085172-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01oIYWLB1o4pEAqqlJN_!!2214538085172-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01EE7GZj1o4pE6EigWp_!!2214538085172-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "609.0K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "实体厂家 竹棒竹圆棒3毫米diy手工拼装建筑模型花签棒糖棒雪糕棒",
+          "url": "https://detail.1688.com/offer/682370023094.html",
+          "visibleText": "实体厂家 竹棒竹圆棒3毫米diy手工拼装建筑模型花签棒糖棒雪糕棒 ¥ 0 . 01 4年前上新 609.0K 月销量 1% 环比增长 0 月收藏 - 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/22161899303_2058657318.jpg",
+            "https://cbu01.alicdn.com/img/ibank/22161899303_2058657318.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/21992589211_2058657318.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/22161914294_2058657318.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/22072477890_2058657318.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.05",
+          "rank": "",
+          "salesText": "608.4K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "塑料币美分币美元塑料币高性价比各种外贸币美金币",
+          "url": "https://detail.1688.com/offer/629310450324.html",
+          "visibleText": "塑料币美分币美元塑料币高性价比各种外贸币美金币 ¥ 0 . 05 5+年前上新 608.4K 月销量 - 环比增长 32 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01s3810t1m9HratoWTU_!!2214792684911-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01s3810t1m9HratoWTU_!!2214792684911-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01HD50yf1m9HrTUOzAV_!!2214792684911-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01vc0oha1m9HrNIIWLO_!!2214792684911-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01RGdlYD1m9HrTUR8GD_!!2214792684911-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.02",
+          "rank": "",
+          "salesText": "606.2K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "亚马逊跨境热销环保彩色两脚钉双脚钉两角钉儿童纸制玩具装订材料",
+          "url": "https://detail.1688.com/offer/684887737962.html",
+          "visibleText": "亚马逊跨境热销环保彩色两脚钉双脚钉两角钉儿童纸制玩具装订材料 ¥ 0 . 02 4年前上新 606.2K 月销量 - 环比增长 3 月收藏 5.00 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01NsRPvc1o8x3EaxjxC_!!2219062225181-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01NsRPvc1o8x3EaxjxC_!!2219062225181-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01saazQZ1o8x3Ek2ers_!!2219062225181-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01D6dLGd1o8x3FFIdgK_!!2219062225181-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN010YVapx1o8x3Eb1Qmr_!!2219062225181-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.02",
+          "rank": "",
+          "salesText": "579.8K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "原木色木夹子2.5-7.2cm收纳夹厂家批发照片夹彩色便签夹子",
+          "url": "https://detail.1688.com/offer/867241770726.html",
+          "visibleText": "原木色木夹子2.5-7.2cm收纳夹厂家批发照片夹彩色便签夹子 ¥ 0 . 02 1年前上新 579.8K 月销量 1% 环比增长 2 月收藏 - 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN0188xktQ2Chne82PIOO_!!2200734598506-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN0188xktQ2Chne82PIOO_!!2200734598506-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN011CZjGq2ChneFJlM2a_!!2200734598506-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01dZj3hd2Chne9pmTv9_!!2200734598506-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01H3VbPk2ChneFJk9DC_!!2200734598506-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.05",
+          "rank": "",
+          "salesText": "574.8K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "彩色塑料计数圆片25 30 37mm数数片 小学儿童数学认知教具数数币",
+          "url": "https://detail.1688.com/offer/657396001292.html",
+          "visibleText": "彩色塑料计数圆片25 30 37mm数数片 小学儿童数学认知教具数数币 ¥ 0 . 05 5+年前上新 574.8K 月销量 - 环比增长 6 月收藏 - 评分 立即询盘"
+        },
+        {
+          "images": [
+            "https://cbu01.alicdn.com/img/ibank/O1CN01Dal8Hb2FxmXyCUtWR_!!2216518448947-0-cib.jpg",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01Dal8Hb2FxmXyCUtWR_!!2216518448947-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01Dsc1vq2FxmTbU2Fs3_!!2216518448947-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01RT38a92FxmTbU1NmB_!!2216518448947-0-cib.jpg_300x300q90.jpg_.webp",
+            "https://cbu01.alicdn.com/img/ibank/O1CN01wzMx9j2FxmTSHVuQi_!!2216518448947-0-cib.jpg_300x300q90.jpg_.webp"
+          ],
+          "moqText": "",
+          "priceText": "¥0.01",
+          "rank": "",
+          "salesText": "552.1K 月销量",
+          "sourceType": "ranking",
+          "supplierName": "",
+          "supplierUrl": "",
+          "title": "铝彩色铃铛一字扁铃铝铃 DIY手工配件舞蹈手链铃铛节日装饰批发",
+          "url": "https://detail.1688.com/offer/737248976524.html",
+          "visibleText": "铝彩色铃铛一字扁铃铝铃 DIY手工配件舞蹈手链铃铛节日装饰批发 ¥ 0 . 01 3年前上新 552.1K 月销量 - 环比增长 3 月收藏 5.00 评分 立即询盘"
+        }
+      ],
+      "running": false,
+      "sourceUrl": "https://air.1688.com/kapp/1688-global/sales/ranking?rankingName=Most_Popular&countryCode=CN&platform=cbu&cateId=1044181&cateLevel=2",
+      "startedAt": 1793728344926,
+      "stopRequested": false,
+      "updatedAt": 1793728344937
+    },
+    "dataCounts": {
+      "products": 20,
+      "offers": 20
+    }
+  },
+  "independentDOMRead": {
+    "title": "榜单",
+    "sourceUrl": "https://air.1688.com/kapp/1688-global/sales/ranking?rankingName=Most_Popular&countryCode=CN&platform=cbu&cateId=1044181&cateLevel=2",
+    "heading": "全网销量榜\n中国\n中国\n工艺品\n店铺绑定\n人气热销\n潜力新品\n近期趋势\n近30天订单总量排行\n数据来源 AlphaShop\n",
+    "scroll": {
+      "top": 2317.333251953125,
+      "height": 578,
+      "fullHeight": 2895
+    },
+    "rows": [
+      {
+        "title": "批发大孔木珠6-50mm手工串珠原木散珠荷木圆珠DIY禾木饰品配件",
+        "price": "¥0.01",
+        "sales": "1.2M 月销量"
+      },
+      {
+        "title": "钻贴亚克力免胶自粘宝石贴纸可爱图案儿童手工diy多巴胺钻石贴",
+        "price": "¥0.98",
+        "sales": "1.2M 月销量"
+      },
+      {
+        "title": "跨境创意夜光小幽灵萌粒 diy装饰品挂配件迷你微景观万圣节小摆件",
+        "price": "¥0.15",
+        "sales": "1.0M 月销量"
+      },
+      {
+        "title": "塑料元宝金条金砖钱币如意玉米大米花生金豆瓜子聚宝盆相框配件",
+        "price": "¥0.01",
+        "sales": "1.0M 月销量"
+      },
+      {
+        "title": "厂家批发一字扁铁铃铛鸭嘴芝麻铃电镀宠物逗猫棒配件diy手工材料",
+        "price": "¥0.01",
+        "sales": "1.0M 月销量"
+      },
+      {
+        "title": "厂家批发2.5/3/3.5/4.5/6/7.2cm小木夹子彩色木夹子木头夹照片夹",
+        "price": "¥0.03",
+        "sales": "981.5K 月销量"
+      },
+      {
+        "title": "一字金色铃铛批发彩色宠物铃铛万圣节圣诞节装饰小铃铛手工diy",
+        "price": "¥0.05",
+        "sales": "957.4K 月销量"
+      },
+      {
+        "title": "厂家批发2.5~7.2cm木色小木夹彩色木夹子DIY装饰照片夹木质相片夹",
+        "price": "¥0.03",
+        "sales": "764.3K 月销量"
+      },
+      {
+        "title": "厂家批发2-11毫米竹制两头平圆棒竹棒竹制品竹签DIY竹条竹棍现货",
+        "price": "¥0.01",
+        "sales": "754.1K 月销量"
+      },
+      {
+        "title": "厂家直供竹篾条竹条竹制手工打磨光滑特色竹篾片DIY竹编材料彩色",
+        "price": "¥0.04",
+        "sales": "747.6K 月销量"
+      },
+      {
+        "title": "扁嘴铃铛 一字小铃铛 逗猫宠物铃铛 6-14mm一字铃铛 金色铃铛",
+        "price": "¥0.01",
+        "sales": "675.5K 月销量"
+      },
+      {
+        "title": "现货木珠6-50mm带孔手工串珠原木珠荷木圆珠diy饰品配件木珠",
+        "price": "¥0.01",
+        "sales": "660.4K 月销量"
+      },
+      {
+        "title": "现货批发 蜂蜜棒实木搅拌棒取蜜棒 蜜蜂棒咖啡奶茶果酱木质搅拌棒",
+        "price": "¥0.30",
+        "sales": "646.8K 月销量"
+      },
+      {
+        "title": "现货厂家直销原木色荷木木珠有孔DIY饰品配件手工串珠辅料散珠珍",
+        "price": "¥0.01",
+        "sales": "611.5K 月销量"
+      },
+      {
+        "title": "实体厂家 竹棒竹圆棒3毫米diy手工拼装建筑模型花签棒糖棒雪糕棒",
+        "price": "¥0.01",
+        "sales": "609.0K 月销量"
+      },
+      {
+        "title": "塑料币美分币美元塑料币高性价比各种外贸币美金币",
+        "price": "¥0.05",
+        "sales": "608.4K 月销量"
+      },
+      {
+        "title": "亚马逊跨境热销环保彩色两脚钉双脚钉两角钉儿童纸制玩具装订材料",
+        "price": "¥0.02",
+        "sales": "606.2K 月销量"
+      },
+      {
+        "title": "原木色木夹子2.5-7.2cm收纳夹厂家批发照片夹彩色便签夹子",
+        "price": "¥0.02",
+        "sales": "579.8K 月销量"
+      },
+      {
+        "title": "彩色塑料计数圆片25 30 37mm数数片 小学儿童数学认知教具数数币",
+        "price": "¥0.05",
+        "sales": "574.8K 月销量"
+      },
+      {
+        "title": "铝彩色铃铛一字扁铃铝铃 DIY手工配件舞蹈手链铃铛节日装饰批发",
+        "price": "¥0.01",
+        "sales": "552.1K 月销量"
+      }
+    ],
+    "challenge": false
+  },
+  "comparison": [
+    {
+      "index": 1,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 2,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 3,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 4,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 5,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 6,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 7,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 8,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 9,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 10,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 11,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 12,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 13,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 14,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 15,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 16,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 17,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 18,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 19,
+      "title": true,
+      "price": true,
+      "sales": true
+    },
+    {
+      "index": 20,
+      "title": true,
+      "price": true,
+      "sales": true
+    }
+  ],
+  "boundaries": [
+    "The observed ranking is not confirmed to be the requested cosmetics/daily/baby Top1000.",
+    "20 actual cards captured; no new cards loaded after scrolling the nested list. Live continuation to a second batch and 1000 unique products are not verified.",
+    "Supplier, brand, origin, SKU, CCC and full detail-page dossier have not been validated by this ranking test.",
+    "Image URLs were associated with cards; this run did not download image files or verify all image contents."
+  ]
+}

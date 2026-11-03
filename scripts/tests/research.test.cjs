@@ -77,11 +77,13 @@ test('1688 page capture reads visible listing fields and opens the local researc
   const browser = await chromium.launch({ executablePath: chromePath, headless: true });
   try {
     const page = await browser.newPage();
+    await page.route('https://fixture.test/**', route => route.fulfill({ body: '<!doctype html><body></body>' }));
+    await page.goto('https://fixture.test/listing');
     await page.setContent(`<main>
       <article><a href="https://detail.1688.com/offer/123.html"><img src="https://img.example.test/item.jpg" width="300" height="300"><span style="display:block">玻尿酸保湿面霜</span><span style="display:block">¥12.50</span><span style="display:block">2件起批</span><span style="display:block">100件成交</span></a><a href="https://shop.1688.com/page/index.htm">广州测试工厂</a></article>
       <article><a href="https://detail.1688.com/offer/456.html"><img src="https://img.example.test/item2.jpg" width="300" height="300"><span style="display:block">婴儿湿巾</span><span style="display:block">¥8</span></a><a href="https://shop.1688.com/page/second.htm">第二工厂</a></article>
     </main>`);
-    await page.evaluate(() => { window.__capture = null; window.chrome = { runtime: { sendMessage(message, callback) { window.__capture = message; callback({ ok: true }); } } }; });
+    await page.evaluate(() => { window.__capture = null; window.chrome = { storage: { local: { get: async () => ({}) } }, runtime: { sendMessage(message, callback) { window.__capture = message; callback({ ok: true }); } } }; });
     await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/research-capture.js') });
     await page.locator('#imagegrab-research-button').click();
     const result = await page.evaluate(() => window.__capture);
@@ -103,6 +105,8 @@ test('automatic capture follows visible pagination, deduplicates products, and s
   const browser = await chromium.launch({ executablePath: chromePath, headless: true });
   try {
     const page = await browser.newPage();
+    await page.route('https://fixture.test/**', route => route.fulfill({ body: '<!doctype html><body></body>' }));
+    await page.goto('https://fixture.test/listing');
     const store = {};
     await page.setContent(`<main><section id="listing"></section><nav class="pagination"><button id="previous" disabled>上一页</button><span id="current" aria-current="page">1</span><button id="next">下一页</button></nav></main>`);
     await page.evaluate(() => {

@@ -6,7 +6,9 @@ const read = (name) => JSON.parse(fs.readFileSync(path.join(root, name), 'utf8')
 const assert = (ok, message) => { if (!ok) throw new Error(message); };
 
 const manifest = read('imagegrab-extension/manifest.json');
-const snapshot = read(`evidence/2026-11-03/source-snapshot-${manifest.version}.json`);
+const snapshot = read(fs.existsSync(path.join(root, 'evidence/source-snapshot.json'))
+  ? 'evidence/source-snapshot.json'
+  : `evidence/2026-11-03/source-snapshot-${manifest.version}.json`);
 for (const row of snapshot.files) {
   const content = fs.readFileSync(path.join(root, row.path));
   assert(content.length === row.bytes, `Size mismatch: ${row.path}`);
