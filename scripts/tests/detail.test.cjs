@@ -28,7 +28,19 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
       window.chrome = { storage: { local: { get: async () => ({}) } }, runtime: { sendMessage(message, callback) { window.__capture = message; callback({ ok: true }); } } };
     });
     await page.addScriptTag({ path: source('detail-capture.js') });
+    const manifest = JSON.parse(fs.readFileSync(source('manifest.json'), 'utf8'));
+    const detailScripts = manifest.content_scripts.find(entry => entry.matches.includes('*://*.1688.com/*'));
+    for (const css of detailScripts.css || []) await page.addStyleTag({ path: source(css) });
     await page.addScriptTag({ path: source('research-capture.js') });
+    await page.evaluate(() => {
+      document.body.style.minHeight = '12000px';
+      window.scrollTo(0, 0);
+    });
+    const buttonPosition = await page.locator('#imagegrab-research-button').evaluate(button => {
+      const rect = button.getBoundingClientRect();
+      return { position: getComputedStyle(button.parentElement).position, visible: rect.top >= 0 && rect.bottom <= innerHeight && rect.left >= 0 && rect.right <= innerWidth, clickable: button.contains(document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2)) };
+    });
+    assert.deepEqual(buttonPosition, { position: 'fixed', visible: true, clickable: true });
     await page.locator('#imagegrab-research-button').click();
     const capture = await page.evaluate(() => window.__capture);
     assert.equal(capture.products.length, 1);

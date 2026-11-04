@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-11-04T13:48:32.072Z",
+  "productUrl": "https://detail.1688.com/offer/801178335924.html",
+  "extension": {
+    "version": "1.5.3",
+    "css": [
+      "content.css"
+    ],
+    "dirtyInputs": 0
+  },
+  "data": {
+    "products": 20,
+    "offers": 20
+  },
+  "after": {
+    "exists": true,
+    "text": "加入选品研究",
+    "position": "fixed",
+    "rect": {
+      "x": 24,
+      "y": 709.4791870117188,
+      "width": 150,
+      "height": 38.927085876464844
+    },
+    "viewport": {
+      "width": 1659,
+      "height": 817
+    },
+    "clickable": true
+  }
+}

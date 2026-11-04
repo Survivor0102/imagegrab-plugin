@@ -1,0 +1,27 @@
+{
+  "version": "1.6.0",
+  "date": "2026-11-04",
+  "command": "npm test",
+  "tests": 28,
+  "passed": 28,
+  "failed": 0,
+  "skipped": 0,
+  "coverage": [
+    "Canonical offer link validation, scope and deduplication",
+    "Sequential collection with one background task tab",
+    "Durable per-offer save, ranking sales provenance and user fields preserved",
+    "Stop, resume, failure retry, partial completion and worker recovery",
+    "Login/challenge pause without overwriting saved details",
+    "Rendered SKU option switching, sold-out rows, prices and image association",
+    "Research UI commands, progress and edit locking",
+    "Real installed extension with Chrome storage, scripting, messaging and tabs against two routed synthetic product pages",
+    "Existing listing, ranking, supplier detail, export, file and sales regressions"
+  ],
+  "liveSite": {
+    "status": "not_completed",
+    "reason": "One ordinary Chrome debug connection waited for authorization and timed out; not retried to avoid repeated authorization prompts",
+    "installedDailyBrowserVersion": "Not updated or checked during this task; last prior verified version was 1.5.3",
+    "pending": ["Reload extension 1.6.0 in ordinary Chrome", "Run second stage against real 1688 product links"]
+  },
+  "relatedEvidence": "detail-job-installed-fixture-1.6.0.json"
+}

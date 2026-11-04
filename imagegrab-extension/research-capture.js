@@ -227,6 +227,11 @@
     autoButton.title = `从当前页开始逐页采集，最多 ${AUTO_LIMIT} 条；遇到验证、分页异常或重复页会停止`;
     autoButton.addEventListener('click', async () => {
       if ((await readJob())?.running) return;
+      if ((await chrome.storage.local.get('imagegrabDetailJob')).imagegrabDetailJob?.status === 'running') {
+        autoButton.textContent = '请先停止详情补全';
+        window.setTimeout(() => { autoButton.textContent = '自动采集榜单'; }, 2500);
+        return;
+      }
       const job = { running: true, ownerTabToken: tabToken, stopRequested: false, products: [], processedPages: [], pageCount: 0, startedAt: Date.now(), sourceUrl: location.href, pageTitle: document.title };
       await saveJob(job); updateButtons(job); runAutoCapture();
     });

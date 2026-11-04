@@ -1,0 +1,106 @@
+{
+  "extension_version": "1.6.0",
+  "snapshot_kind": "ImageGrab source integrity snapshot; see validation notes for synthetic tests and live-site status",
+  "files": [
+    {
+      "path": "imagegrab-extension/README.md",
+      "bytes": 1482,
+      "sha256": "3a593d31e0227d295932019364687f8b532f30c3143b649aa445f19b41257a65"
+    },
+    {
+      "path": "imagegrab-extension/background.js",
+      "bytes": 6230,
+      "sha256": "d247ff7091e9ae9ae00e09f36002521f332593d7a0887a2c64b030e99722ae32"
+    },
+    {
+      "path": "imagegrab-extension/content.css",
+      "bytes": 1651,
+      "sha256": "7c0ac545a20313820d235dc3a22ce52e294dc74f84b710d717709ca5a17b4d69"
+    },
+    {
+      "path": "imagegrab-extension/content.js",
+      "bytes": 6958,
+      "sha256": "84dba7ae91567c5556f3b8678356b6ec1bd78920afa9f9ff6d625ded2356784a"
+    },
+    {
+      "path": "imagegrab-extension/detail-capture.js",
+      "bytes": 6580,
+      "sha256": "6f0e9613038863b94dd2e79680a35fe298785fb9d7a1ee71359ad59b1e1aaba8"
+    },
+    {
+      "path": "imagegrab-extension/detail-job.js",
+      "bytes": 11702,
+      "sha256": "5aedc86d35beac07cd19e44039b268fc909baa3aed4cffa2c661112fb2417ecd"
+    },
+    {
+      "path": "imagegrab-extension/detail-options.js",
+      "bytes": 5805,
+      "sha256": "8813c500a4e914bcc39f021b1eada7f989660233c50f91e100cf0cd0e0722a98"
+    },
+    {
+      "path": "imagegrab-extension/gallery.css",
+      "bytes": 2826,
+      "sha256": "6a00df2ec3cdba11b1beb47aac10f8b2834eecdc8a1665a1c9463c6446b794c1"
+    },
+    {
+      "path": "imagegrab-extension/gallery.html",
+      "bytes": 1523,
+      "sha256": "b482913a94f8e157aff7b98809e94d5045e3a7a3839d0aed15fbe935caa9e314"
+    },
+    {
+      "path": "imagegrab-extension/gallery.js",
+      "bytes": 5521,
+      "sha256": "f706276bb646c710abcdf4abb4d4c3bd3e7895c0af1f967477f8c351f066dc3f"
+    },
+    {
+      "path": "imagegrab-extension/manifest.json",
+      "bytes": 1048,
+      "sha256": "a6e73af35f22d37910f0b7bbd4821f4ee53ba55531c2e2a3159cc5e9080a5736"
+    },
+    {
+      "path": "imagegrab-extension/offer-data.js",
+      "bytes": 2069,
+      "sha256": "770ef2b45b4c4db96b5055fd98ce56833f8b58de3192dd7e8f8a064d1fa582e0"
+    },
+    {
+      "path": "imagegrab-extension/offer.css",
+      "bytes": 2567,
+      "sha256": "0ede679ba8d0a565777be271e3d94ff02018243bb527d1bda95a4286ba75b068"
+    },
+    {
+      "path": "imagegrab-extension/offer.html",
+      "bytes": 962,
+      "sha256": "e869e7c182a1c8d8b948d488367fac24b34fb2424609ce4df7bfd41f1644d1d1"
+    },
+    {
+      "path": "imagegrab-extension/offer.js",
+      "bytes": 10876,
+      "sha256": "dc27fe4bda0cef80e865b903b9c49c3a9b1ffbc729a72e9db1a83535585a8130"
+    },
+    {
+      "path": "imagegrab-extension/research-capture.js",
+      "bytes": 15069,
+      "sha256": "e3ac703a40005a4b0e0765060c0592312958274bb565b5b5ad50dc49012f56d9"
+    },
+    {
+      "path": "imagegrab-extension/research.css",
+      "bytes": 12242,
+      "sha256": "57eede5562a21029754c27a19773a2df8f0e3b328e2b815c8456d0e6e174602a"
+    },
+    {
+      "path": "imagegrab-extension/research.html",
+      "bytes": 8940,
+      "sha256": "a7e931f584e23a7790c2b46ab2fdcb6efd278e82fdfb49027491c6872413d558"
+    },
+    {
+      "path": "imagegrab-extension/research.js",
+      "bytes": 34507,
+      "sha256": "b71d3ec2fb815e2b33aba8b46ff89785503117e03a29f98c1c69467707f1d15b"
+    },
+    {
+      "path": "imagegrab-extension/sales.js",
+      "bytes": 704,
+      "sha256": "b0c926b2c2770d888826f1e630dfe671c813281bf7b2a4c89624724c83d554be"
+    }
+  ]
+}

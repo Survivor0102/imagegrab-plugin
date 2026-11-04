@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-11-04T14:16:46.645Z",
+  "kind": "installed-extension integration against routed synthetic 1688 pages; not live-site collection",
+  "version": "1.6.0",
+  "items": [
+    {
+      "url": "https://detail.1688.com/offer/12345678.html",
+      "status": "complete",
+      "skuCount": 2,
+      "imageCount": 2
+    },
+    {
+      "url": "https://detail.1688.com/offer/87654321.html",
+      "status": "complete",
+      "skuCount": 2,
+      "imageCount": 2
+    }
+  ],
+  "status": "complete",
+  "preservedForeground": true
+}

@@ -1,3 +1,9 @@
+importScripts('offer-data.js', 'detail-options.js', 'detail-job.js');
+const detailJobs = ImageGrabDetailJobs.create(chrome);
+chrome.alarms.onAlarm.addListener(alarm => { if (alarm.name === detailJobs.alarm) detailJobs.kick(); });
+chrome.runtime.onStartup.addListener(() => detailJobs.kick());
+// A worker restart resumes a durable job without opening another research page.
+detailJobs.kick();
 const STORAGE_KEY = 'imagegrabGalleryState';
 
 function readRankingCards() {
@@ -42,6 +48,13 @@ function readRankingCards() {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (['DETAIL_JOB_START', 'DETAIL_JOB_STOP', 'DETAIL_JOB_RESUME'].includes(message?.type)) {
+    if (sender.id !== chrome.runtime.id || sender.url?.split(/[?#]/)[0] !== chrome.runtime.getURL('research.html')) {
+      sendResponse({ ok: false, error: '请从选品研究台操作详情补全' }); return false;
+    }
+    detailJobs.handle(message).then(sendResponse).catch(error => sendResponse({ ok: false, error: error.message }));
+    return true;
+  }
   if (message?.type === 'READ_RANKING_CARDS') {
     const url = sender.url || '';
     if (!sender.tab?.id || sender.frameId !== 0 || !/^https:\/\/air\.1688\.com\/kapp\/1688-global\/sales\/ranking(?:[/?#]|$)/i.test(url)) {
@@ -92,5 +105,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 });
-chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegrabVersion: '1.5.0' }));
+chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegrabVersion: chrome.runtime.getManifest().version }));
 chrome.action.onClicked.addListener(() => chrome.tabs.create({ url: chrome.runtime.getURL('research.html') }));

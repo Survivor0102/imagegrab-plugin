@@ -36,6 +36,14 @@
         <div><span>待补资料</span><strong id="metric-incomplete">0</strong></div>
         <div><span>待核认证</span><strong id="metric-certificates">0</strong></div>
       </section>
+      <section class="detail-job-panel" aria-label="第二阶段：补全商品详情">
+        <div class="detail-job-heading"><div><strong>第二阶段 · 商品详情</strong><p class="muted">先在榜单或搜索页采集链接，再按链接逐个补全参数、发货地及各选项规格。</p></div>
+          <div class="detail-job-actions"><label>采集范围 <select id="detail-job-scope"><option value="filtered">当前筛选的商品</option><option value="selected">当前选中商品</option><option value="all">全部商品</option></select></label><button id="detail-job-start" class="button primary">批量补全详情</button><button id="detail-job-resume" class="button secondary" hidden>继续 / 重试未完成</button><button id="detail-job-stop" class="button secondary" hidden>停止补全</button></div>
+        </div>
+        <p id="detail-job-status" role="status" aria-live="polite" class="muted">尚未开始；已有完整选项采集记录的货源会自动跳过。</p>
+        <progress id="detail-job-progress" max="1" value="0" hidden aria-label="详情补全进度"></progress>
+        <details id="detail-job-records" hidden><summary>逐件采集记录</summary><ul id="detail-job-items"></ul></details>
+      </section>
       <div class="toolbar-row">
         <div class="segmented" role="group" aria-label="商品来源筛选">
           <button class="segment active" data-filter="all">全部</button>

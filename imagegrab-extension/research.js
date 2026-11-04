@@ -2,6 +2,8 @@
   'use strict';
   const STORAGE_KEY = 'imagegrabResearchData';
   const CAPTURE_KEY = 'imagegrabResearchCapture';
+  const JOB_KEY = 'imagegrabDetailJob';
+  let detailJob = null;
   const state = { products: [], offers: [], certificates: [], view: location.hash === '#offers' ? 'offers' : 'products', filter: 'all', selectedId: '', query: '' };
   const offerData = globalThis.ImageGrabOfferData;
   const $ = selector => document.querySelector(selector);
@@ -11,13 +13,59 @@
   const id = () => globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
   const date = value => value ? new Date(value).toLocaleDateString('zh-CN') : '—';
   const toast = message => { const el = $('#toast'); el.textContent = message; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2400); };
-  const save = () => chrome.storage.local.set({ [STORAGE_KEY]: { products: state.products, offers: state.offers, certificates: state.certificates, selectedId: state.selectedId } });
+  const save = async () => {
+    const job = (await chrome.storage.local.get(JOB_KEY))[JOB_KEY];
+    if (job?.status === 'running') throw Error('详情补全期间请先停止任务再编辑档案');
+    return chrome.storage.local.set({ [STORAGE_KEY]: { products: state.products, offers: state.offers, certificates: state.certificates, selectedId: state.selectedId } });
+  };
+
+  function renderDetailJob() {
+    const job = detailJob, items = job?.items || [], running = job?.status === 'running';
+    const finished = items.filter(i => ['complete','skipped'].includes(i.status)).length;
+    const errors = items.filter(i => ['failed','partial','blocked'].includes(i.status)).length;
+    const current = items.find(i => i.status === 'running');
+    $('#detail-job-start').disabled = running || !state.offers.length;
+    $('#detail-job-scope').disabled = running;
+    $('#detail-job-stop').hidden = !running;
+    $('#detail-job-resume').hidden = !job || running || !items.some(i => !['complete','skipped'].includes(i.status));
+    $('#detail-job-status').textContent = job ? `${running ? '采集中' : job.status === 'paused' ? '已暂停' : '本轮结束'}：完成 ${items.filter(i=>i.status==='complete').length}，跳过 ${items.filter(i=>i.status==='skipped').length}，待处理 ${items.filter(i=>['pending','running'].includes(i.status)).length}，异常/部分 ${errors}，共 ${items.length} 条${current ? `；当前：${current.title}` : ''}${job.reason ? `；${job.reason}` : ''}` : '尚未开始；已有完整选项采集记录的货源会自动跳过。';
+    const progress = $('#detail-job-progress'); progress.hidden = !items.length; progress.max = items.length || 1; progress.value = finished + errors;
+    $('#detail-job-records').hidden = !items.length;
+    const names = {pending:'待采集',running:'正在采集',complete:'完成',skipped:'已有完整详情，跳过',partial:'部分完成',blocked:'等待处理验证',failed:'失败'};
+    $('#detail-job-items').innerHTML = items.map(i => `<li><span>${esc(names[i.status] || i.status)} · ${esc(i.title)}</span>${i.skuCount !== undefined ? `<small>${i.skuCount} 行规格 · ${i.imageCount} 个图片链接</small>` : ''}${i.error ? `<small>${esc(i.error)}</small>` : ''}${safeUrl(i.url) ? `<a class="table-link" href="${esc(i.url)}" target="_blank" rel="noopener">查看商品 ↗</a>` : ''}</li>`).join('');
+  }
+  async function jobCommand(type) {
+    if (document.querySelector('dialog[open]')) { toast('请先保存或关闭正在编辑的档案'); return; }
+    let productIds;
+    if (type === 'DETAIL_JOB_START') {
+      const scope = $('#detail-job-scope').value;
+      productIds = scope === 'all' ? state.products.map(p=>p.id) : scope === 'selected' ? [state.selectedId].filter(Boolean) : filteredProducts().map(p=>p.id);
+      if (!productIds.length) { toast('当前范围没有商品'); return; }
+    }
+    try {
+      const result = await chrome.runtime.sendMessage({type, ...(productIds ? {productIds} : {})});
+      if (!result?.ok) throw Error(result?.error || '任务未启动');
+      detailJob = (await chrome.storage.local.get(JOB_KEY))[JOB_KEY]; renderDetailJob();
+    } catch(error) { toast(error.message); }
+  }
+  $('#detail-job-start').addEventListener('click',()=>jobCommand('DETAIL_JOB_START'));
+  $('#detail-job-stop').addEventListener('click',()=>jobCommand('DETAIL_JOB_STOP'));
+  $('#detail-job-resume').addEventListener('click',()=>jobCommand('DETAIL_JOB_RESUME'));
+  document.addEventListener('submit', event => {
+    if (detailJob?.status === 'running') { event.preventDefault(); event.stopImmediatePropagation(); toast('请先停止详情补全再保存档案'); }
+  }, true);
+  // Lock archive mutations while the background queue writes captures. Browsing/export remains available.
+  document.addEventListener('click', event => {
+    if (detailJob?.status !== 'running') return;
+    if (event.target.closest('#new-product,#empty-create,#import-button,[data-edit-product],[data-add-offer],[data-add-cert],[data-merge-into],[data-delete-product],[data-delete-offer],[data-delete-cert]')) { event.preventDefault(); event.stopImmediatePropagation(); toast('请先停止详情补全再编辑档案'); }
+  }, true);
 
   function capturedSourceType(url, pageTitle) { return /rank|top1000|top-1000|排行榜|榜单|排行/i.test(`${url} ${pageTitle}`) ? 'ranking' : 'similar'; }
   function makeOffer(row, sourceUrl, sourceType) {
     return { id: id(), productId: '', supplierName: row.supplierName || '', supplierUrl: safeUrl(row.supplierUrl), location: '', url: safeUrl(row.url), priceText: row.priceText || '', moqText: row.moqText || '', salesText: row.salesText || '', qualification: '', sourceUrl: safeUrl(sourceUrl), sourceType, visibleText: row.visibleText || '', capturedAt: Date.now() };
   }
   async function importCapture() {
+    if ((await chrome.storage.local.get(JOB_KEY))[JOB_KEY]?.status === 'running') return;
     const stored = await chrome.storage.local.get(CAPTURE_KEY);
     const capture = stored[CAPTURE_KEY];
     if (!capture || !Array.isArray(capture.products) || !capture.products.length) return;
@@ -114,6 +162,7 @@
   }
 
   function render() {
+    renderDetailJob();
     const names = { products: ['商品池', '从榜单和搜索结果收集候选商品，再补全采购与上架资料。'], offers: ['货源比较', '按候选商品横向比较供应商、价格、起订量和页面可见销量。'], certificates: ['认证核验', '集中检查待核验的证书记录与证据来源。'] };
     $('#view-title').textContent = names[state.view][0]; $('#view-description').textContent = names[state.view][1];
     document.querySelectorAll('.nav-item').forEach(el => el.classList.toggle('active', el.dataset.view === state.view));
@@ -188,7 +237,7 @@
     const nav = event.target.closest('[data-view]'); if (nav) { state.view = nav.dataset.view; render(); return; }
     const filter = event.target.closest('[data-filter]'); if (filter) { state.filter = filter.dataset.filter; render(); return; }
     const close = event.target.closest('[data-close]'); if (close) { close.closest('dialog').close(); return; }
-    const row = event.target.closest('[data-product]'); if (row && !event.target.closest('button')) { state.selectedId = row.dataset.product; await save(); render(); return; }
+    const row = event.target.closest('[data-product]'); if (row && !event.target.closest('button')) { state.selectedId = row.dataset.product; render(); return; }
     const action = event.target.closest('button'); if (!action) return;
     if (action.id === 'new-product' || action.id === 'empty-create') { openProduct(); return; }
     if (action.dataset.open) { state.selectedId = action.dataset.open; render(); return; }
@@ -229,13 +278,23 @@
   });
 
   document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', () => button.closest('dialog')?.close()));
+  chrome.storage.onChanged?.addListener((changes, area) => {
+    if (area !== 'local') return;
+    if (changes[JOB_KEY]) detailJob = changes[JOB_KEY].newValue;
+    if (changes[STORAGE_KEY]) {
+      const saved = changes[STORAGE_KEY].newValue || {};
+      state.products = saved.products || []; state.offers = saved.offers || []; state.certificates = saved.certificates || [];
+    }
+    if (changes[STORAGE_KEY] || changes[JOB_KEY]) render();
+  });
   chrome.storage.local.get(STORAGE_KEY).then(async result => {
+    detailJob = (await chrome.storage.local.get(JOB_KEY))[JOB_KEY];
     const saved = result[STORAGE_KEY] || {};
     state.products = Array.isArray(saved.products) ? saved.products : [];
     state.offers = Array.isArray(saved.offers) ? saved.offers : [];
     state.certificates = Array.isArray(saved.certificates) ? saved.certificates : [];
     state.selectedId = state.products.some(p => p.id === saved.selectedId) ? saved.selectedId : '';
-    if (offerData.migrate(state)) await save();
+    if (detailJob?.status !== 'running' && offerData.migrate(state)) await save();
     const capturePage = await chrome.storage.local.get(CAPTURE_KEY);
     if (capturePage[CAPTURE_KEY]?.products?.length) await importCapture();
     if (!state.selectedId) state.selectedId = state.products[0]?.id || '';

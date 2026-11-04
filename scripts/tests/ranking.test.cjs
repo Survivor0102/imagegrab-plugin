@@ -23,6 +23,7 @@ async function fixture() {
       runtime: {
         onMessage: { addListener: fn => { window.__backgroundListener = fn; } },
         onInstalled: { addListener() {} }, getURL: name => `chrome-extension://fixture/${name}`,
+        onStartup: { addListener() {} },
         sendMessage(message, callback) {
           window.__messages.push(message);
           window.__backgroundListener(message, { tab: { id: 7, url: location.href }, url: location.href, frameId: 0 }, callback || (() => {}));
@@ -37,8 +38,10 @@ async function fixture() {
         return [{ result: options.func() }];
       } },
       tabs: { create: async value => { window.__opened.push(value); return { id: 9 }; } },
-      action: { onClicked: { addListener() {} } }
+      action: { onClicked: { addListener() {} } },
+      alarms: { onAlarm: { addListener() {} }, create: async () => {}, clear: async () => {} }
     };
+    window.importScripts = () => {}; // Dependencies below load the real worker modules in this page fixture.
     window.__addCard = (id, sales = '1.2M', title = `测试商品 ${id}`) => {
       const card = document.createElement('div');
       card.className = 'cgf-product-card';
@@ -49,6 +52,7 @@ async function fixture() {
     };
     window.__addCard('678400004650');
   });
+  for (const name of ['offer-data.js','detail-options.js','detail-job.js']) await page.addScriptTag({ path: path.join(root, 'imagegrab-extension', name) });
   await page.addScriptTag({ content: backgroundSource });
   await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/research-capture.js') });
   return { page, browser };
@@ -123,11 +127,15 @@ test('a different tab cannot resume another tab\'s auto job and a stopped job re
 test('background rejects ranking reads from unrelated URLs and child frames', () => {
   let listener;
   const context = { chrome: {
-    runtime: { onMessage: { addListener: fn => { listener = fn; } }, onInstalled: { addListener() {} } },
+    runtime: { onMessage: { addListener: fn => { listener = fn; } }, onInstalled: { addListener() {} }, onStartup: { addListener() {} } },
+    storage: { local: { get: async () => ({}) } },
+    alarms: { onAlarm: { addListener() {} }, clear: async () => {} },
     action: { onClicked: { addListener() {} } },
     scripting: { executeScript() { throw Error('Must not execute'); } }
   } };
-  vm.runInNewContext(backgroundSource, context);
+  vm.createContext(context);
+  context.importScripts = (...names) => { for (const name of names) vm.runInContext(fs.readFileSync(path.join(root, 'imagegrab-extension', name), 'utf8'), context); };
+  vm.runInContext(backgroundSource, context);
   for (const sender of [
     { tab: { id: 7 }, url: 'https://unrelated.test/', frameId: 0 },
     { tab: { id: 7 }, url: `${rankingUrl}`, frameId: 2 }
