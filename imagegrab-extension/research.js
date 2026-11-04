@@ -43,8 +43,10 @@
       if (!productIds.length) { toast('当前范围没有商品'); return; }
     }
     try {
+      const status = await chrome.runtime.sendMessage({type:'DETAIL_JOB_STATUS'});
+      if (!status?.ok || !status.supported) throw Error('后台尚未加载详情采集功能。请在 chrome://extensions/ 重新加载 ImageGrab，再刷新研究台。');
       const result = await chrome.runtime.sendMessage({type, ...(productIds ? {productIds} : {})});
-      if (!result?.ok) throw Error(result?.error || '任务未启动');
+      if (!result?.ok) throw Error(result?.error || '后台未返回启动结果，请重新加载 ImageGrab 并刷新研究台。');
       detailJob = (await chrome.storage.local.get(JOB_KEY))[JOB_KEY]; renderDetailJob();
     } catch(error) { toast(error.message); }
   }

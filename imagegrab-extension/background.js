@@ -48,6 +48,13 @@ function readRankingCards() {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message?.type === 'DETAIL_JOB_STATUS') {
+    if (sender.id !== chrome.runtime.id || sender.url?.split(/[?#]/)[0] !== chrome.runtime.getURL('research.html')) {
+      sendResponse({ ok: false, error: '请从选品研究台检查任务状态' }); return false;
+    }
+    sendResponse({ ok: true, supported: true, version: chrome.runtime.getManifest().version });
+    return false;
+  }
   if (['DETAIL_JOB_START', 'DETAIL_JOB_STOP', 'DETAIL_JOB_RESUME'].includes(message?.type)) {
     if (sender.id !== chrome.runtime.id || sender.url?.split(/[?#]/)[0] !== chrome.runtime.getURL('research.html')) {
       sendResponse({ ok: false, error: '请从选品研究台操作详情补全' }); return false;

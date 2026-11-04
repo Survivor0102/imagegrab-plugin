@@ -37,6 +37,7 @@ test('research page sends a separate scoped stage-two command and renders backgr
       window.store={imagegrabResearchData:{products:[{id:'p1',title:'珠链'},{id:'p2',title:'木珠'}],offers:[{id:'o1',productId:'p1',url:'https://detail.1688.com/offer/123.html'},{id:'o2',productId:'p2',url:'https://detail.1688.com/offer/456.html'}],certificates:[]}};
       window.listeners=[];window.sent=[];
       window.chrome={storage:{local:{get:async k=>({[k]:window.store[k]}),set:async d=>Object.assign(window.store,d)},onChanged:{addListener:f=>window.listeners.push(f)}},runtime:{sendMessage:async message=>{
+        if(message.type==='DETAIL_JOB_STATUS')return {ok:true,supported:true,version:'1.6.1'};
         window.sent.push(message);
         const j={id:'ui-test',status:message.type==='DETAIL_JOB_STOP'?'paused':'running',items:[{title:'珠链',url:'https://detail.1688.com/offer/123.html',status:'running'}]};window.store.imagegrabDetailJob=j;for(const f of window.listeners)f({imagegrabDetailJob:{newValue:j}},'local');return {ok:true};
       }}};
@@ -48,5 +49,9 @@ test('research page sends a separate scoped stage-two command and renders backgr
     assert.equal(await page.locator('#detail-job-start').isDisabled(),true);assert.match(await page.locator('#detail-job-status').innerText(),/采集中/);
     await page.locator('#new-product').click();assert.equal(await page.locator('#product-dialog').evaluate(d=>d.open),false);
     await page.locator('#detail-job-stop').click();assert.equal((await page.evaluate(()=>window.sent))[1].type,'DETAIL_JOB_STOP');assert.equal(await page.locator('#detail-job-resume').isVisible(),true);
+    await page.evaluate(()=>{window.chrome.runtime.sendMessage=async message=>{window.sent.push(message);return undefined;};window.sent=[];});
+    await page.locator('#detail-job-start').click();
+    assert.match(await page.locator('#toast').innerText(),/后台尚未加载.*重新加载 ImageGrab/);
+    assert.deepEqual(await page.evaluate(()=>window.sent.map(x=>x.type)),['DETAIL_JOB_STATUS']);
   }finally{await browser.close();}
 });

@@ -37,7 +37,8 @@ test('installed extension runs the two-stage queue with real storage, tabs, scri
     assert.deepEqual(result.job.items.map(i=>i.status),['complete','complete']);assert.deepEqual(result.active,foreground);
     for(const offer of result.data.offers){assert.equal(offer.details.skus.length,2);assert.equal(offer.details.skus[0].priceText,'¥1.00');assert.equal(offer.details.skus[1].priceText,'¥2.00');assert.equal(offer.details.skus[1].imageUrl,'https://img.test/black.jpg');assert.equal(offer.shipFrom,'浙江金华');assert.equal(offer.details.optionCollection.status,'complete');}
     assert.equal(result.job.tabId,null);assert.equal(result.data.products[0].rank,'1');
-    const evidence={checkedAt:new Date().toISOString(),kind:'installed-extension integration against routed synthetic 1688 pages; not live-site collection',version:'1.6.0',items:result.job.items.map(i=>({url:i.url,status:i.status,skuCount:i.skuCount,imageCount:i.imageCount})),status:result.job.status,preservedForeground:true};
-    const evidenceDir=path.join(root,'evidence/2026-11-04');fs.mkdirSync(evidenceDir,{recursive:true});fs.writeFileSync(path.join(evidenceDir,'detail-job-installed-fixture-1.6.0.json'),JSON.stringify(evidence,null,2)+'\n');
+    const version=await page.evaluate(()=>chrome.runtime.getManifest().version);
+    const evidence={checkedAt:new Date().toISOString(),kind:'installed-extension integration against routed synthetic 1688 pages; not live-site collection',version,items:result.job.items.map(i=>({url:i.url,status:i.status,skuCount:i.skuCount,imageCount:i.imageCount})),status:result.job.status,preservedForeground:true};
+    const evidenceDir=path.join(root,'evidence/2026-11-04');fs.mkdirSync(evidenceDir,{recursive:true});fs.writeFileSync(path.join(evidenceDir,`detail-job-installed-fixture-${version}.json`),JSON.stringify(evidence,null,2)+'\n');
   }finally{await context.close();fs.rmSync(profile,{recursive:true,force:true});}
 });

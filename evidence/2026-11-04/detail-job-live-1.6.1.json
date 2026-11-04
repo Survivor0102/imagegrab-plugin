@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-11-04T14:28:34.96Z",
+  "version": "1.6.1",
+  "products": 140,
+  "offers": 140,
+  "sourceUrl": "https://detail.1688.com/offer/1016987841647.html",
+  "supplier": "郑州金卓生物科技有限公司",
+  "shipFrom": "河南郑州",
+  "skuCount": 20,
+  "pricedRows": 20,
+  "skuRowsWithImage": 0,
+  "mediaCount": 43,
+  "optionCollection": {
+    "collected": [
+      {
+        "options": [],
+        "skuRows": 20
+      }
+    ],
+    "expectedCombinations": 1,
+    "groups": [],
+    "includeSoldOut": true,
+    "method": "rendered-option-buttons",
+    "skipped": [],
+    "status": "complete"
+  },
+  "status": "complete",
+  "backgroundHandshake": {
+    "ok": true,
+    "supported": true,
+    "version": "1.6.1"
+  }
+}
