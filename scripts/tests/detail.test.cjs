@@ -48,6 +48,22 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     assert.equal(row.salesObservations.length, 1);
     assert.doesNotMatch(JSON.stringify(row), /私人地址|unrelated|recommended|color:red/);
 
+    // Single-price offers have an actual purchasable row with an empty label.
+    // Retain its displayed price and stock without inventing a named variant.
+    const single = await page.evaluate(() => {
+      const group = document.querySelector('#skuSelection .feature-item:last-child');
+      group.classList.add('pseudo');
+      const labels = [...group.querySelectorAll('.item-label')];
+      labels[0].textContent = ''; labels[0].setAttribute('title', '');
+      group.querySelectorAll('.expand-view-item')[1].querySelector('.item-price-stock:last-of-type').outerHTML = '<div class="item-count-invalid">库存不足</div>';
+      return ImageGrabDetail.collect();
+    });
+    assert.equal(single.skus.length, 3);
+    assert.equal(single.skus[0].value, '默认规格（页面未列名称）');
+    assert.equal(single.skus[0].priceText, '¥0.01');
+    assert.equal(single.skus[0].stockText, '库存100个');
+    assert.equal(single.skus[1].stockText, '库存不足');
+
     const store = { imagegrabResearchData: { products: [{ id: 'p1', title: '榜单木珠', sourceUrl: 'https://detail.1688.com/offer/123.html?old=2', sourceType: 'ranking', images: [] }], offers: [{ id: 'o1', productId: 'p1', url: 'https://detail.1688.com/offer/123.html?old=2', salesText: '1.2M 月销量', sourceType: 'ranking', sourceUrl: 'https://air.1688.com/ranking' }], certificates: [] }, imagegrabResearchCapture: capture };
     const workbench = await browser.newPage();
     const html = fs.readFileSync(source('research.html'), 'utf8').replace(/<link[^>]+>/, '').replace('<script src="research.js"></script>', '');

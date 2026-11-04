@@ -37,9 +37,9 @@
     const groups = all(document, '#skuSelection .feature-item');
     const selectedOptions = groups.flatMap(group => all(group, '.sku-filter-button.active').map(button => ({ group: text(group.querySelector('h3')), value: text(button.querySelector('.label-name')) || text(button), imageUrl: images(button, 'img', 'sku-option')[0]?.url || '' })));
     const skus = groups.flatMap(group => all(group, '.expand-view-item').map(row => ({
-      group: text(group.querySelector('h3')), value: row.querySelector('.item-label')?.getAttribute('title') || text(row.querySelector('.item-label')),
+      group: text(group.querySelector('h3')), value: row.querySelector('.item-label')?.getAttribute('title') || text(row.querySelector('.item-label')) || (group.classList.contains('pseudo') ? '默认规格（页面未列名称）' : ''),
       priceText: all(row, '.item-price-stock').map(text).find(v => /[¥￥]/.test(v)) || '',
-      stockText: all(row, '.item-price-stock').map(text).find(v => /库存/.test(v)) || '',
+      stockText: all(row, '.item-price-stock').map(text).find(v => /库存/.test(v)) || text(row.querySelector('.item-count-invalid')),
       selectedOptions, imageUrl: selectedOptions.find(o => o.imageUrl)?.imageUrl || '', imageAssociation: selectedOptions.some(o => o.imageUrl) ? 'selected-option-shared' : 'not-found'
     })).filter(row => row.value));
     const salesObservations = unique(all(document, '#mainPrice .sold-count .slick-slide:not(.slick-cloned)').map(text)).map(value => ({ text: value, metric: 'detail-displayed-sales', sourceUrl: url, capturedAt }));

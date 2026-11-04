@@ -1,0 +1,631 @@
+{
+  "verifiedAt": "2026-11-04T13:18:37.448346+00:00",
+  "sourceScope": "Original 20 craft-ranking offers, excluding already completed 678400004650",
+  "captureSourceVersion": "1.5.2 detail-capture.js injected into existing extension; installed manifest initially 1.5.0",
+  "jobStatus": "complete",
+  "productsPreserved": 20,
+  "offersPreserved": 20,
+  "downloadedOffers": 19,
+  "skuRows": 762,
+  "imageFiles": 579,
+  "bytesImagesAndExports": 82633018,
+  "checks": {
+    "allDownloadedFilesPresent": true,
+    "imagesActuallyDecoded": true,
+    "csvJsonSkuCountsMatch": true,
+    "skuImageLinksHaveLocalFilesWhenProvided": true,
+    "allRenderedOptionsVisitedAndSoldoutRowsExpanded": true,
+    "noArchiveIssues": true,
+    "localTestsPassed": 19
+  },
+  "items": [
+    {
+      "index": 1,
+      "url": "https://detail.1688.com/offer/737248976524.html",
+      "title": "铝彩色铃铛一字扁铃铝铃 DIY手工配件舞蹈手链铃铛节日装饰批发",
+      "supplierName": "温州巨迈五金有限公司",
+      "shipFrom": "浙江温州",
+      "skuCount": 40,
+      "attributes": 11,
+      "expectedCombinations": 8,
+      "collectedCombinations": 8,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 30
+    },
+    {
+      "index": 2,
+      "url": "https://detail.1688.com/offer/657396001292.html",
+      "title": "彩色塑料计数圆片25 30 37mm数数片 小学儿童数学认知教具数数币",
+      "supplierName": "龙港市喆诺塑料制品厂",
+      "shipFrom": "浙江温州",
+      "skuCount": 11,
+      "attributes": 18,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 32
+    },
+    {
+      "index": 3,
+      "url": "https://detail.1688.com/offer/867241770726.html",
+      "title": "原木色木夹子2.5-7.2cm收纳夹厂家批发照片夹彩色便签夹子",
+      "supplierName": "天台县丰木工艺品厂",
+      "shipFrom": "浙江台州",
+      "skuCount": 18,
+      "attributes": 11,
+      "expectedCombinations": 2,
+      "collectedCombinations": 2,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 17
+    },
+    {
+      "index": 4,
+      "url": "https://detail.1688.com/offer/684887737962.html",
+      "title": "亚马逊跨境热销环保彩色两脚钉双脚钉两角钉儿童纸制玩具装订材料",
+      "supplierName": "温州金桔文化用品有限公司",
+      "shipFrom": "浙江温州",
+      "skuCount": 26,
+      "attributes": 14,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 20
+    },
+    {
+      "index": 5,
+      "url": "https://detail.1688.com/offer/629310450324.html",
+      "title": "塑料币美分币美元塑料币高性价比各种外贸币美金币",
+      "supplierName": "龙港市昆信电子商务商行",
+      "shipFrom": "浙江温州",
+      "skuCount": 1,
+      "attributes": 13,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 11
+    },
+    {
+      "index": 6,
+      "url": "https://detail.1688.com/offer/682370023094.html",
+      "title": "实体厂家 竹棒竹圆棒3毫米diy手工拼装建筑模型花签棒糖棒雪糕棒",
+      "supplierName": "婺源县弘平竹制品有限公司",
+      "shipFrom": "江西上饶",
+      "skuCount": 10,
+      "attributes": 9,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 24
+    },
+    {
+      "index": 7,
+      "url": "https://detail.1688.com/offer/857856377766.html",
+      "title": "现货厂家直销原木色荷木木珠有孔DIY饰品配件手工串珠辅料散珠珍",
+      "supplierName": "天台辰帆工艺品经营部",
+      "shipFrom": "浙江台州",
+      "skuCount": 13,
+      "attributes": 13,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 17
+    },
+    {
+      "index": 8,
+      "url": "https://detail.1688.com/offer/593815170153.html",
+      "title": "现货批发 蜂蜜棒实木搅拌棒取蜜棒 蜜蜂棒咖啡奶茶果酱木质搅拌棒",
+      "supplierName": "龙门县龙潭镇枫裕竹木销售店",
+      "shipFrom": "广东惠州",
+      "skuCount": 9,
+      "attributes": 17,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 20
+    },
+    {
+      "index": 9,
+      "url": "https://detail.1688.com/offer/838240548243.html",
+      "title": "现货木珠6-50mm带孔手工串珠原木珠荷木圆珠diy饰品配件木珠",
+      "supplierName": "天台县万品工艺品有限公司",
+      "shipFrom": "浙江台州",
+      "skuCount": 15,
+      "attributes": 11,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 15
+    },
+    {
+      "index": 10,
+      "url": "https://detail.1688.com/offer/708854449130.html",
+      "title": "扁嘴铃铛 一字小铃铛 逗猫宠物铃铛 6-14mm一字铃铛 金色铃铛",
+      "supplierName": "义乌市汇美隽工艺品有限公司",
+      "shipFrom": "浙江金华",
+      "skuCount": 10,
+      "attributes": 11,
+      "expectedCombinations": 2,
+      "collectedCombinations": 2,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 16
+    },
+    {
+      "index": 11,
+      "url": "https://detail.1688.com/offer/960608463551.html",
+      "title": "厂家直供竹篾条竹条竹制手工打磨光滑特色竹篾片DIY竹编材料彩色",
+      "supplierName": "安徽金流竹艺有限公司",
+      "shipFrom": "安徽六安",
+      "skuCount": 78,
+      "attributes": 14,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 102
+    },
+    {
+      "index": 12,
+      "url": "https://detail.1688.com/offer/723904474374.html",
+      "title": "厂家批发2-11毫米竹制两头平圆棒竹棒竹制品竹签DIY竹条竹棍现货",
+      "supplierName": "婺源县中云桂汉竹制品制造厂",
+      "shipFrom": "江西上饶",
+      "skuCount": 110,
+      "attributes": 13,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 22
+    },
+    {
+      "index": 13,
+      "url": "https://detail.1688.com/offer/678930678711.html",
+      "title": "厂家批发2.5~7.2cm木色小木夹彩色木夹子DIY装饰照片夹木质相片夹",
+      "supplierName": "义乌市木夹子工艺品厂",
+      "shipFrom": "浙江金华",
+      "skuCount": 8,
+      "attributes": 13,
+      "expectedCombinations": 2,
+      "collectedCombinations": 2,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 35
+    },
+    {
+      "index": 14,
+      "url": "https://detail.1688.com/offer/44123692194.html",
+      "title": "一字金色铃铛批发彩色宠物铃铛万圣节圣诞节装饰小铃铛手工diy",
+      "supplierName": "义乌市银玲线带商行",
+      "shipFrom": "浙江金华",
+      "skuCount": 340,
+      "attributes": 16,
+      "expectedCombinations": 34,
+      "collectedCombinations": 34,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 93
+    },
+    {
+      "index": 15,
+      "url": "https://detail.1688.com/offer/625762574533.html",
+      "title": "厂家批发2.5/3/3.5/4.5/6/7.2cm小木夹子彩色木夹子木头夹照片夹",
+      "supplierName": "义乌市星途工艺品有限公司",
+      "shipFrom": "浙江金华",
+      "skuCount": 16,
+      "attributes": 13,
+      "expectedCombinations": 2,
+      "collectedCombinations": 2,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 29
+    },
+    {
+      "index": 16,
+      "url": "https://detail.1688.com/offer/997172278114.html",
+      "title": "厂家批发一字扁铁铃铛鸭嘴芝麻铃电镀宠物逗猫棒配件diy手工材料",
+      "supplierName": "永嘉县欧利可五金厂",
+      "shipFrom": "浙江金华",
+      "skuCount": 18,
+      "attributes": 11,
+      "expectedCombinations": 3,
+      "collectedCombinations": 3,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 13
+    },
+    {
+      "index": 17,
+      "url": "https://detail.1688.com/offer/1031687819523.html",
+      "title": "塑料元宝金条金砖钱币如意玉米大米花生金豆瓜子聚宝盆相框配件",
+      "supplierName": "义乌市歆源贸易有限公司",
+      "shipFrom": "浙江金华",
+      "skuCount": 26,
+      "attributes": 15,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 50
+    },
+    {
+      "index": 18,
+      "url": "https://detail.1688.com/offer/1046777033752.html",
+      "title": "跨境创意夜光小幽灵萌粒 diy装饰品挂配件迷你微景观万圣节小摆件",
+      "supplierName": "义乌市此搭电子商务商行",
+      "shipFrom": "浙江金华",
+      "skuCount": 7,
+      "attributes": 11,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 17
+    },
+    {
+      "index": 19,
+      "url": "https://detail.1688.com/offer/1090156626299.html",
+      "title": "钻贴亚克力免胶自粘宝石贴纸可爱图案儿童手工diy多巴胺钻石贴",
+      "supplierName": "苍南县龙港佳凯工艺礼品厂",
+      "shipFrom": "浙江温州",
+      "skuCount": 6,
+      "attributes": 13,
+      "expectedCombinations": 1,
+      "collectedCombinations": 1,
+      "coverage": "all-rendered-including-soldout",
+      "imageFiles": 16
+    }
+  ],
+  "independentAudits": [
+    {
+      "at": "2026-11-04T13:00:43.898Z",
+      "checks": {
+        "allEightColorsStored": true,
+        "pricesAndStocksMatch": true,
+        "rowCountMatches": true,
+        "selectedImageMatches": true
+      },
+      "dom": {
+        "rows": [
+          {
+            "cells": [
+              "¥0.01",
+              "库存9769604个"
+            ],
+            "value": "6mm"
+          },
+          {
+            "cells": [
+              "¥0.02",
+              "库存1368253个"
+            ],
+            "value": "8mm"
+          },
+          {
+            "cells": [
+              "¥0.03",
+              "库存584244个"
+            ],
+            "value": "10mm"
+          },
+          {
+            "cells": [
+              "¥0.04",
+              "库存718614个"
+            ],
+            "value": "12mm"
+          },
+          {
+            "cells": [
+              "¥0.05",
+              "库存907508个"
+            ],
+            "value": "14mm"
+          }
+        ],
+        "selected": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+            "value": "铝扁嘴-银色"
+          }
+        ],
+        "url": "https://detail.1688.com/offer/737248976524.html"
+      },
+      "method": "Independent DOM comparison after selecting silver option",
+      "passed": true,
+      "stored": [
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.01",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+              "value": "铝扁嘴-银色"
+            }
+          ],
+          "stockText": "库存9769604个",
+          "value": "6mm"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.02",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+              "value": "铝扁嘴-银色"
+            }
+          ],
+          "stockText": "库存1368253个",
+          "value": "8mm"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.03",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+              "value": "铝扁嘴-银色"
+            }
+          ],
+          "stockText": "库存584244个",
+          "value": "10mm"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.04",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+              "value": "铝扁嘴-银色"
+            }
+          ],
+          "stockText": "库存718614个",
+          "value": "12mm"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.05",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01osddxs2FxmTMWGK9K_!!2216518448947-0-cib.jpg_sum.jpg",
+              "value": "铝扁嘴-银色"
+            }
+          ],
+          "stockText": "库存907508个",
+          "value": "14mm"
+        }
+      ],
+      "url": "https://detail.1688.com/offer/737248976524.html"
+    },
+    {
+      "at": "2026-11-04T13:18:25.977Z",
+      "checks": {
+        "correctOption": true,
+        "noPriceRangeFallback": true,
+        "pricesAndStocks": true,
+        "tenSizes": true
+      },
+      "dom": {
+        "rows": [
+          {
+            "price": "¥0.07",
+            "stock": "库存不足",
+            "value": "6MM"
+          },
+          {
+            "price": "¥0.08",
+            "stock": "库存不足",
+            "value": "8MM"
+          },
+          {
+            "price": "¥0.13",
+            "stock": "库存不足",
+            "value": "10MM"
+          },
+          {
+            "price": "¥0.17",
+            "stock": "库存不足",
+            "value": "12MM"
+          },
+          {
+            "price": "¥0.2",
+            "stock": "库存不足",
+            "value": "14MM"
+          },
+          {
+            "price": "¥0.35",
+            "stock": "库存不足",
+            "value": "16MM"
+          },
+          {
+            "price": "¥0.4",
+            "stock": "库存不足",
+            "value": "18MM"
+          },
+          {
+            "price": "¥0.55",
+            "stock": "库存不足",
+            "value": "20MM"
+          },
+          {
+            "price": "¥0.77",
+            "stock": "库存不足",
+            "value": "22MM"
+          },
+          {
+            "price": "¥1",
+            "stock": "库存不足",
+            "value": "25MM"
+          }
+        ],
+        "selected": [
+          "哑光粉色"
+        ],
+        "url": "https://detail.1688.com/offer/44123692194.html"
+      },
+      "method": "Independent live DOM after expanding sold-out sizes",
+      "passed": true,
+      "stored": [
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.07",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "6MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.08",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "8MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.13",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "10MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.17",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "12MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.2",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "14MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.35",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "16MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.4",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "18MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.55",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "20MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥0.77",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "22MM"
+        },
+        {
+          "group": "尺寸",
+          "imageAssociation": "selected-option-shared",
+          "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+          "priceText": "¥1",
+          "selectedOptions": [
+            {
+              "group": "颜色",
+              "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01722UwE1RxZOUfy8Gv_!!981562178-0-cib.jpg_sum.jpg",
+              "value": "哑光粉色"
+            }
+          ],
+          "stockText": "库存不足",
+          "value": "25MM"
+        }
+      ],
+      "url": "https://detail.1688.com/offer/44123692194.html"
+    }
+  ],
+  "boundary": "File count is URL-based, not unique-photo count. Shared option images remain shared; absent option images remain absent. Prices are displayed account prices, not every quantity tier. CCC not officially verified."
+}
