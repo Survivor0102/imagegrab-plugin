@@ -6,6 +6,7 @@
   const $ = selector => document.querySelector(selector);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const safeUrl = value => { try { const url = new URL(value); return ['http:', 'https:'].includes(url.protocol) ? url.href : ''; } catch { return ''; } };
+  const productUrl = value => { const url = safeUrl(value); const match = url.match(/(?:detail|offer)\.1688\.com\/offer\/(\d+)\.html/); return match ? `https://detail.1688.com/offer/${match[1]}.html` : url; };
   const id = () => globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
   const date = value => value ? new Date(value).toLocaleDateString('zh-CN') : '—';
   const toast = message => { const el = $('#toast'); el.textContent = message; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2400); };
@@ -22,8 +23,8 @@
     const sourceType = capturedSourceType(capture.sourceUrl || '', capture.pageTitle || '');
     let added = 0;
     for (const row of capture.products.slice(0, 1000)) {
-      const normalizedUrl = safeUrl(row.url) || safeUrl(capture.sourceUrl);
-      let product = state.products.find(x => normalizedUrl && x.sourceUrl === normalizedUrl);
+      const normalizedUrl = productUrl(row.url) || productUrl(capture.sourceUrl);
+      let product = state.products.find(x => normalizedUrl && productUrl(x.sourceUrl) === normalizedUrl);
       if (!product) {
         product = { id: id(), title: row.title || '待补全商品名', brand: '', category: '', sourceType, rank: row.rank || '', sourceUrl: normalizedUrl, images: Array.isArray(row.images) ? row.images.map(safeUrl).filter(Boolean).slice(0, 16) : [], specs: row.visibleText || '', origin: '', notes: '', createdAt: Date.now(), updatedAt: Date.now() };
         state.products.unshift(product); added++;
@@ -31,9 +32,31 @@
         product.images = [...new Set([...(product.images || []), ...(Array.isArray(row.images) ? row.images.map(safeUrl).filter(Boolean) : [])])].slice(0, 24);
         product.specs ||= row.visibleText || '';
       }
+      if (row.captureKind === 'detail') {
+        product.title = row.title || product.title;
+        for (const key of ['brand', 'category', 'origin']) if (!product[key] && row[key]) product[key] = row[key];
+        for (const key of ['attributes', 'skus', 'selectedOptions', 'media', 'videoUrls', 'services', 'packaging', 'promotionText', 'certificateEvidence']) if (row[key]) product[key] = row[key];
+        if (row.specs) product.specs = row.specs;
+        product.images = [...new Set([...(row.images || []).map(safeUrl).filter(Boolean), ...(product.images || [])])];
+        product.detailSourceUrl = normalizedUrl;
+        product.detailCapturedAt = row.capturedAt || Date.now();
+        product.updatedAt = Date.now();
+      }
       const offer = makeOffer(row, capture.sourceUrl || '', sourceType);
-      offer.productId = product.id;
-      if (offer.url && !state.offers.some(x => x.productId === product.id && x.url === offer.url)) state.offers.unshift(offer);
+      offer.productId = product.id; offer.url = normalizedUrl;
+      const existing = state.offers.find(x => x.productId === product.id && productUrl(x.url) === offer.url);
+      const target = existing || offer;
+      target.salesObservations ||= [];
+      if (existing?.salesText && !target.salesObservations.length) target.salesObservations.push({ text: existing.salesText, metric: existing.sourceType === 'ranking' ? 'ranking-displayed-sales' : 'page-displayed-sales', sourceUrl: existing.sourceUrl || existing.url, capturedAt: existing.capturedAt });
+      const observations = row.salesObservations || (row.salesText ? [{ text: row.salesText, metric: sourceType === 'ranking' ? 'ranking-displayed-sales' : 'page-displayed-sales', sourceUrl: capture.sourceUrl, capturedAt: Date.now() }] : []);
+      for (const observation of observations) if (!target.salesObservations.some(o => o.text === observation.text && o.metric === observation.metric && o.sourceUrl === observation.sourceUrl)) target.salesObservations.push(observation);
+      if (row.captureKind === 'detail') {
+        for (const key of ['supplierName', 'supplierUrl', 'priceText', 'moqText', 'priceContext', 'shipFrom', 'supplierMetrics', 'supplierYears', 'supplierCategory', 'supplierRating']) if (row[key]) target[key] = row[key];
+        target.detailSourceUrl = normalizedUrl; target.detailCapturedAt = row.capturedAt || Date.now();
+        target.salesText = target.salesObservations.map(o => o.text).join(' / ');
+      }
+      if (offer.url && !existing) state.offers.unshift(offer);
+      if (row.captureKind === 'detail') state.selectedId = product.id;
       if (!state.selectedId) state.selectedId = product.id;
     }
     await save();
@@ -109,7 +132,19 @@
     $('#empty-state').hidden = hasRows;
     $('#result-count').textContent = `${rows.children.length} 条记录`;
     $('#detail-panel').hidden = true;
-    if (isProducts) renderDetail();
+    if (isProducts) {
+      renderDetail();
+      const product = state.products.find(p => p.id === state.selectedId);
+      if (product?.detailCapturedAt) {
+        const panel = $('#detail-panel');
+        const skus = product.skus || [];
+        const media = product.media || [];
+        const offers = state.offers.filter(o => o.productId === product.id);
+        const supplier = offers.find(o => o.detailSourceUrl);
+        if (supplier) panel.insertAdjacentHTML('beforeend', `<section class="detail-section"><h3>供应商资料</h3><p class="spec-text">${esc([supplier.supplierName, supplier.supplierYears, supplier.supplierCategory, supplier.supplierRating, ...(supplier.supplierMetrics || []).map(m => `${m.name}：${m.value}`)].filter(Boolean).join('\n'))}</p><h3>包装与页面优惠说明</h3><p class="spec-text">${esc([...(product.packaging || []).map(t => [t.headers.join(' / '), ...t.rows.map(r => r.join(' / '))].join('：')), product.promotionText].filter(Boolean).join('\n'))}</p></section>`);
+        panel.insertAdjacentHTML('beforeend', `<section class="detail-section"><h3>详情采集记录</h3><p class="spec-text">${esc(offers.find(o => o.priceContext)?.priceContext || '')} · 发货地：${esc(offers.find(o => o.shipFrom)?.shipFrom || '未显示')}<br>发货地单独记录，产地以商品参数为准。</p><h3>规格报价（${skus.length} 项）</h3><p class="spec-text">${esc(skus.map(s => `${s.group} ${s.value}｜${s.priceText}｜${s.stockText}`).join('\n'))}</p><p class="subtle-empty">规格图片按选项关联；共享颜色图不代表每个尺寸均有独立图片。库存和销量为页面展示值。</p><h3>商品图片</h3>${['main','description','sku-option'].map(role => { const items = media.filter(m => m.role === role); return `<details><summary>${{main:'主图',description:'详情图','sku-option':'规格选项图'}[role]}（${items.length}）</summary><div class="image-strip">${items.map(item => { const url = safeUrl(item.url); return url ? `<a href="${esc(url)}" target="_blank" rel="noopener"><img src="${esc(url)}" alt="商品图片" loading="lazy"></a>` : ''; }).join('')}</div></details>`; }).join('')}<h3>销量来源记录</h3><p class="spec-text">${esc(offers.flatMap(o => o.salesObservations || []).map(o => `${o.metric === 'ranking-displayed-sales' ? '榜单' : '详情/商品页'}：${o.text}`).join('\n'))}</p>${(product.videoUrls || []).map(value => { const url = safeUrl(value); return url ? `<p><a class="table-link" href="${esc(url)}" target="_blank" rel="noopener">打开商品视频 ↗</a></p>` : ''; }).join('')}</section>`);
+      }
+    }
   }
 
   function openProduct(product) {
@@ -174,8 +209,8 @@
   $('#search').addEventListener('input', event => { state.query = event.target.value; render(); });
   $('#export-button').addEventListener('click', () => download('imagegrab-research-backup.json', JSON.stringify({ schemaVersion: 1, exportedAt: new Date().toISOString(), products: state.products, offers: state.offers, certificates: state.certificates }, null, 2), 'application/json'));
   $('#csv-button').addEventListener('click', () => {
-    const headers = ['商品名','品牌','类目','来源','排名','商品链接','图片链接','规格参数','产地','供应商','供应商主页','货源链接','价格','起订量','页面销量','供应商地区','认证类型','证书编号','核验状态','核验来源'];
-    const rows = state.products.flatMap(p => { const offers = state.offers.filter(o => o.productId === p.id); const certs = state.certificates.filter(c => c.productId === p.id); return (offers.length ? offers : [{}]).flatMap(o => (certs.length ? certs : [{}]).map(c => [p.title,p.brand,p.category,p.sourceType,p.rank,p.sourceUrl,(p.images||[]).join(' '),p.specs,p.origin,o.supplierName,o.supplierUrl,o.url,o.priceText,o.moqText,o.salesText,o.location,c.type,c.number,c.status,c.evidenceUrl])); });
+    const headers = ['商品名','品牌','类目','来源','排名','商品链接','图片链接','规格参数','产地','供应商','供应商主页','货源链接','价格','起订量','页面销量','供应商地区','认证类型','证书编号','核验状态','核验来源','发货地','价格说明','商品参数JSON','规格报价JSON','图片角色JSON','销量来源JSON','视频链接'];
+    const rows = state.products.flatMap(p => { const offers = state.offers.filter(o => o.productId === p.id); const certs = state.certificates.filter(c => c.productId === p.id); return (offers.length ? offers : [{}]).flatMap(o => (certs.length ? certs : [{}]).map(c => [p.title,p.brand,p.category,p.sourceType,p.rank,p.sourceUrl,(p.images||[]).join(' '),p.specs,p.origin,o.supplierName,o.supplierUrl,o.url,o.priceText,o.moqText,o.salesText,o.location,c.type,c.number,c.status,c.evidenceUrl,o.shipFrom,o.priceContext,JSON.stringify(p.attributes||[]),JSON.stringify(p.skus||[]),JSON.stringify(p.media||[]),JSON.stringify(o.salesObservations||[]),(p.videoUrls||[]).join(' ')])); });
     const csv = [headers, ...rows].map(row => row.map(v => { const value = String(v ?? '').replace(/^[\u0000-\u0020]*(?=[=+@-])/, "'"); return `"${value.replace(/"/g,'""')}"`; }).join(',')).join('\r\n'); download('imagegrab-research-export.csv', '\ufeff' + csv, 'text/csv;charset=utf-8');
   });
   function download(filename, content, type) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([content], { type })); a.download = filename; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }

@@ -1,0 +1,24 @@
+{
+  "auditedAt": "2026-11-04T04:25:28.768Z",
+  "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+  "method": "Independent live DOM read compared with actual extension storage",
+  "checks": {
+    "correctProductTitle": true,
+    "correctSupplier": true,
+    "correctPrice": true,
+    "allParametersMatch": true,
+    "allSkuPricesAndStocksMatch": true,
+    "mainImagesMatch": true,
+    "descriptionImagesMatch": true,
+    "originNotInferredFromShipping": true,
+    "preservesDifferentSalesMetrics": true,
+    "stillOneExistingProductAndOffer": true
+  },
+  "passed": true,
+  "counts": {
+    "attributes": 11,
+    "skus": 15,
+    "mainImages": 6,
+    "descriptionImages": 11
+  }
+}

@@ -61,17 +61,13 @@
   async function collect() {
     if (rankingPage()) return collectRankingCards();
     const detail = location.pathname.includes('/offer/') && OFFER_URL.test(location.href);
+    if (detail) return [globalThis.ImageGrabDetail.collect()];
     const links = [...document.querySelectorAll('a[href]')].filter(a => OFFER_URL.test(a.href));
     const rows = new Map();
     for (const anchor of links) {
       const row = parseCard(anchor);
       if (!row.images.length && !row.title) continue;
       if (!rows.has(row.url)) rows.set(row.url, row);
-    }
-    if (detail && !rows.has(location.href)) {
-      const h1 = document.querySelector('h1');
-      const body = text(document.body);
-      rows.set(location.href, { title: text(h1) || document.title, url: location.href, images: imageUrls(document), priceText: body.match(PRICE)?.[0] || '', salesText: body.match(SALES)?.[0] || '', moqText: body.match(MOQ)?.[0] || '', ...supplierFrom(document), visibleText: body.slice(0, 4000) });
     }
     return [...rows.values()].slice(0, 100);
   }

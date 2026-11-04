@@ -1,0 +1,505 @@
+{
+  "extensionVersion": "1.4.0",
+  "verifiedAt": "2026-11-04T04:18:38.260Z",
+  "productCount": 20,
+  "offerCount": 20,
+  "product": {
+    "attributes": [
+      {
+        "name": "材质",
+        "value": "荷木"
+      },
+      {
+        "name": "类别",
+        "value": "圆球"
+      },
+      {
+        "name": "风格",
+        "value": "现代简约"
+      },
+      {
+        "name": "品牌",
+        "value": "乐铭工艺"
+      },
+      {
+        "name": "货号",
+        "value": "圆珠打孔"
+      },
+      {
+        "name": "是否专利货源",
+        "value": "否"
+      },
+      {
+        "name": "颜色",
+        "value": "原木色"
+      },
+      {
+        "name": "尺寸",
+        "value": "6mm2颗（孔2mm）,8mm（孔2mm）,10mm（孔3mm）,12mm（孔3mm）,14mm（孔4mm）,15mm（孔4mm）,16mm（孔4mm）,18mm（孔5mm）,20mm（孔5mm）,25mm（孔6mm）,30mm（孔6mm）,35mm（孔7mm）,40mm（孔8mm）,50mm（孔8mm）,22mm(孔5mm）"
+      },
+      {
+        "name": "是否属于礼品",
+        "value": "否"
+      },
+      {
+        "name": "是否IP授权",
+        "value": "否"
+      },
+      {
+        "name": "处理工艺",
+        "value": "抛光打磨"
+      }
+    ],
+    "brand": "乐铭工艺",
+    "category": "圆球",
+    "certificateEvidence": {
+      "note": "仅记录页面参数；未进行官方认证核验",
+      "status": "not-verified"
+    },
+    "createdAt": 1793727816666,
+    "detailCapturedAt": 1793765581965,
+    "detailSourceUrl": "https://detail.1688.com/offer/678400004650.html",
+    "id": "fb53794d-f556-4ff4-8c5d-c52ea2d31a67",
+    "images": [
+      "https://cbu01.alicdn.com/img/ibank/O1CN01awCgQo2DACHUhi1oi_!!2214271038568-0-cib.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN018GG4Fk2DACGfXZVLn_!!2214271038568-0-cib.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN014BFIOI2DACGX2YtWl_!!2214271038568-0-cib.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01o8Wa7q2DACGeGAjkf_!!2214271038568-0-cib.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN013ZNZfi2DACMX1NURK_!!2214271038568-0-cib.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "https://cbu01.alicdn.com/img/ibank/O1CN014BFIOI2DACGX2YtWl_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01o8Wa7q2DACGeGAjkf_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01dN1Ec12DACGXocKOb_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "https://cbu01.alicdn.com/img/ibank/O1CN018GG4Fk2DACGfXZVLn_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01X0yt0B2DACGTykMuG_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01zroFk52DACGX3xpod_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01yTC1iC2DACGUli7Ud_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01HI0M7n2DACGgNYlPT_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01qH1zQv2DACGNgUnJK_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01Mp1noy2DACGeHWBhy_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+      "https://cbu01.alicdn.com/img/ibank/O1CN013ZNZfi2DACMX1NURK_!!2214271038568-0-cib.jpg",
+      "https://cbu01.alicdn.com/img/ibank/O1CN013ZNZfi2DACMX1NURK_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01awCgQo2DACHUhi1oi_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN018GG4Fk2DACGfXZVLn_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN014BFIOI2DACGX2YtWl_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp",
+      "https://cbu01.alicdn.com/img/ibank/O1CN01o8Wa7q2DACGeGAjkf_!!2214271038568-0-cib.jpg_300x300q90.jpg_.webp"
+    ],
+    "media": [
+      {
+        "role": "main",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01awCgQo2DACHUhi1oi_!!2214271038568-0-cib.jpg_.webp"
+      },
+      {
+        "role": "main",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN018GG4Fk2DACGfXZVLn_!!2214271038568-0-cib.jpg_.webp"
+      },
+      {
+        "role": "main",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN014BFIOI2DACGX2YtWl_!!2214271038568-0-cib.jpg_.webp"
+      },
+      {
+        "role": "main",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01o8Wa7q2DACGeGAjkf_!!2214271038568-0-cib.jpg_.webp"
+      },
+      {
+        "role": "main",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN013ZNZfi2DACMX1NURK_!!2214271038568-0-cib.jpg_.webp"
+      },
+      {
+        "role": "main",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_.webp"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg?__r__=1661000754718"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN014BFIOI2DACGX2YtWl_!!2214271038568-0-cib.jpg?__r__=1661000754718"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01o8Wa7q2DACGeGAjkf_!!2214271038568-0-cib.jpg?__r__=1661000754718"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01dN1Ec12DACGXocKOb_!!2214271038568-0-cib.jpg?__r__=1661000754718"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN018GG4Fk2DACGfXZVLn_!!2214271038568-0-cib.jpg?__r__=1661000754718"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01X0yt0B2DACGTykMuG_!!2214271038568-0-cib.jpg?__r__=1661000754718"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01zroFk52DACGX3xpod_!!2214271038568-0-cib.jpg?__r__=1661001096669"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01yTC1iC2DACGUli7Ud_!!2214271038568-0-cib.jpg?__r__=1661001096669"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01HI0M7n2DACGgNYlPT_!!2214271038568-0-cib.jpg?__r__=1661001096669"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01qH1zQv2DACGNgUnJK_!!2214271038568-0-cib.jpg?__r__=1661001096669"
+      },
+      {
+        "role": "description",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01Mp1noy2DACGeHWBhy_!!2214271038568-0-cib.jpg?__r__=1661001096669"
+      },
+      {
+        "role": "sku-option",
+        "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+        "url": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg"
+      }
+    ],
+    "notes": "",
+    "origin": "",
+    "packaging": [
+      {
+        "headers": [
+          "重量(g)"
+        ],
+        "rows": [
+          [
+            "50"
+          ]
+        ]
+      }
+    ],
+    "promotionText": "下单返拿样费 首单减4元 1000件混批",
+    "rank": "",
+    "selectedOptions": [
+      {
+        "group": "颜色",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "value": "原木色"
+      }
+    ],
+    "services": [
+      "退货包运费",
+      "7天无理由退货",
+      "晚发必赔",
+      "极速退款"
+    ],
+    "skus": [
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.01",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存94245911个",
+        "value": "6mm2颗（孔2mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.01",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存62111769个",
+        "value": "8mm（孔2mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.01",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存33323454个",
+        "value": "10mm（孔3mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.02",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存10465543个",
+        "value": "12mm（孔3mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.03",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存99480689个",
+        "value": "14mm（孔4mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.04",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存18525837个",
+        "value": "15mm（孔4mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.04",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存81627032个",
+        "value": "16mm（孔4mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.05",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存18340773个",
+        "value": "18mm（孔5mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.06",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存8348200个",
+        "value": "20mm（孔5mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.12",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存18809019个",
+        "value": "25mm（孔6mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.23",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存19541705个",
+        "value": "30mm（孔6mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.36",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存19831686个",
+        "value": "35mm（孔7mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.61",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存19951644个",
+        "value": "40mm（孔8mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥1.2",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存19476300个",
+        "value": "50mm（孔8mm）"
+      },
+      {
+        "group": "尺寸",
+        "imageAssociation": "selected-option-shared",
+        "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+        "priceText": "¥0.1",
+        "selectedOptions": [
+          {
+            "group": "颜色",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+            "value": "原木色"
+          }
+        ],
+        "stockText": "库存9757102个",
+        "value": "22mm(孔5mm）"
+      }
+    ],
+    "sourceType": "ranking",
+    "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+    "specs": "材质：荷木\n类别：圆球\n风格：现代简约\n品牌：乐铭工艺\n货号：圆珠打孔\n是否专利货源：否\n颜色：原木色\n尺寸：6mm2颗（孔2mm）,8mm（孔2mm）,10mm（孔3mm）,12mm（孔3mm）,14mm（孔4mm）,15mm（孔4mm）,16mm（孔4mm）,18mm（孔5mm）,20mm（孔5mm）,25mm（孔6mm）,30mm（孔6mm）,35mm（孔7mm）,40mm（孔8mm）,50mm（孔8mm）,22mm(孔5mm）\n是否属于礼品：否\n是否IP授权：否\n处理工艺：抛光打磨",
+    "title": "批发大孔木珠6-50mm手工串珠原木散珠荷木圆珠DIY禾木饰品配件",
+    "updatedAt": 1793765582232,
+    "videoUrls": [
+      "https://cloud.video.taobao.com/play/u/2214271038568/p/2/e/6/t/1/527569310112.mp4"
+    ]
+  },
+  "offers": [
+    {
+      "capturedAt": 1793727816666,
+      "detailCapturedAt": 1793765581965,
+      "detailSourceUrl": "https://detail.1688.com/offer/678400004650.html",
+      "id": "65cba411-9c3b-4862-8c6b-20688dfd4031",
+      "location": "",
+      "moqText": "100个起批",
+      "priceContext": "60天老客价",
+      "priceText": "¥0.01~¥1.20",
+      "productId": "fb53794d-f556-4ff4-8c5d-c52ea2d31a67",
+      "qualification": "",
+      "salesObservations": [
+        {
+          "capturedAt": 1793727816666,
+          "metric": "ranking-displayed-sales",
+          "sourceUrl": "https://air.1688.com/kapp/1688-global/sales/ranking?rankingName=Most_Popular&countryCode=CN&platform=cbu&cateId=1044181&cateLevel=2",
+          "text": "1.2M 月销量"
+        },
+        {
+          "capturedAt": 1793764960813,
+          "metric": "detail-displayed-sales",
+          "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+          "text": "已售10万+个"
+        },
+        {
+          "capturedAt": 1793764960813,
+          "metric": "detail-displayed-sales",
+          "sourceUrl": "https://detail.1688.com/offer/678400004650.html",
+          "text": "全网销量10万+个"
+        }
+      ],
+      "salesText": "1.2M 月销量 / 已售10万+个 / 全网销量10万+个",
+      "shipFrom": "浙江台州",
+      "sourceType": "ranking",
+      "sourceUrl": "https://air.1688.com/kapp/1688-global/sales/ranking?rankingName=Most_Popular&countryCode=CN&platform=cbu&cateId=1044181&cateLevel=2",
+      "supplierCategory": "主营：工艺品",
+      "supplierMetrics": [
+        {
+          "name": "品质达标率",
+          "value": "99.7%"
+        },
+        {
+          "name": "综合履约率",
+          "value": "97.3%"
+        },
+        {
+          "name": "店铺回头率",
+          "value": "59.6%"
+        }
+      ],
+      "supplierName": "天台乐铭工艺品厂",
+      "supplierRating": "四星供应链",
+      "supplierUrl": "https://shop298o3n7008414.1688.com/?offerId=678400004650&td_page_id=PC-DEFAULT-2026",
+      "supplierYears": "入驻5年",
+      "url": "https://detail.1688.com/offer/678400004650.html",
+      "visibleText": "批发大孔木珠6-50mm手工串珠原木散珠荷木圆珠DIY禾木饰品配件 ¥ 0 . 01 4年前上新 1.2M 月销量 1% 环比增长 3 月收藏 5.00 评分 立即询盘"
+    }
+  ]
+}

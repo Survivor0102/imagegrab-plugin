@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "图提取 · ImageGrab",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "采集商品图片、自动翻页收集榜单并整理选品与供应商档案。",
   "permissions": ["activeTab", "scripting", "downloads", "storage", "tabs", "unlimitedStorage"],
   "host_permissions": [
@@ -17,7 +17,7 @@
     "js": ["sales.js", "content.js"], "css": ["content.css"], "run_at": "document_idle"
   }, {
     "matches": ["*://*.1688.com/*"],
-    "js": ["research-capture.js"], "run_at": "document_idle"
+    "js": ["detail-capture.js", "research-capture.js"], "run_at": "document_idle"
   }],
   "action": { "default_title": "图提取 · ImageGrab" },
   "options_page": "gallery.html"
