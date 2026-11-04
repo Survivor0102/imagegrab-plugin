@@ -54,6 +54,7 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     async function importAgain() {
       await workbench.setContent(html);
       await workbench.evaluate(value => { window.__store = value; window.chrome = { storage: { local: { get: async key => ({ [key]: window.__store[key] }), set: async data => Object.assign(window.__store, data), remove: async key => { delete window.__store[key]; } } } }; }, store);
+      await workbench.addScriptTag({ path: source('offer-data.js') });
       await workbench.addScriptTag({ path: source('research.js') });
       await workbench.waitForFunction(() => !window.__store.imagegrabResearchCapture);
       Object.assign(store, await workbench.evaluate(() => window.__store));
@@ -84,5 +85,13 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     await importAgain();
     assert.equal(store.imagegrabResearchData.offers[0].salesObservations.length, 2);
     assert.equal(store.imagegrabResearchData.products.length, 1);
+    store.imagegrabResearchData.offers.push({ id: 'second-offer', productId: 'p1', url: 'https://detail.1688.com/offer/456.html', supplierName: '第二工厂' });
+    store.imagegrabResearchCapture = { sourceUrl: 'https://detail.1688.com/offer/456.html', products: [{ ...row, url: 'https://detail.1688.com/offer/456.html', title: '第二工厂的同款', supplierName: '第二工厂', priceText: '¥9.99', skus: [{ value: '99mm', priceText: '¥9.99', imageUrl: 'https://img.test/second.jpg' }] }] };
+    await importAgain();
+    assert.equal(store.imagegrabResearchData.products.length, 1);
+    assert.equal(store.imagegrabResearchData.offers.length, 2);
+    assert.equal(store.imagegrabResearchData.offers[0].details.skus.length, 3);
+    assert.equal(store.imagegrabResearchData.offers[1].details.skus[0].priceText, '¥9.99');
+    assert.equal(store.imagegrabResearchData.products[0].title, '大孔木珠');
   } finally { await browser.close(); }
 });

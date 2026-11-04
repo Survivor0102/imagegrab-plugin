@@ -38,7 +38,7 @@ socket.onmessage = event => {
       try {
         const url = new URL(target.url);
         return url.hostname === '1688.com' || url.hostname.endsWith('.1688.com')
-          || (url.protocol === 'chrome-extension:' && /\/(research\.html|background\.js)$/.test(url.pathname));
+          || (url.protocol === 'chrome-extension:' && /\/(research\.html|offer\.html|background\.js)$/.test(url.pathname));
       } catch { return false; }
     }).map(({targetId,type,url,attached}) => ({targetId,type,url,attached}));
   }

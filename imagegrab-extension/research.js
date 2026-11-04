@@ -2,7 +2,8 @@
   'use strict';
   const STORAGE_KEY = 'imagegrabResearchData';
   const CAPTURE_KEY = 'imagegrabResearchCapture';
-  const state = { products: [], offers: [], certificates: [], view: 'products', filter: 'all', selectedId: '', query: '' };
+  const state = { products: [], offers: [], certificates: [], view: location.hash === '#offers' ? 'offers' : 'products', filter: 'all', selectedId: '', query: '' };
+  const offerData = globalThis.ImageGrabOfferData;
   const $ = selector => document.querySelector(selector);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const safeUrl = value => { try { const url = new URL(value); return ['http:', 'https:'].includes(url.protocol) ? url.href : ''; } catch { return ''; } };
@@ -24,7 +25,8 @@
     let added = 0;
     for (const row of capture.products.slice(0, 1000)) {
       const normalizedUrl = productUrl(row.url) || productUrl(capture.sourceUrl);
-      let product = state.products.find(x => normalizedUrl && productUrl(x.sourceUrl) === normalizedUrl);
+      const knownOffer = state.offers.find(x => normalizedUrl && productUrl(x.url) === normalizedUrl);
+      let product = state.products.find(x => normalizedUrl && productUrl(x.sourceUrl) === normalizedUrl) || state.products.find(x => x.id === knownOffer?.productId);
       if (!product) {
         product = { id: id(), title: row.title || '待补全商品名', brand: '', category: '', sourceType, rank: row.rank || '', sourceUrl: normalizedUrl, images: Array.isArray(row.images) ? row.images.map(safeUrl).filter(Boolean).slice(0, 16) : [], specs: row.visibleText || '', origin: '', notes: '', createdAt: Date.now(), updatedAt: Date.now() };
         state.products.unshift(product); added++;
@@ -32,7 +34,7 @@
         product.images = [...new Set([...(product.images || []), ...(Array.isArray(row.images) ? row.images.map(safeUrl).filter(Boolean) : [])])].slice(0, 24);
         product.specs ||= row.visibleText || '';
       }
-      if (row.captureKind === 'detail') {
+      if (row.captureKind === 'detail' && (!product.detailSourceUrl || productUrl(product.detailSourceUrl) === normalizedUrl)) {
         product.title = row.title || product.title;
         for (const key of ['brand', 'category', 'origin']) if (!product[key] && row[key]) product[key] = row[key];
         for (const key of ['attributes', 'skus', 'selectedOptions', 'media', 'videoUrls', 'services', 'packaging', 'promotionText', 'certificateEvidence']) if (row[key]) product[key] = row[key];
@@ -51,6 +53,7 @@
       const observations = row.salesObservations || (row.salesText ? [{ text: row.salesText, metric: sourceType === 'ranking' ? 'ranking-displayed-sales' : 'page-displayed-sales', sourceUrl: capture.sourceUrl, capturedAt: Date.now() }] : []);
       for (const observation of observations) if (!target.salesObservations.some(o => o.text === observation.text && o.metric === observation.metric && o.sourceUrl === observation.sourceUrl)) target.salesObservations.push(observation);
       if (row.captureKind === 'detail') {
+        target.details = offerData.fromCapture(row);
         for (const key of ['supplierName', 'supplierUrl', 'priceText', 'moqText', 'priceContext', 'shipFrom', 'supplierMetrics', 'supplierYears', 'supplierCategory', 'supplierRating']) if (row[key]) target[key] = row[key];
         target.detailSourceUrl = normalizedUrl; target.detailCapturedAt = row.capturedAt || Date.now();
         target.salesText = target.salesObservations.map(o => o.text).join(' / ');
@@ -70,6 +73,7 @@
     return state.products.filter(p => (state.filter === 'all' || p.sourceType === state.filter) && (!query || [p.title, p.brand, p.category, p.origin, ...state.offers.filter(o => o.productId === p.id).map(o => o.supplierName)].join(' ').toLocaleLowerCase().includes(query)));
   }
   const shippingLabel = offer => offer.shipFrom ? `发货地：${offer.shipFrom}` : '发货地待补';
+  const offerDetailsLink = offer => `<a class="table-link offer-spec-link" data-offer-details="${esc(offer.id)}" href="offer.html?id=${encodeURIComponent(offer.id)}">规格与图片</a>`;
   function completeness(product) {
     const missing = ['brand', 'category'].filter(key => !product[key]);
     if (!state.offers.some(offer => offer.productId === product.id && offer.shipFrom)) missing.push('发货地');
@@ -91,7 +95,7 @@
       const p = state.products.find(x => x.id === o.productId);
       const url = safeUrl(o.url);
       const supplierUrl = safeUrl(o.supplierUrl);
-      return `<tr><td><strong>${esc(p?.title || '商品已删除')}</strong></td><td>${supplierUrl ? `<a class="table-link" href="${esc(supplierUrl)}" target="_blank" rel="noopener">${esc(o.supplierName || '供应商主页 ↗')}</a>` : esc(o.supplierName || '供应商待识别')}<small>${esc(shippingLabel(o))}</small></td><td>${esc(o.priceText || '未记录')}<small>${esc(o.moqText || '起订量未记录')}</small></td><td>${esc(o.salesText || '未显示')}</td><td>${url ? `<a class="table-link" href="${esc(url)}" target="_blank" rel="noopener">打开货源 ↗</a>` : '链接不可用'}</td><td><button class="delete-offer" data-delete-offer="${esc(o.id)}" title="删除货源">×</button></td></tr>`;
+      return `<tr><td><strong>${esc(p?.title || '商品已删除')}</strong></td><td>${supplierUrl ? `<a class="table-link" href="${esc(supplierUrl)}" target="_blank" rel="noopener">${esc(o.supplierName || '供应商主页 ↗')}</a>` : esc(o.supplierName || '供应商待识别')}<small>${esc(shippingLabel(o))}</small></td><td>${esc(o.priceText || '未记录')}<small>${esc(o.moqText || '起订量未记录')}</small></td><td>${esc(o.salesText || '未显示')}</td><td>${url ? `<a class="table-link" href="${esc(url)}" target="_blank" rel="noopener">打开货源 ↗</a>` : '链接不可用'} ${offerDetailsLink(o)}</td><td><button class="delete-offer" data-delete-offer="${esc(o.id)}" title="删除货源">×</button></td></tr>`;
     }).join('');
   }
   function renderCertificates() {
@@ -106,7 +110,7 @@
     const offers = state.offers.filter(x => x.productId === product.id);
     const certificates = state.certificates.filter(x => x.productId === product.id);
     const sourceUrl = safeUrl(product.sourceUrl);
-    panel.innerHTML = `<div class="detail-top"><span class="eyebrow">PRODUCT DOSSIER</span><div class="detail-actions"><button class="icon-button" data-edit-product="${esc(product.id)}" title="编辑商品" aria-label="编辑商品">✎</button><button class="icon-button danger" data-delete-product="${esc(product.id)}" title="删除商品" aria-label="删除商品">×</button></div></div><h2>${esc(product.title)}</h2><p class="detail-subtitle">${esc(product.brand || '品牌待核')} · ${esc(product.category || '类目待补')} · ${esc(offers.find(o => o.shipFrom) ? shippingLabel(offers.find(o => o.shipFrom)) : '发货地待补')}</p><div class="detail-link-row">${sourceUrl ? `<a class="table-link" href="${esc(sourceUrl)}" target="_blank" rel="noopener">打开来源商品 ↗</a>` : '<span>暂无商品链接</span>'}<button class="text-action" data-search-similar="${esc(product.id)}">在 1688 搜同名货源 ↗</button></div>${product.images?.length ? `<div class="image-strip">${product.images.slice(0,8).map(src => { const url = safeUrl(src); return url ? `<a href="${esc(url)}" target="_blank" rel="noopener"><img src="${esc(url)}" alt="商品图片" loading="lazy"></a>` : ''; }).join('')}</div>` : ''}<section class="detail-section"><div class="section-heading"><h3>货源与报价 <span>${offers.length}</span></h3><button class="small-action" data-add-offer="${esc(product.id)}">＋ 添加货源</button></div>${offers.length ? offers.map(o => { const url = safeUrl(o.url); return `<article class="offer-card"><div><strong>${esc(o.supplierName || '供应商待补')}</strong><span>${esc(o.priceText || '价格待询')} · 起订 ${esc(o.moqText || '待询')}</span><small>${esc(o.salesText || '')} · ${esc(shippingLabel(o))}</small></div>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener" title="打开货源">↗</a>` : ''}</article>`; }).join('') : '<p class="subtle-empty">从搜索结果捕获货源，或手动添加候选供应商。</p>'}</section><section class="detail-section"><div class="section-heading"><h3>参数与资料</h3><button class="small-action" data-edit-product="${esc(product.id)}">编辑</button></div><p class="spec-text">${esc(product.specs || '尚未补充规格参数。')}</p></section><section class="detail-section"><div class="section-heading"><h3>认证核验 <span>${certificates.length}</span></h3><button class="small-action" data-add-cert="${esc(product.id)}">＋ 添加记录</button></div>${certificates.length ? certificates.map(c => `<div class="certificate-line"><span class="cert-status ${esc(c.status)}">${{unverified:'待核验',verified:'已核验',invalid:'未通过'}[c.status] || '待核验'}</span><span>${esc(c.type)} ${esc(c.number)}</span></div>`).join('') : '<p class="subtle-empty">记录证书编号和官方核验结果；商品页自述不自动标记为已核验。</p>'}</section><section class="detail-section notes-section"><span>内部备注</span><p>${esc(product.notes || '—')}</p></section><footer class="detail-footer">创建于 ${date(product.createdAt)} · ${product.images?.length || 0} 个图片链接</footer>`;
+    panel.innerHTML = `<div class="detail-top"><span class="eyebrow">PRODUCT DOSSIER</span><div class="detail-actions"><button class="icon-button" data-edit-product="${esc(product.id)}" title="编辑商品" aria-label="编辑商品">✎</button><button class="icon-button danger" data-delete-product="${esc(product.id)}" title="删除商品" aria-label="删除商品">×</button></div></div><h2>${esc(product.title)}</h2><p class="detail-subtitle">${esc(product.brand || '品牌待核')} · ${esc(product.category || '类目待补')} · ${esc(offers.find(o => o.shipFrom) ? shippingLabel(offers.find(o => o.shipFrom)) : '发货地待补')}</p><div class="detail-link-row">${sourceUrl ? `<a class="table-link" href="${esc(sourceUrl)}" target="_blank" rel="noopener">打开来源商品 ↗</a>` : '<span>暂无商品链接</span>'}<button class="text-action" data-search-similar="${esc(product.id)}">在 1688 搜同名货源 ↗</button></div>${product.images?.length ? `<div class="image-strip">${product.images.slice(0,8).map(src => { const url = safeUrl(src); return url ? `<a href="${esc(url)}" target="_blank" rel="noopener"><img src="${esc(url)}" alt="商品图片" loading="lazy"></a>` : ''; }).join('')}</div>` : ''}<section class="detail-section"><div class="section-heading"><h3>货源与报价 <span>${offers.length}</span></h3><button class="small-action" data-add-offer="${esc(product.id)}">＋ 添加货源</button></div>${offers.length ? offers.map(o => { const url = safeUrl(o.url); return `<article class="offer-card"><div><strong>${esc(o.supplierName || '供应商待补')}</strong><span>${esc(o.priceText || '价格待询')} · 起订 ${esc(o.moqText || '待询')}</span><small>${esc(o.salesText || '')} · ${esc(shippingLabel(o))}</small></div>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener" title="打开货源">↗</a>` : ''}${offerDetailsLink(o)}</article>`; }).join('') : '<p class="subtle-empty">从搜索结果捕获货源，或手动添加候选供应商。</p>'}</section><section class="detail-section"><div class="section-heading"><h3>参数与资料</h3><button class="small-action" data-edit-product="${esc(product.id)}">编辑</button></div><p class="spec-text">${esc(product.specs || '尚未补充规格参数。')}</p></section><section class="detail-section"><div class="section-heading"><h3>认证核验 <span>${certificates.length}</span></h3><button class="small-action" data-add-cert="${esc(product.id)}">＋ 添加记录</button></div>${certificates.length ? certificates.map(c => `<div class="certificate-line"><span class="cert-status ${esc(c.status)}">${{unverified:'待核验',verified:'已核验',invalid:'未通过'}[c.status] || '待核验'}</span><span>${esc(c.type)} ${esc(c.number)}</span></div>`).join('') : '<p class="subtle-empty">记录证书编号和官方核验结果；商品页自述不自动标记为已核验。</p>'}</section><section class="detail-section notes-section"><span>内部备注</span><p>${esc(product.notes || '—')}</p></section><footer class="detail-footer">创建于 ${date(product.createdAt)} · ${product.images?.length || 0} 个图片链接</footer>`;
   }
 
   function render() {
@@ -209,17 +213,17 @@
     if (action.dataset.deleteCert) { state.certificates = state.certificates.filter(x => x.id !== action.dataset.deleteCert); await save(); render(); return; }
   });
   $('#search').addEventListener('input', event => { state.query = event.target.value; render(); });
-  $('#export-button').addEventListener('click', () => download('imagegrab-research-backup.json', JSON.stringify({ schemaVersion: 1, exportedAt: new Date().toISOString(), products: state.products, offers: state.offers, certificates: state.certificates }, null, 2), 'application/json'));
+  $('#export-button').addEventListener('click', () => download('imagegrab-research-backup.json', JSON.stringify({ schemaVersion: 2, exportedAt: new Date().toISOString(), products: state.products, offers: state.offers, certificates: state.certificates }, null, 2), 'application/json'));
   $('#csv-button').addEventListener('click', () => {
     const headers = ['商品名','品牌','类目','来源','排名','商品链接','图片链接','规格参数','产地','供应商','供应商主页','货源链接','价格','起订量','页面销量','供应商地区','认证类型','证书编号','核验状态','核验来源','发货地','价格说明','商品参数JSON','规格报价JSON','图片角色JSON','销量来源JSON','视频链接'];
-    const rows = state.products.flatMap(p => { const offers = state.offers.filter(o => o.productId === p.id); const certs = state.certificates.filter(c => c.productId === p.id); return (offers.length ? offers : [{}]).flatMap(o => (certs.length ? certs : [{}]).map(c => [p.title,p.brand,p.category,p.sourceType,p.rank,p.sourceUrl,(p.images||[]).join(' '),p.specs,p.origin,o.supplierName,o.supplierUrl,o.url,o.priceText,o.moqText,o.salesText,o.location,c.type,c.number,c.status,c.evidenceUrl,o.shipFrom,o.priceContext,JSON.stringify(p.attributes||[]),JSON.stringify(p.skus||[]),JSON.stringify(p.media||[]),JSON.stringify(o.salesObservations||[]),(p.videoUrls||[]).join(' ')])); });
+    const rows = state.products.flatMap(p => { const offers = state.offers.filter(o => o.productId === p.id); const certs = state.certificates.filter(c => c.productId === p.id); return (offers.length ? offers : [{}]).flatMap(o => (certs.length ? certs : [{}]).map(c => [p.title,p.brand,p.category,p.sourceType,p.rank,p.sourceUrl,(p.images||[]).join(' '),p.specs,p.origin,o.supplierName,o.supplierUrl,o.url,o.priceText,o.moqText,o.salesText,o.location,c.type,c.number,c.status,c.evidenceUrl,o.shipFrom,o.priceContext,JSON.stringify(o.details?.attributes||[]),JSON.stringify(o.details?.skus||[]),JSON.stringify(o.details?.media||[]),JSON.stringify(o.salesObservations||[]),(p.videoUrls||[]).join(' ')])); });
     const csv = [headers, ...rows].map(row => row.map(v => { const value = String(v ?? '').replace(/^[\u0000-\u0020]*(?=[=+@-])/, "'"); return `"${value.replace(/"/g,'""')}"`; }).join(',')).join('\r\n'); download('imagegrab-research-export.csv', '\ufeff' + csv, 'text/csv;charset=utf-8');
   });
   function download(filename, content, type) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([content], { type })); a.download = filename; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
   $('#import-button').addEventListener('click', () => $('#import-file').click());
   $('#import-file').addEventListener('change', async event => {
     const file = event.target.files[0]; if (!file) return;
-    try { const data = JSON.parse(await file.text()); if (!Array.isArray(data.products) || !Array.isArray(data.offers) || !Array.isArray(data.certificates)) throw new Error('JSON 结构不匹配'); state.products = data.products; state.offers = data.offers; state.certificates = data.certificates; await save(); render(); toast('备份已导入'); }
+    try { const data = JSON.parse(await file.text()); if (!Array.isArray(data.products) || !Array.isArray(data.offers) || !Array.isArray(data.certificates)) throw new Error('JSON 结构不匹配'); state.products = data.products; state.offers = data.offers; state.certificates = data.certificates; offerData.migrate(state); await save(); render(); toast('备份已导入'); }
     catch (error) { toast(`导入失败：${error.message}`); }
     event.target.value = '';
   });
@@ -231,6 +235,7 @@
     state.offers = Array.isArray(saved.offers) ? saved.offers : [];
     state.certificates = Array.isArray(saved.certificates) ? saved.certificates : [];
     state.selectedId = state.products.some(p => p.id === saved.selectedId) ? saved.selectedId : '';
+    if (offerData.migrate(state)) await save();
     const capturePage = await chrome.storage.local.get(CAPTURE_KEY);
     if (capturePage[CAPTURE_KEY]?.products?.length) await importCapture();
     if (!state.selectedId) state.selectedId = state.products[0]?.id || '';

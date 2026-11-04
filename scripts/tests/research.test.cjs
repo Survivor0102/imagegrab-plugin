@@ -25,6 +25,7 @@ test('research workbench imports captured offers and manages product dossier dat
         tabs: { create: async () => ({ id: 1 }) }
       };
     });
+    await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/offer-data.js') });
     await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/research.js') });
     await page.locator('.product-row').waitFor();
     assert.equal(await page.locator('.product-row').count(), 1);
@@ -163,6 +164,7 @@ test('CSV export neutralizes spreadsheet formulas in captured product text', { t
         tabs: { create: async () => ({ id: 1 }) }
       };
     });
+    await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/offer-data.js') });
     await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/research.js') });
     const downloadPromise = page.waitForEvent('download');
     await page.locator('#csv-button').click();

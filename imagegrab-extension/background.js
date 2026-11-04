@@ -92,5 +92,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 });
-chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegrabVersion: '1.4.1' }));
+chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegrabVersion: '1.5.0' }));
 chrome.action.onClicked.addListener(() => chrome.tabs.create({ url: chrome.runtime.getURL('research.html') }));

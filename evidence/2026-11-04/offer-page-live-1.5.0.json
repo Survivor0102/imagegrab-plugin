@@ -1,0 +1,216 @@
+{
+  "verifiedAt": "2026-11-04T06:29:28.144Z",
+  "extensionVersion": "1.5.0",
+  "supplierName": "天台乐铭工艺品厂",
+  "offerUrl": "https://detail.1688.com/offer/678400004650.html",
+  "skuCount": 15,
+  "imageCount": 18,
+  "allImagesDecode": true,
+  "allDownloadsComplete": true,
+  "ui": {
+    "url": "chrome-extension://pohbjcpafhgfbjifdbickbpjfllbepgg/offer.html?id=65cba411-9c3b-4862-8c6b-20688dfd4031",
+    "skus": 15,
+    "sharedPictures": 15,
+    "downloadStatus": "图片下载：已完成 18，进行中 0，失败 0。\n文件位置：浏览器下载目录 / ImageGrab/货源-65cba411-9c3b-4862-8c6b-20688dfd4031/images"
+  },
+  "files": [
+    {
+      "file": "images/001-主图.webp",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01awCgQo2DACHUhi1oi_!!2214271038568-0-cib.jpg_.webp",
+      "bytes": 108150,
+      "sha256": "2209c96186d1a844b1b00acbc9ea88712efacd2734da0e15b6dbc0631cb729fa",
+      "width": 800,
+      "height": 800,
+      "format": "WEBP",
+      "browserDownloadId": 490,
+      "state": "complete"
+    },
+    {
+      "file": "images/002-主图.webp",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN018GG4Fk2DACGfXZVLn_!!2214271038568-0-cib.jpg_.webp",
+      "bytes": 177342,
+      "sha256": "ed06d6b9371688491bef9f4bc95c14d4069bce9080a9bd5b085f0960895e61cd",
+      "width": 1462,
+      "height": 1462,
+      "format": "WEBP",
+      "browserDownloadId": 491,
+      "state": "complete"
+    },
+    {
+      "file": "images/003-主图.webp",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN014BFIOI2DACGX2YtWl_!!2214271038568-0-cib.jpg_.webp",
+      "bytes": 122720,
+      "sha256": "8623e141b267e5fbe6c3f06e542a4462d3395485779e599ed8fe8adca8a20751",
+      "width": 1275,
+      "height": 1275,
+      "format": "WEBP",
+      "browserDownloadId": 492,
+      "state": "complete"
+    },
+    {
+      "file": "images/004-主图.webp",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01o8Wa7q2DACGeGAjkf_!!2214271038568-0-cib.jpg_.webp",
+      "bytes": 87568,
+      "sha256": "35170549249f0e15df7ba6f68b1709a1a2eee6a7364d4c467417ec5ed8957d0b",
+      "width": 1113,
+      "height": 1113,
+      "format": "WEBP",
+      "browserDownloadId": 493,
+      "state": "complete"
+    },
+    {
+      "file": "images/005-主图.webp",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN013ZNZfi2DACMX1NURK_!!2214271038568-0-cib.jpg_.webp",
+      "bytes": 16904,
+      "sha256": "09f87e001fd254aded3c1d0725ce787b14864398c4103bc0ee106a727f84ff55",
+      "width": 800,
+      "height": 800,
+      "format": "WEBP",
+      "browserDownloadId": 494,
+      "state": "complete"
+    },
+    {
+      "file": "images/006-主图.webp",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_.webp",
+      "bytes": 157314,
+      "sha256": "e75b4bcd4e404902c822149536d426f5e30b32161894adf64a6b65141c714989",
+      "width": 1299,
+      "height": 1299,
+      "format": "WEBP",
+      "browserDownloadId": 495,
+      "state": "complete"
+    },
+    {
+      "file": "images/007-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "bytes": 244285,
+      "sha256": "e0a9eae75321c7a645d01b6bc079a5ae57e2c065d4a465ee220f143b633133cd",
+      "width": 1299,
+      "height": 1299,
+      "format": "JPEG",
+      "browserDownloadId": 496,
+      "state": "complete"
+    },
+    {
+      "file": "images/008-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN014BFIOI2DACGX2YtWl_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "bytes": 216441,
+      "sha256": "fc62df57d224a80eeed2788d44c59b88122cbe5b8a4aedbb08d8215d74950bdc",
+      "width": 1275,
+      "height": 1275,
+      "format": "JPEG",
+      "browserDownloadId": 497,
+      "state": "complete"
+    },
+    {
+      "file": "images/009-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01o8Wa7q2DACGeGAjkf_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "bytes": 150071,
+      "sha256": "1293a3c51df5e3c163ad824f49a5ce0a2e9d822515ec5d93dfc7e41fc09a0c7c",
+      "width": 1113,
+      "height": 1113,
+      "format": "JPEG",
+      "browserDownloadId": 498,
+      "state": "complete"
+    },
+    {
+      "file": "images/010-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01dN1Ec12DACGXocKOb_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "bytes": 291025,
+      "sha256": "8abec4f453f9a5ae577b774d3a51167204eead18cd70fe1fe396bf693b8d6509",
+      "width": 1656,
+      "height": 1656,
+      "format": "JPEG",
+      "browserDownloadId": 499,
+      "state": "complete"
+    },
+    {
+      "file": "images/011-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN018GG4Fk2DACGfXZVLn_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "bytes": 290762,
+      "sha256": "a49fa12382d5e51c64e924bf400be81324aed9c3ae027e533753f334a295ed06",
+      "width": 1462,
+      "height": 1462,
+      "format": "JPEG",
+      "browserDownloadId": 500,
+      "state": "complete"
+    },
+    {
+      "file": "images/012-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01X0yt0B2DACGTykMuG_!!2214271038568-0-cib.jpg?__r__=1661000754718",
+      "bytes": 515876,
+      "sha256": "f0eb2cfb0142f511c8fbbaa542aa3003f54ee9f4a6118b2631fff3fcc6edeb55",
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "browserDownloadId": 501,
+      "state": "complete"
+    },
+    {
+      "file": "images/013-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01zroFk52DACGX3xpod_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "bytes": 45775,
+      "sha256": "ab41b0052dd010bf06fd6221c08ba33ebcaa464c95cb5164b25f759d655900ae",
+      "width": 750,
+      "height": 139,
+      "format": "JPEG",
+      "browserDownloadId": 502,
+      "state": "complete"
+    },
+    {
+      "file": "images/014-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01yTC1iC2DACGUli7Ud_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "bytes": 208329,
+      "sha256": "81ce8ed67e330df46e2d257337e01f9358ba312c937871d9fd4f43e330af9eda",
+      "width": 750,
+      "height": 866,
+      "format": "JPEG",
+      "browserDownloadId": 503,
+      "state": "complete"
+    },
+    {
+      "file": "images/015-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01HI0M7n2DACGgNYlPT_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "bytes": 46547,
+      "sha256": "b4c05b8cf5e2b8d46ea081ed02e648e4241d95f3e541a33cae273e6beb7cc1fc",
+      "width": 750,
+      "height": 139,
+      "format": "JPEG",
+      "browserDownloadId": 504,
+      "state": "complete"
+    },
+    {
+      "file": "images/016-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01qH1zQv2DACGNgUnJK_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "bytes": 286574,
+      "sha256": "d0def28c00879da9d3f0e6734a692a4b6ea95bcd5ee15997f75abf7f4b5ecdfe",
+      "width": 750,
+      "height": 1322,
+      "format": "JPEG",
+      "browserDownloadId": 505,
+      "state": "complete"
+    },
+    {
+      "file": "images/017-详情图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01Mp1noy2DACGeHWBhy_!!2214271038568-0-cib.jpg?__r__=1661001096669",
+      "bytes": 74026,
+      "sha256": "58b38b968b21f377378ba15c5e4b58346b90bfb1e1737a632ea89dd49a9fd0cf",
+      "width": 795,
+      "height": 297,
+      "format": "JPEG",
+      "browserDownloadId": 506,
+      "state": "complete"
+    },
+    {
+      "file": "images/018-规格选项图.jpg",
+      "url": "https://cbu01.alicdn.com/img/ibank/O1CN01Op4vyb2DACGTymJTT_!!2214271038568-0-cib.jpg_sum.jpg",
+      "bytes": 3334,
+      "sha256": "38e48457dd470106bc7415968bfd7f1cbbbb98935e9f771b53439039f6e148b0",
+      "width": 80,
+      "height": 80,
+      "format": "JPEG",
+      "browserDownloadId": 507,
+      "state": "complete"
+    }
+  ]
+}
