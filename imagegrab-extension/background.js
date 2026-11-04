@@ -1,4 +1,4 @@
-importScripts('offer-data.js', 'detail-options.js', 'detail-job.js');
+importScripts('offer-data.js', 'detail-options.js', 'detail-job.js', 'similar-search.js');
 const detailJobs = ImageGrabDetailJobs.create(chrome);
 chrome.alarms.onAlarm.addListener(alarm => { if (alarm.name === detailJobs.alarm) detailJobs.kick(); });
 chrome.runtime.onStartup.addListener(() => detailJobs.kick());
@@ -47,6 +47,27 @@ function readRankingCards() {
   }).filter(Boolean);
 }
 
+async function openSimilarSearch(keyword) {
+  const clean = normalizeSimilarKeyword(keyword);
+  if (!clean) throw Error('商品名称为空，无法搜索同名货源');
+  const tab = await chrome.tabs.create({ url: 'https://s.1688.com/selloffer/offer_search.htm', active: true });
+  const started = Date.now();
+  let lastError = '搜索页尚未加载完成';
+  while (Date.now() - started < 30000) {
+    const current = await chrome.tabs.get(tab.id);
+    if (/login|passport|punish|captcha|security/i.test(current.url || '')) throw Error('1688要求登录或安全验证，未自动填写搜索词');
+    // 1688 may keep the document in "loading" while its client app is already
+    // interactive. The search input is the useful readiness signal.
+    try {
+      const [result] = await chrome.scripting.executeScript({ target: { tabId: tab.id }, world: 'MAIN', func: fill1688Search, args: [clean] });
+      if (result?.result?.ok) return { ok: true, tabId: tab.id, keyword: result.result.keyword };
+      lastError = result?.result?.error || lastError;
+    } catch (error) { lastError = error.message; }
+    await new Promise(resolve => setTimeout(resolve, 700));
+  }
+  throw Error(lastError);
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.type === 'DETAIL_JOB_STATUS') {
     if (sender.id !== chrome.runtime.id || sender.url?.split(/[?#]/)[0] !== chrome.runtime.getURL('research.html')) {
@@ -54,6 +75,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     sendResponse({ ok: true, supported: true, version: chrome.runtime.getManifest().version });
     return false;
+  }
+  if (message?.type === 'OPEN_SIMILAR_SEARCH') {
+    if (sender.id !== chrome.runtime.id || sender.url?.split(/[?#]/)[0] !== chrome.runtime.getURL('research.html')) {
+      sendResponse({ ok: false, error: '请从选品研究台发起同名货源搜索' }); return false;
+    }
+    openSimilarSearch(message.keyword).then(sendResponse).catch(error => sendResponse({ ok: false, error: error.message }));
+    return true;
   }
   if (['DETAIL_JOB_START', 'DETAIL_JOB_STOP', 'DETAIL_JOB_RESUME'].includes(message?.type)) {
     if (sender.id !== chrome.runtime.id || sender.url?.split(/[?#]/)[0] !== chrome.runtime.getURL('research.html')) {

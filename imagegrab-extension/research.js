@@ -246,7 +246,18 @@
     if (action.dataset.editProduct) { openProduct(state.products.find(p => p.id === action.dataset.editProduct)); return; }
     if (action.dataset.addOffer) { openOffer(action.dataset.addOffer); return; }
     if (action.dataset.addCert) { openCertificate(action.dataset.addCert); return; }
-    if (action.dataset.searchSimilar) { const p = state.products.find(x => x.id === action.dataset.searchSimilar); if (p) chrome.tabs.create({ url: `https://s.1688.com/selloffer/offer_search.htm?keywords=${encodeURIComponent(p.title)}` }); return; }
+    if (action.dataset.searchSimilar) {
+      const p = state.products.find(x => x.id === action.dataset.searchSimilar);
+      if (!p) return;
+      action.disabled = true;
+      try {
+        const result = await chrome.runtime.sendMessage({ type: 'OPEN_SIMILAR_SEARCH', keyword: p.title });
+        if (!result?.ok) throw Error(result?.error || '同名货源搜索未启动');
+        toast(`已打开1688搜索：${result.keyword}`);
+      } catch (error) { toast(`搜索未完成：${error.message}`); }
+      finally { action.disabled = false; }
+      return;
+    }
     if (action.dataset.mergeInto) {
       const sourceId = action.dataset.mergeInto;
       const source = state.products.find(p => p.id === sourceId);
