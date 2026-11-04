@@ -73,6 +73,13 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     assert.equal(store.imagegrabResearchData.offers[0].supplierName, '木珠工厂');
     assert.equal(store.imagegrabResearchData.offers[0].salesObservations.length, 2);
     assert.match(await workbench.locator('#detail-panel').innerText(), /规格报价（3 项）/);
+    assert.match(await workbench.locator('.offer-card').innerText(), /发货地：浙江台州/);
+    assert.match(await workbench.locator('.status-text').innerText(), /基础资料齐全/);
+    await workbench.locator('[data-view="offers"]').click();
+    assert.match(await workbench.locator('tbody').innerText(), /发货地：浙江台州/);
+    assert.doesNotMatch(await workbench.locator('tbody').innerText(), /地区待补/);
+    await workbench.locator('#search').fill('浙江台州');
+    assert.equal(await workbench.locator('tbody tr').count(), 1);
     store.imagegrabResearchCapture = capture;
     await importAgain();
     assert.equal(store.imagegrabResearchData.offers[0].salesObservations.length, 2);
