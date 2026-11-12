@@ -1,0 +1,30 @@
+{
+  "version": "1.8.2",
+  "renderedRows": 8,
+  "renderedImagesLoaded": true,
+  "completedDownloads": 24,
+  "archives": {
+    "products": 221,
+    "offers": 221
+  },
+  "sku12W": [
+    {
+      "group": "灯光颜色",
+      "imageAssociation": "sku-row",
+      "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Jn77cn1lk6JOxoLLA_!!134694856.png_sum.jpg",
+      "priceText": "¥15",
+      "selectedOptions": [],
+      "stockText": "库存229件",
+      "value": "4寸12W白光钻孔11—13cm"
+    },
+    {
+      "group": "灯光颜色",
+      "imageAssociation": "sku-row",
+      "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01Jn77cn1lk6JOxoLLA_!!134694856.png_sum.jpg",
+      "priceText": "¥15",
+      "selectedOptions": [],
+      "stockText": "库存256件",
+      "value": "4寸12W中性光钻孔11—13cm"
+    }
+  ]
+}

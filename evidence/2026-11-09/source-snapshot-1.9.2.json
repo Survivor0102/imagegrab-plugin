@@ -1,0 +1,246 @@
+{
+  "extension_version": "1.9.2",
+  "snapshot_kind": "ImageGrab source integrity snapshot; see validation notes for synthetic tests and live-site status",
+  "files": [
+    {
+      "path": "imagegrab-extension/README.md",
+      "bytes": 1482,
+      "sha256": "3a593d31e0227d295932019364687f8b532f30c3143b649aa445f19b41257a65"
+    },
+    {
+      "path": "imagegrab-extension/background.js",
+      "bytes": 20538,
+      "sha256": "455b523ac44866c078c9cdcc8410f604177f697c1012c3f4be06b6d44947661f"
+    },
+    {
+      "path": "imagegrab-extension/content.css",
+      "bytes": 1651,
+      "sha256": "7c0ac545a20313820d235dc3a22ce52e294dc74f84b710d717709ca5a17b4d69"
+    },
+    {
+      "path": "imagegrab-extension/content.js",
+      "bytes": 6958,
+      "sha256": "84dba7ae91567c5556f3b8678356b6ec1bd78920afa9f9ff6d625ded2356784a"
+    },
+    {
+      "path": "imagegrab-extension/detail-capture.js",
+      "bytes": 6743,
+      "sha256": "18b8decae5ad52e94e45c9d0f695cf9da8a18c98b57d6aa74e8f4a03c884d928"
+    },
+    {
+      "path": "imagegrab-extension/detail-job.js",
+      "bytes": 14604,
+      "sha256": "0a3cf4f01fd3ed263564ad6cb9ddbde13092184f900e606d0cff1f22c8663fb0"
+    },
+    {
+      "path": "imagegrab-extension/detail-options.js",
+      "bytes": 5805,
+      "sha256": "8813c500a4e914bcc39f021b1eada7f989660233c50f91e100cf0cd0e0722a98"
+    },
+    {
+      "path": "imagegrab-extension/gallery.css",
+      "bytes": 2826,
+      "sha256": "6a00df2ec3cdba11b1beb47aac10f8b2834eecdc8a1665a1c9463c6446b794c1"
+    },
+    {
+      "path": "imagegrab-extension/gallery.html",
+      "bytes": 1523,
+      "sha256": "b482913a94f8e157aff7b98809e94d5045e3a7a3839d0aed15fbe935caa9e314"
+    },
+    {
+      "path": "imagegrab-extension/gallery.js",
+      "bytes": 5521,
+      "sha256": "f706276bb646c710abcdf4abb4d4c3bd3e7895c0af1f967477f8c351f066dc3f"
+    },
+    {
+      "path": "imagegrab-extension/manifest.json",
+      "bytes": 1240,
+      "sha256": "7495dbefff14f6c255fd7d927c15d99feede47768c66fda34570a66506971e06"
+    },
+    {
+      "path": "imagegrab-extension/ocr/LICENSE.tessdata_best",
+      "bytes": 10173,
+      "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+    },
+    {
+      "path": "imagegrab-extension/ocr/LICENSE.tesseract.js-core",
+      "bytes": 11358,
+      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
+    },
+    {
+      "path": "imagegrab-extension/ocr/LICENSE.tesseract.js.md",
+      "bytes": 11357,
+      "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+    },
+    {
+      "path": "imagegrab-extension/ocr/core/tesseract-core-lstm.wasm.js",
+      "bytes": 3896484,
+      "sha256": "eef5f8b2f8e20e150680b20adaec4a60babafee3adbe8a94583c81fee46e8680"
+    },
+    {
+      "path": "imagegrab-extension/ocr/core/tesseract-core-relaxedsimd-lstm.wasm.js",
+      "bytes": 3905767,
+      "sha256": "861a536cf9ef8e63cb644d57bab39c388f37f7d6b6f60024b741c5f6b39a59b3"
+    },
+    {
+      "path": "imagegrab-extension/ocr/core/tesseract-core-relaxedsimd.wasm.js",
+      "bytes": 4697227,
+      "sha256": "843074aa5bad1cc6421b74a86201768ced9f244795e4d81435435a61a40ce535"
+    },
+    {
+      "path": "imagegrab-extension/ocr/core/tesseract-core-simd-lstm.wasm.js",
+      "bytes": 3899472,
+      "sha256": "c58b46a4c796c0b8afccf77591d5b875b6896b45d402bbce8caa6f5362447b38"
+    },
+    {
+      "path": "imagegrab-extension/ocr/core/tesseract-core-simd.wasm.js",
+      "bytes": 4690932,
+      "sha256": "6b61ef4e911b5cf57e656bbfe983d6e2b3711a02dd164154ddda064566e8e09d"
+    },
+    {
+      "path": "imagegrab-extension/ocr/core/tesseract-core.wasm.js",
+      "bytes": 4687944,
+      "sha256": "0bc6ce3e5fbbd0cd89706cf2fd70960e3372f4f01ee24265b26990808aaeb286"
+    },
+    {
+      "path": "imagegrab-extension/ocr/lang/chi_sim.traineddata.gz",
+      "bytes": 1730011,
+      "sha256": "3aa140069a09796b8cb8d3ccd0c052e8ed67f20cddb24b70ffa3344b3b94346b"
+    },
+    {
+      "path": "imagegrab-extension/ocr/lang/eng.traineddata.gz",
+      "bytes": 1984273,
+      "sha256": "18c1ac52b75e35d44735fb6c2a60acfaf23033524653200738e98f0243edb75b"
+    },
+    {
+      "path": "imagegrab-extension/ocr/tesseract.min.js",
+      "bytes": 62961,
+      "sha256": "000c27d9cd0def655f77b36c72a389c0ab13793aa31cb4d7aab56d09c0afbc7e"
+    },
+    {
+      "path": "imagegrab-extension/ocr/worker.min.js",
+      "bytes": 111307,
+      "sha256": "576b7df7e3393e137e51849357c9adb53fe7ac1bb69bfa06cf3d61520f182c6d"
+    },
+    {
+      "path": "imagegrab-extension/offer-data.js",
+      "bytes": 2069,
+      "sha256": "770ef2b45b4c4db96b5055fd98ce56833f8b58de3192dd7e8f8a064d1fa582e0"
+    },
+    {
+      "path": "imagegrab-extension/offer.css",
+      "bytes": 2567,
+      "sha256": "0ede679ba8d0a565777be271e3d94ff02018243bb527d1bda95a4286ba75b068"
+    },
+    {
+      "path": "imagegrab-extension/offer.html",
+      "bytes": 962,
+      "sha256": "e869e7c182a1c8d8b948d488367fac24b34fb2424609ce4df7bfd41f1644d1d1"
+    },
+    {
+      "path": "imagegrab-extension/offer.js",
+      "bytes": 10876,
+      "sha256": "dc27fe4bda0cef80e865b903b9c49c3a9b1ffbc729a72e9db1a83535585a8130"
+    },
+    {
+      "path": "imagegrab-extension/ranking-scope.js",
+      "bytes": 5624,
+      "sha256": "3c458013b5c66c4e4a2924685a16d3877ff61687be6657b8f3ae3682248e5d82"
+    },
+    {
+      "path": "imagegrab-extension/research-capture.js",
+      "bytes": 18669,
+      "sha256": "f3eed25e08ba1b60b27bed0fdc6ca7e6515aed48f55edc5bd3bb65448c5f2f72"
+    },
+    {
+      "path": "imagegrab-extension/research.css",
+      "bytes": 14522,
+      "sha256": "7d301eee3682fbf71313179c14d6c02118b2cec61919c4daef679c2eb75cb5e1"
+    },
+    {
+      "path": "imagegrab-extension/research.html",
+      "bytes": 19904,
+      "sha256": "d641d0ac228c204240dcce09d5c908d4b09107a996b31eb5296cfac1ae90a3b5"
+    },
+    {
+      "path": "imagegrab-extension/research.js",
+      "bytes": 42831,
+      "sha256": "f055a7675d997cab16b7d43958415e50650210093a2ca7a5f42549f0eca39e34"
+    },
+    {
+      "path": "imagegrab-extension/sales.js",
+      "bytes": 704,
+      "sha256": "b0c926b2c2770d888826f1e630dfe671c813281bf7b2a4c89624724c83d554be"
+    },
+    {
+      "path": "imagegrab-extension/similar-search.js",
+      "bytes": 2365,
+      "sha256": "ee4bc6050387f38021c2767407b81b161a0a7d32d109acbc4cec15c022250dfd"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-auto-results.js",
+      "bytes": 7571,
+      "sha256": "0d67679f7b70763f7e2d59c79ac7cd6a1da0517b38b99e43501ae966e6f3bc5a"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-auto.js",
+      "bytes": 12818,
+      "sha256": "de439cd6d53a631e964ec3bfde936ef02a38e60b1ecbbf8e11e0cd9bfc647693"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-image.css",
+      "bytes": 1585,
+      "sha256": "d4b1d5fb0aa0a9159c62f99c3ea29b7a83fe5ebf0516e3617d8b20272d6a17ba"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-image.js",
+      "bytes": 4467,
+      "sha256": "95e494acc849a1ba65f9a539d6ed7dde42382b222bd10492a559ae92aa5f56b7"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-match.js",
+      "bytes": 7166,
+      "sha256": "67d2aeb4087305374f17be80b35bf5150fa259b0d6352dd05e7256495af9931e"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-native.js",
+      "bytes": 4069,
+      "sha256": "b9c3c12daebb0759964d5f13090eda099f1865214c9744b98aeeb3485184b79c"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-results.js",
+      "bytes": 4263,
+      "sha256": "826435da2a1e1a743063780771063af1d8fe128d26181c48482026e76870f372"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-search.js",
+      "bytes": 1637,
+      "sha256": "86370b20da22f8d242a835d429ef2ec8bd5da21398ee5fb9e62b044b284a7b93"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-store.js",
+      "bytes": 5261,
+      "sha256": "df01267c3cacdcd6f384f0ea23f4c904b3095d5ea176d7ed7d3e4f47c3bc1bcb"
+    },
+    {
+      "path": "imagegrab-extension/sourcing-workspace.css",
+      "bytes": 1094,
+      "sha256": "84248d27ea03d809f725fe0b13a64ec140140f2304dfa3863d372d9f1c39b858"
+    },
+    {
+      "path": "imagegrab-extension/sourcing.css",
+      "bytes": 1738,
+      "sha256": "60ed50094c85c0247acfac369823aa440f6771b93eebe0c37f938f43094dec0a"
+    },
+    {
+      "path": "imagegrab-extension/sourcing.html",
+      "bytes": 426,
+      "sha256": "d9237c81b9d03d25c58a70766776da16d1fc1c2dd83bcfd4b5373beebe0b5ba5"
+    },
+    {
+      "path": "imagegrab-extension/sourcing.js",
+      "bytes": 12721,
+      "sha256": "2c5183d00ab271f4d806311ee1eb712b3bdb6117a9df39109880dc0e8034e6e2"
+    }
+  ]
+}

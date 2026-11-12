@@ -1,0 +1,22 @@
+{
+  "version": "1.8.2",
+  "relatedTests": {
+    "passed": 4
+  },
+  "fullSuiteFirstRun": {
+    "passed": 48,
+    "cancelledTimeout": 1
+  },
+  "isolatedIntegrationRerun": {
+    "passed": 1,
+    "milliseconds": 51922
+  },
+  "zipSourceFilesVerified": 28,
+  "live": {
+    "skuRows": 8,
+    "imageDownloadsComplete": 24,
+    "allImagesDecoded": true,
+    "supplierSku12WPrice": "15 CNY for each of white / neutral",
+    "imageFilesIncludeSameArtworkResolutions": true
+  }
+}

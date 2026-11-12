@@ -21,12 +21,18 @@ async function fixture() {
     window.__opened = [];
     window.chrome = {
       runtime: {
-        onMessage: { addListener: fn => { window.__backgroundListener = fn; } },
+        onMessage: { addListener: fn => { (window.__messageListeners ||= []).push(fn); } },
         onInstalled: { addListener() {} }, getURL: name => `chrome-extension://fixture/${name}`,
         onStartup: { addListener() {} },
         sendMessage(message, callback) {
           window.__messages.push(message);
-          window.__backgroundListener(message, { tab: { id: 7, url: location.href }, url: location.href, frameId: 0 }, callback || (() => {}));
+          const reply = callback || (() => {});
+          for (const listener of window.__messageListeners || []) {
+            let responded = false;
+            const response = value => { responded = true; reply(value); };
+            const pending = listener(message, { tab: { id: 7, url: location.href }, url: location.href, frameId: 0 }, response);
+            if (responded || pending === true) return;
+          }
         }
       },
       storage: { local: {
@@ -95,6 +101,22 @@ test('ranking auto capture scrolls its nested list, deduplicates accumulated car
     assert.equal(job.finishReason, '列表滚动后未检测到新增商品（已停止）');
     assert.equal(new Set(job.products.map(row => row.url)).size, 3);
     assert.ok(await page.locator('.cgf-sale-list-container').evaluate(el => el.scrollTop > 0));
+  } finally { await browser.close(); }
+});
+
+test('ranking auto capture waits for cards when the ranking page hydrates after start', { timeout: 30000 }, async () => {
+  const { browser, page } = await fixture();
+  try {
+    await page.evaluate(() => {
+      document.querySelectorAll('.cgf-product-card').forEach(card => card.remove());
+      setTimeout(() => window.__addCard('678400009999', '2.4K', '迟加载测试商品'), 900);
+    });
+    await page.locator('#imagegrab-research-auto-button').click();
+    await page.waitForFunction(() => window.__store.imagegrabResearchAutoJob?.running === false, null, { timeout: 18000 });
+    const job = await page.evaluate(() => window.__store.imagegrabResearchAutoJob);
+    assert.equal(job.products.length, 1);
+    assert.equal(job.products[0].title, '迟加载测试商品');
+    assert.equal(job.finishReason, '列表滚动后未检测到新增商品（已停止）');
   } finally { await browser.close(); }
 });
 

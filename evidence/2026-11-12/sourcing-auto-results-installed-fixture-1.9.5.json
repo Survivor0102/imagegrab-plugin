@@ -1,0 +1,13 @@
+{
+  "version": "1.9.5",
+  "kind": "Installed extension with synthetic candidate data and image routes; permission decision simulated only for the scoring branch",
+  "refreshKeepsAutomaticResults": true,
+  "manualPoolIndependent": true,
+  "missingScoreExplicit": true,
+  "comparedImages": 2,
+  "missingImage": 1,
+  "restoresScoresWithoutRerun": true,
+  "selectionAndGroupPersist": true,
+  "manualArchiveAndDetailJobUnchanged": true,
+  "pageErrors": []
+}

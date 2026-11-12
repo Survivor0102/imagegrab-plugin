@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "ImageGrab extension and reproducible collection workflow",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "verify": "node scripts/verify-snapshot.cjs",
     "snapshot": "node scripts/update-source-snapshot.cjs",
@@ -11,7 +13,10 @@
     "doctor": "node scripts/collect.cjs --check",
     "smoke": "node scripts/collect.cjs --smoke",
     "collect": "node scripts/collect.cjs",
-    "test": "node --test scripts/tests/*.test.cjs"
+    "test": "node --test --test-concurrency=1 scripts/tests/*.test.cjs"
   },
-  "dependencies": { "playwright": "1.62.1" }
+  "dependencies": {
+    "playwright": "1.62.1",
+    "tesseract.js": "7.0.0"
+  }
 }

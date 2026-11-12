@@ -17,7 +17,7 @@ test('supplier detail page migrates real sample, isolates offers, exports SKUs a
     await page.route('**/*', route => {
       const url = new URL(route.request().url());
       if (url.hostname === 'fixture.test') {
-        const file = path.join(root, 'imagegrab-extension', path.basename(url.pathname));
+        const file = path.join(root, 'imagegrab-extension', url.pathname.replace(/^\/+/, ''));
         const type = file.endsWith('.js') ? 'application/javascript' : file.endsWith('.css') ? 'text/css' : 'text/html';
         return route.fulfill({ contentType: type, body: fs.readFileSync(file) });
       }

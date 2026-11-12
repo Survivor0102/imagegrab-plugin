@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-11-12T14:53:17.541Z",
+  "version": "1.9.4",
+  "kind": "Installed extension with synthetic screenshot; bundled offline OCR and workspace-tab navigation",
+  "recognized": {
+    "title": "悦鲜活 鲜牛奶 260ml",
+    "brand": "悦鲜活",
+    "specs": "260ml",
+    "raw": "悦鲜活 鲜牛奶 260ml\n品牌: 悦鲜活 规格: 260m\n"
+  },
+  "manualModePreserved": true,
+  "networkOcr": false,
+  "serviceWorkerErrors": []
+}

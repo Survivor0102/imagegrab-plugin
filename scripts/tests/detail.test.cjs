@@ -19,9 +19,9 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
       <div id="mainPrice"><div class="price-info">¥ 0.01 ~ ¥ 1.20</div><div class="price-component"><p>100个起批60天老客价</p></div><span class="old-customer-tag">60天老客价</span><div class="sold-count"><div class="slick-slide">已售10万+个</div><div class="slick-slide slick-cloned">已售10万+个</div></div></div>
       <div id="shippingServices"><span class="location">浙江台州</span><span>收货到不应收录的私人地址</span></div>
       <div id="productPackInfo"><table><thead><tr><th>重量(g)</th></tr></thead><tbody><tr><td>50</td></tr></tbody></table></div>
-      <div id="gallery"><img class="preview-img" src="https://img.test/main.jpg"><img src="https://img.test/icon.jpg"></div>
+      <div id="gallery"><img class="preview-img" src="https://img.test/main.jpg"><img class="preview-img" src="https://img.test/variant.jpg_.webp"><img src="https://img.test/icon.jpg"></div>
       <div id="description"><v-detail-j></v-detail-j></div>
-      <div id="skuSelection"><div class="feature-item"><h3>颜色</h3><div class="sku-filter-button active"><span class="label-name">原木色</span><img src="https://img.test/color.jpg"></div></div><div class="feature-item"><h3>尺寸</h3>${['6mm','8mm','10mm'].map(value => `<div class="expand-view-item"><span class="item-label" title="${value}">${value}</span><span class="item-price-stock">¥0.01</span><span class="item-price-stock">库存100个</span><input></div>`).join('')}</div></div>
+      <div id="skuSelection"><div class="feature-item"><h3>颜色</h3><div class="sku-filter-button active"><span class="label-name">原木色</span><img src="https://img.test/variant.jpg_sum.jpg"></div></div><div class="feature-item"><h3>尺寸</h3>${['6mm','8mm','10mm'].map(value => `<div class="expand-view-item"><span class="item-label" title="${value}">${value}</span><span class="item-price-stock">¥0.01</span><span class="item-price-stock">库存100个</span><input></div>`).join('')}</div></div>
       <aside><a href="https://detail.1688.com/offer/999.html"><img src="https://img.test/unrelated.jpg">推荐商品</a></aside>`);
     await page.evaluate(() => {
       document.querySelector('v-detail-j').attachShadow({ mode: 'open' }).innerHTML = '<style>.private{color:red}</style><img src="https://img.test/description.jpg"><a href="https://detail.1688.com/offer/999.html"><img src="https://img.test/recommended-in-description.jpg"></a>';
@@ -55,7 +55,9 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     assert.equal(row.moqText, '100个起批');
     assert.equal(row.skus.length, 3);
     assert.equal(row.skus[0].imageAssociation, 'selected-option-shared');
-    assert.deepEqual(row.media.map(x => x.role), ['main', 'description', 'sku-option']);
+    assert.equal(row.skus[0].imageUrl, 'https://img.test/variant.jpg_.webp');
+    assert.equal(row.skus[0].thumbnailUrl, 'https://img.test/variant.jpg_sum.jpg');
+    assert.deepEqual(row.media.map(x => x.role), ['main', 'main', 'description', 'sku-option']);
     assert.equal(row.videoUrls.length, 0);
     assert.equal(row.salesObservations.length, 1);
     assert.doesNotMatch(JSON.stringify(row), /私人地址|unrelated|recommended|color:red/);
@@ -75,6 +77,26 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     assert.equal(single.skus[0].priceText, '¥0.01');
     assert.equal(single.skus[0].stockText, '库存100个');
     assert.equal(single.skus[1].stockText, '库存不足');
+
+    // A SKU row can carry its own image instead of sharing a selected color.
+    const rowImages = await page.evaluate(() => {
+      const rows = document.querySelectorAll('#skuSelection .expand-view-item');
+      rows[0].insertAdjacentHTML('afterbegin', '<img src="https://img.test/12w.jpg">');
+      rows[1].insertAdjacentHTML('afterbegin', '<img src="https://img.test/18w.jpg">');
+      return ImageGrabDetail.collect();
+    });
+    assert.equal(rowImages.skus[0].imageUrl, 'https://img.test/12w.jpg');
+    assert.equal(rowImages.skus[1].imageUrl, 'https://img.test/18w.jpg');
+    assert.equal(rowImages.skus[0].imageAssociation, 'sku-row');
+    assert.equal(rowImages.skus[2].imageAssociation, 'selected-option-shared');
+    assert(rowImages.media.some(x => x.role === 'sku-option' && x.url === 'https://img.test/12w.jpg'));
+
+    const rowOnly = await page.evaluate(() => {
+      document.querySelector('.sku-filter-button').remove();
+      return ImageGrabDetail.collect();
+    });
+    assert.equal(rowOnly.skus[0].imageUrl, 'https://img.test/12w.jpg');
+    assert.equal(rowOnly.skus[2].imageAssociation, 'not-found');
 
     const store = { imagegrabResearchData: { products: [{ id: 'p1', title: '榜单木珠', sourceUrl: 'https://detail.1688.com/offer/123.html?old=2', sourceType: 'ranking', images: [] }], offers: [{ id: 'o1', productId: 'p1', url: 'https://detail.1688.com/offer/123.html?old=2', salesText: '1.2M 月销量', sourceType: 'ranking', sourceUrl: 'https://air.1688.com/ranking' }], certificates: [] }, imagegrabResearchCapture: capture };
     const workbench = await browser.newPage();

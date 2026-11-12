@@ -6,14 +6,38 @@
   function http(value) { if (!value) return ''; try { const u = new URL(value, location.href); return /^https?:$/.test(u.protocol) ? u.href : ''; } catch { return ''; } }
   function canonical(value) { const match = String(value || '').match(/(?:detail|offer)\.1688\.com\/offer\/(\d+)\.html/); return match ? `https://detail.1688.com/offer/${match[1]}.html` : http(value); }
   function imageKey(value) { return value.replace(/\.(jpg|png|jpeg)(?:_[^/?]*)?(?:\?[^#]*)?$/i, '.$1'); }
+  function variantKey(value) {
+    try {
+      const url = new URL(value, location.href);
+      return url.pathname.replace(/(?:_sum\.(?:jpe?g|png|webp)|_\.(?:jpe?g|png|webp))$/i, '').toLowerCase();
+    } catch { return ''; }
+  }
+  function imageInfo(img) {
+    const url = http(img?.currentSrc || img?.getAttribute('src') || img?.dataset?.src || img?.dataset?.original || '');
+    if (!url) return null;
+    return { url, width: Number(img.naturalWidth) || 0, height: Number(img.naturalHeight) || 0 };
+  }
+  function bestLoadedVariant(sourceUrl) {
+    const key = variantKey(sourceUrl);
+    if (!key) return { url: sourceUrl, thumbnailUrl: '', width: 0, height: 0 };
+    const candidates = all(document, '#gallery img.preview-img, .od-gallery-preview img.preview-img')
+      .map(imageInfo).filter(item => item && variantKey(item.url) === key);
+    const source = { url: sourceUrl, thumbnailUrl: '', width: 0, height: 0 };
+    const best = candidates
+      .filter(item => item.url !== sourceUrl && (item.width * item.height > 0 || /_\.(?:jpe?g|png|webp)(?:[?#]|$)/i.test(item.url)))
+      .sort((a, b) => (b.width * b.height) - (a.width * a.height))[0];
+    return best ? { url: best.url, thumbnailUrl: sourceUrl, width: best.width, height: best.height } : source;
+  }
   function images(root, selector, role) {
     const seen = new Set();
     return all(root, selector).flatMap(img => {
       const link = img.closest('a[href]');
       if (link && /\/offer\/\d+/.test(link.href) && canonical(link.href) !== canonical(location.href)) return [];
-      const url = http(img.currentSrc || img.getAttribute('src') || img.dataset.src || img.dataset.original || '');
-      if (!url || /(?:placeholder|loading|sprite|avatar|logo)/i.test(url) || seen.has(imageKey(url))) return [];
-      seen.add(imageKey(url)); return [{ url, role, sourceUrl: canonical(location.href) }];
+      const raw = imageInfo(img);
+      if (!raw || /(?:placeholder|loading|sprite|avatar|logo)/i.test(raw.url) || seen.has(imageKey(raw.url))) return [];
+      seen.add(imageKey(raw.url));
+      const variant = role === 'sku-option' ? bestLoadedVariant(raw.url) : { url: raw.url, thumbnailUrl: '', width: raw.width, height: raw.height };
+      return [{ url: variant.url, thumbnailUrl: variant.thumbnailUrl, width: variant.width || raw.width, height: variant.height || raw.height, role, sourceUrl: canonical(location.href) }];
     });
   }
   function shadowRoots(root) {
@@ -32,16 +56,22 @@
     const supplier = document.querySelector('#shopNavigation a.shop-company-name');
     const mainImages = images(document.querySelector('#gallery'), 'img.preview-img', 'main');
     const descriptionImages = shadowRoots(document.querySelector('#description')).flatMap(root => images(root, 'img', 'description'));
-    const optionImages = images(document.querySelector('#skuSelection'), '.sku-filter-button img', 'sku-option');
+    const optionImages = images(document.querySelector('#skuSelection'), '.sku-filter-button img, .expand-view-item img', 'sku-option');
     const media = [...mainImages, ...descriptionImages, ...optionImages].filter((item, i, list) => list.findIndex(x => x.url === item.url && x.role === item.role) === i);
     const groups = all(document, '#skuSelection .feature-item');
-    const selectedOptions = groups.flatMap(group => all(group, '.sku-filter-button.active').map(button => ({ group: text(group.querySelector('h3')), value: text(button.querySelector('.label-name')) || text(button), imageUrl: images(button, 'img', 'sku-option')[0]?.url || '' })));
-    const skus = groups.flatMap(group => all(group, '.expand-view-item').map(row => ({
+    const selectedOptions = groups.flatMap(group => all(group, '.sku-filter-button.active').map(button => {
+      const image = images(button, 'img', 'sku-option')[0];
+      return { group: text(group.querySelector('h3')), value: text(button.querySelector('.label-name')) || text(button), imageUrl: image?.url || '', thumbnailUrl: image?.thumbnailUrl || '', imageWidth: image?.width || 0, imageHeight: image?.height || 0 };
+    }));
+    const skus = groups.flatMap(group => all(group, '.expand-view-item').map(row => {
+      const rowImage = images(row, 'img', 'sku-option')[0];
+      const selectedImage = selectedOptions.find(o => o.imageUrl);
+      return {
       group: text(group.querySelector('h3')), value: row.querySelector('.item-label')?.getAttribute('title') || text(row.querySelector('.item-label')) || (group.classList.contains('pseudo') ? '默认规格（页面未列名称）' : ''),
       priceText: all(row, '.item-price-stock').map(text).find(v => /[¥￥]/.test(v)) || '',
       stockText: all(row, '.item-price-stock').map(text).find(v => /库存/.test(v)) || text(row.querySelector('.item-count-invalid')),
-      selectedOptions, imageUrl: selectedOptions.find(o => o.imageUrl)?.imageUrl || '', imageAssociation: selectedOptions.some(o => o.imageUrl) ? 'selected-option-shared' : 'not-found'
-    })).filter(row => row.value));
+      selectedOptions, imageUrl: rowImage?.url || selectedImage?.imageUrl || '', thumbnailUrl: rowImage?.thumbnailUrl || selectedImage?.thumbnailUrl || '', imageWidth: rowImage?.width || selectedImage?.imageWidth || 0, imageHeight: rowImage?.height || selectedImage?.imageHeight || 0, imageAssociation: rowImage ? 'sku-row' : selectedImage ? 'selected-option-shared' : 'not-found'
+    };}).filter(row => row.value));
     const salesObservations = unique(all(document, '#mainPrice .sold-count .slick-slide:not(.slick-cloned)').map(text)).map(value => ({ text: value, metric: 'detail-displayed-sales', sourceUrl: url, capturedAt }));
     const priceText = text(document.querySelector('#mainPrice .price-info')).replace(/\s+/g, '');
     const priceContext = text(document.querySelector('#mainPrice .old-customer-tag'));

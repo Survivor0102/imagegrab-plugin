@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-05",
+  "browser": {
+    "product": "Chrome/155.0.8059.86",
+    "connection": "普通 Chrome 原生 WebSocket CDP",
+    "port": 9222,
+    "startedByThisTask": false,
+    "browserClosedByThisTask": false
+  },
+  "extension": {
+    "id": "pohbjcpafhgfbjifdbickbpjfllbepgg",
+    "version": "1.7.1",
+    "researchPageReloaded": true
+  },
+  "scope": {
+    "rankingKey": "trend",
+    "rankingLabel": "近期趋势",
+    "rankingName": "TRENDING",
+    "categoryKey": "home",
+    "categoryName": "居家日用品",
+    "cateId": 15,
+    "countryCode": "CN",
+    "countryName": "中国",
+    "url": "https://air.1688.com/kapp/1688-global/sales/ranking?rankingName=TRENDING&countryCode=CN&platform=cbu&cateId=15&cateLevel=1"
+  },
+  "results": {
+    "pageCards": 20,
+    "capturedProducts": 20,
+    "titlePriceSalesMatches": "20/20",
+    "research台ImportedWithScope": "20/20",
+    "research台ProductCountBefore": 140,
+    "research台ProductCountAfter": 160,
+    "stopReason": "列表滚动后未检测到新增商品（已停止）"
+  },
+  "boundary": "本次验证确认了所选榜单页的20张实际商品卡片和范围标签；没有据此声称完整Top1000已验证。"
+}

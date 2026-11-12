@@ -3,8 +3,10 @@
   const STORAGE_KEY = 'imagegrabResearchData';
   const CAPTURE_KEY = 'imagegrabResearchCapture';
   const JOB_KEY = 'imagegrabDetailJob';
+  const SCOPE_KEY = 'imagegrabResearchScope';
   let detailJob = null;
-  const state = { products: [], offers: [], certificates: [], view: location.hash === '#offers' ? 'offers' : 'products', filter: 'all', selectedId: '', query: '' };
+  const hashView = location.hash.slice(1);
+  const state = { products: [], offers: [], certificates: [], view: hashView === 'image-sourcing' ? 'sourcing' : ['offers', 'certificates', 'sourcing'].includes(hashView) ? hashView : 'products', sourcingMode: hashView === 'image-sourcing' ? 'image' : 'manual', filter: 'all', filterRanking: 'all', filterCategory: 'all', selectedId: '', query: '' };
   const offerData = globalThis.ImageGrabOfferData;
   const $ = selector => document.querySelector(selector);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -13,6 +15,42 @@
   const id = () => globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
   const date = value => value ? new Date(value).toLocaleDateString('zh-CN') : '—';
   const toast = message => { const el = $('#toast'); el.textContent = message; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2400); };
+  const rankingScope = globalThis.ImageGrabRankingScope;
+  const scopeState = { ...(rankingScope?.defaults || {}) };
+  function renderScope() {
+    if (!rankingScope || !$('#scope-ranking')) return;
+    $('#scope-ranking').innerHTML = rankingScope.RANKINGS.map(item => `<button type="button" class="scope-option ${scopeState.rankingKey === item.key ? 'active' : ''}" data-ranking-key="${item.key}">${item.label}</button>`).join('');
+    $('#scope-category').innerHTML = rankingScope.CATEGORIES.map(item => `<option value="${item.key}">${item.label}</option>`).join('');
+    $('#scope-category').value = scopeState.categoryKey;
+    $('#scope-status').textContent = `${scopeState.rankingLabel || '人气热销'} · ${scopeState.categoryName || '居家日用品'} · 中国`;
+  }
+  function renderRankingFilters() {
+    if (!rankingScope) return;
+    const ranking = $('#filter-ranking'), category = $('#filter-category');
+    if (ranking.options.length === 1) ranking.insertAdjacentHTML('beforeend', rankingScope.RANKINGS.map(item => `<option value="${esc(item.key)}">${esc(item.label)}</option>`).join(''));
+    if (category.options.length === 1) category.insertAdjacentHTML('beforeend', rankingScope.CATEGORIES.map(item => `<option value="${esc(item.key)}">${esc(item.label)}</option>`).join(''));
+    ranking.value = state.filterRanking; category.value = state.filterCategory;
+  }
+  function updateScope(patch) {
+    Object.assign(scopeState, rankingScope.normalize({ ...scopeState, ...patch }));
+    chrome.storage.local.set({ [SCOPE_KEY]: scopeState });
+    renderScope();
+  }
+  async function startScopedRanking() {
+    const status = $('#scope-status');
+    const button = $('#scope-start');
+    button.disabled = true; button.classList.add('scope-starting');
+    try {
+      if (!rankingScope) throw Error('榜单范围模块尚未加载，请刷新研究台');
+      const scope = rankingScope.normalize(scopeState);
+      if (!scope.cateId) throw Error('当前大类没有可用的1688类目 ID');
+      await chrome.storage.local.set({ [SCOPE_KEY]: scope });
+      const result = await chrome.runtime.sendMessage({ type: 'OPEN_RANKING_SCOPE', scope });
+      if (!result?.ok) throw Error(result?.error || '榜单采集未启动');
+      status.className = 'scope-status'; status.textContent = `已打开：${scope.rankingLabel} · ${scope.categoryName} · 中国；采集在榜单页后台进行。`;
+    } catch (error) { status.className = 'scope-status error'; status.textContent = error.message; }
+    finally { button.disabled = false; button.classList.remove('scope-starting'); }
+  }
   const save = async () => {
     const job = (await chrome.storage.local.get(JOB_KEY))[JOB_KEY];
     if (job?.status === 'running') throw Error('详情补全期间请先停止任务再编辑档案');
@@ -21,17 +59,18 @@
 
   function renderDetailJob() {
     const job = detailJob, items = job?.items || [], running = job?.status === 'running';
-    const finished = items.filter(i => ['complete','skipped'].includes(i.status)).length;
+    const finished = items.filter(i => ['complete','skipped','unavailable'].includes(i.status)).length;
     const errors = items.filter(i => ['failed','partial','blocked'].includes(i.status)).length;
     const current = items.find(i => i.status === 'running');
     $('#detail-job-start').disabled = running || !state.offers.length;
     $('#detail-job-scope').disabled = running;
+    $('#detail-job-recapture').disabled = running;
     $('#detail-job-stop').hidden = !running;
-    $('#detail-job-resume').hidden = !job || running || !items.some(i => !['complete','skipped'].includes(i.status));
-    $('#detail-job-status').textContent = job ? `${running ? '采集中' : job.status === 'paused' ? '已暂停' : '本轮结束'}：完成 ${items.filter(i=>i.status==='complete').length}，跳过 ${items.filter(i=>i.status==='skipped').length}，待处理 ${items.filter(i=>['pending','running'].includes(i.status)).length}，异常/部分 ${errors}，共 ${items.length} 条${current ? `；当前：${current.title}` : ''}${job.reason ? `；${job.reason}` : ''}` : '尚未开始；已有完整选项采集记录的货源会自动跳过。';
+    $('#detail-job-resume').hidden = !job || running || !items.some(i => !['complete','skipped','unavailable'].includes(i.status));
+    $('#detail-job-status').textContent = job ? `${running ? '采集中' : job.status === 'paused' ? '已暂停' : '本轮结束'}${job.recaptureCompleted ? '（包含已完成记录重采）' : ''}：完成 ${items.filter(i=>i.status==='complete').length}，跳过 ${items.filter(i=>i.status==='skipped').length}，下架/失效 ${items.filter(i=>i.status==='unavailable').length}，待处理 ${items.filter(i=>['pending','running'].includes(i.status)).length}，异常/部分 ${errors}，共 ${items.length} 条${current ? `；当前：${current.title}` : ''}${job.reason ? `；${job.reason}` : ''}` : '尚未开始；已有完整选项采集记录的货源会自动跳过。';
     const progress = $('#detail-job-progress'); progress.hidden = !items.length; progress.max = items.length || 1; progress.value = finished + errors;
     $('#detail-job-records').hidden = !items.length;
-    const names = {pending:'待采集',running:'正在采集',complete:'完成',skipped:'已有完整详情，跳过',partial:'部分完成',blocked:'等待处理验证',failed:'失败'};
+    const names = {pending:'待采集',running:'正在采集',complete:'完成',skipped:'已有完整详情，跳过',unavailable:'商品已下架/失效，跳过',partial:'部分完成',blocked:'等待处理验证',failed:'失败'};
     $('#detail-job-items').innerHTML = items.map(i => `<li><span>${esc(names[i.status] || i.status)} · ${esc(i.title)}</span>${i.skuCount !== undefined ? `<small>${i.skuCount} 行规格 · ${i.imageCount} 个图片链接</small>` : ''}${i.error ? `<small>${esc(i.error)}</small>` : ''}${safeUrl(i.url) ? `<a class="table-link" href="${esc(i.url)}" target="_blank" rel="noopener">查看商品 ↗</a>` : ''}</li>`).join('');
   }
   async function jobCommand(type) {
@@ -39,13 +78,16 @@
     let productIds;
     if (type === 'DETAIL_JOB_START') {
       const scope = $('#detail-job-scope').value;
-      productIds = scope === 'all' ? state.products.map(p=>p.id) : scope === 'selected' ? [state.selectedId].filter(Boolean) : filteredProducts().map(p=>p.id);
+      const visibleProducts = filteredProducts();
+      productIds = scope === 'all' ? state.products.map(p=>p.id) : scope === 'selected' ? visibleProducts.some(p=>p.id===state.selectedId) ? [state.selectedId] : [] : visibleProducts.map(p=>p.id);
       if (!productIds.length) { toast('当前范围没有商品'); return; }
     }
     try {
       const status = await chrome.runtime.sendMessage({type:'DETAIL_JOB_STATUS'});
       if (!status?.ok || !status.supported) throw Error('后台尚未加载详情采集功能。请在 chrome://extensions/ 重新加载 ImageGrab，再刷新研究台。');
-      const result = await chrome.runtime.sendMessage({type, ...(productIds ? {productIds} : {})});
+      const recaptureCompleted = type === 'DETAIL_JOB_START' && $('#detail-job-recapture').checked;
+      if (recaptureCompleted && !status.recaptureCompletedSupported) throw Error('后台尚未加载重新采集功能。请在 chrome://extensions/ 重新加载 ImageGrab，再刷新研究台。');
+      const result = await chrome.runtime.sendMessage({type, ...(productIds ? {productIds} : {}), ...(recaptureCompleted ? {recaptureCompleted:true} : {})});
       if (!result?.ok) throw Error(result?.error || '后台未返回启动结果，请重新加载 ImageGrab 并刷新研究台。');
       detailJob = (await chrome.storage.local.get(JOB_KEY))[JOB_KEY]; renderDetailJob();
     } catch(error) { toast(error.message); }
@@ -53,6 +95,9 @@
   $('#detail-job-start').addEventListener('click',()=>jobCommand('DETAIL_JOB_START'));
   $('#detail-job-stop').addEventListener('click',()=>jobCommand('DETAIL_JOB_STOP'));
   $('#detail-job-resume').addEventListener('click',()=>jobCommand('DETAIL_JOB_RESUME'));
+  $('#scope-start').addEventListener('click', startScopedRanking);
+  document.addEventListener('click', event => { const button = event.target.closest('[data-ranking-key]'); if (button) updateScope({ rankingKey: button.dataset.rankingKey }); });
+  $('#scope-category').addEventListener('change', event => { const item = rankingScope.category(event.target.value); updateScope({ categoryKey: item.key, categoryName: item.label, cateId: item.cateId }); });
   document.addEventListener('submit', event => {
     if (detailJob?.status === 'running') { event.preventDefault(); event.stopImmediatePropagation(); toast('请先停止详情补全再保存档案'); }
   }, true);
@@ -72,17 +117,19 @@
     const capture = stored[CAPTURE_KEY];
     if (!capture || !Array.isArray(capture.products) || !capture.products.length) return;
     const sourceType = capturedSourceType(capture.sourceUrl || '', capture.pageTitle || '');
+    const captureScope = capture.scope ? rankingScope?.normalize(capture.scope) : null;
     let added = 0;
     for (const row of capture.products.slice(0, 1000)) {
       const normalizedUrl = productUrl(row.url) || productUrl(capture.sourceUrl);
       const knownOffer = state.offers.find(x => normalizedUrl && productUrl(x.url) === normalizedUrl);
       let product = state.products.find(x => normalizedUrl && productUrl(x.sourceUrl) === normalizedUrl) || state.products.find(x => x.id === knownOffer?.productId);
       if (!product) {
-        product = { id: id(), title: row.title || '待补全商品名', brand: '', category: '', sourceType, rank: row.rank || '', sourceUrl: normalizedUrl, images: Array.isArray(row.images) ? row.images.map(safeUrl).filter(Boolean).slice(0, 16) : [], specs: row.visibleText || '', origin: '', notes: '', createdAt: Date.now(), updatedAt: Date.now() };
+        product = { id: id(), title: row.title || '待补全商品名', brand: '', category: '', sourceType, rank: row.rank || '', sourceUrl: normalizedUrl, images: Array.isArray(row.images) ? row.images.map(safeUrl).filter(Boolean).slice(0, 16) : [], specs: row.visibleText || '', origin: '', notes: '', scope: captureScope, createdAt: Date.now(), updatedAt: Date.now() };
         state.products.unshift(product); added++;
       } else {
         product.images = [...new Set([...(product.images || []), ...(Array.isArray(row.images) ? row.images.map(safeUrl).filter(Boolean) : [])])].slice(0, 24);
         product.specs ||= row.visibleText || '';
+        if (!product.scope && captureScope) product.scope = captureScope;
       }
       if (row.captureKind === 'detail' && (!product.detailSourceUrl || productUrl(product.detailSourceUrl) === normalizedUrl)) {
         product.title = row.title || product.title;
@@ -120,7 +167,8 @@
 
   function filteredProducts() {
     const query = state.query.toLocaleLowerCase();
-    return state.products.filter(p => (state.filter === 'all' || p.sourceType === state.filter) && (!query || [p.title, p.brand, p.category, p.origin, ...state.offers.filter(o => o.productId === p.id).map(o => o.supplierName)].join(' ').toLocaleLowerCase().includes(query)));
+    const scopeFilterActive = ['all', 'ranking'].includes(state.filter) && (state.filterRanking !== 'all' || state.filterCategory !== 'all');
+    return state.products.filter(p => (state.filter === 'all' || p.sourceType === state.filter) && (!scopeFilterActive || (p.sourceType === 'ranking' && (state.filterRanking === 'all' || p.scope?.rankingKey === state.filterRanking) && (state.filterCategory === 'all' || p.scope?.categoryKey === state.filterCategory))) && (!query || [p.title, p.brand, p.category, p.origin, p.scope?.rankingLabel, p.scope?.categoryName, ...state.offers.filter(o => o.productId === p.id).map(o => o.supplierName)].join(' ').toLocaleLowerCase().includes(query)));
   }
   const shippingLabel = offer => offer.shipFrom ? `发货地：${offer.shipFrom}` : '发货地待补';
   const offerDetailsLink = offer => `<a class="table-link offer-spec-link" data-offer-details="${esc(offer.id)}" href="offer.html?id=${encodeURIComponent(offer.id)}">规格与图片</a>`;
@@ -138,7 +186,8 @@
     const action = state.selectedId && state.selectedId !== product.id
       ? `<button class="row-more" data-merge-into="${esc(product.id)}" title="将此候选并入当前商品的货源">⇢</button>`
       : `<button class="row-more" data-open="${esc(product.id)}" title="查看档案">›</button>`;
-    return `<tr class="product-row ${state.selectedId === product.id ? 'selected' : ''}" data-product="${esc(product.id)}"><td><div class="product-cell">${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy">` : '<span class="thumb-placeholder">▧</span>'}<div><strong>${esc(product.title || '未命名商品')}</strong><span>${esc(product.brand || product.category || '品牌/类目待补')}</span></div></div></td><td><span class="source-tag ${esc(product.sourceType)}">${source}</span>${product.rank ? `<small>排名 ${esc(product.rank)}</small>` : ''}</td><td>${esc(price)}<small>${offers.find(x => x.moqText)?.moqText ? `起订 ${esc(offers.find(x => x.moqText).moqText)}` : '起订量待核'}</small></td><td>${offers.length} 家</td><td><span class="status-text ${completeness(product).startsWith('待') ? 'pending' : 'done'}">${completeness(product)}</span></td><td>${action}</td></tr>`;
+    const scope = product.scope ? `<small>${esc(product.scope.rankingLabel)} · ${esc(product.scope.categoryName)} · 中国</small>` : '<small>历史记录 · 采集范围待补</small>';
+    return `<tr class="product-row ${state.selectedId === product.id ? 'selected' : ''}" data-product="${esc(product.id)}"><td><div class="product-cell">${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy">` : '<span class="thumb-placeholder">▧</span>'}<div><strong>${esc(product.title || '未命名商品')}</strong><span>${esc(product.brand || product.category || '品牌/类目待补')}</span></div></div></td><td><span class="source-tag ${esc(product.sourceType)}">${source}</span>${product.rank ? `<small>排名 ${esc(product.rank)}</small>` : ''}${scope}</td><td>${esc(price)}<small>${offers.find(x => x.moqText)?.moqText ? `起订 ${esc(offers.find(x => x.moqText).moqText)}` : '起订量待核'}</small></td><td>${offers.length} 家</td><td><span class="status-text ${completeness(product).startsWith('待') ? 'pending' : 'done'}">${completeness(product)}</span></td><td>${action}</td></tr>`;
   }
   function offerRows() {
     return state.offers.filter(o => !state.query || [o.supplierName, o.priceText, o.shipFrom, o.location, o.visibleText, state.products.find(p => p.id === o.productId)?.title].join(' ').toLocaleLowerCase().includes(state.query.toLocaleLowerCase())).map(o => {
@@ -154,40 +203,72 @@
   }
 
   function renderDetail() {
-    const panel = $('#detail-panel'), product = state.products.find(x => x.id === state.selectedId);
+    const panel = $('#detail-panel'), product = filteredProducts().find(x => x.id === state.selectedId);
     if (!product || state.view !== 'products') { panel.hidden = true; return; }
     panel.hidden = false;
     const offers = state.offers.filter(x => x.productId === product.id);
     const certificates = state.certificates.filter(x => x.productId === product.id);
     const sourceUrl = safeUrl(product.sourceUrl);
-    panel.innerHTML = `<div class="detail-top"><span class="eyebrow">PRODUCT DOSSIER</span><div class="detail-actions"><button class="icon-button" data-edit-product="${esc(product.id)}" title="编辑商品" aria-label="编辑商品">✎</button><button class="icon-button danger" data-delete-product="${esc(product.id)}" title="删除商品" aria-label="删除商品">×</button></div></div><h2>${esc(product.title)}</h2><p class="detail-subtitle">${esc(product.brand || '品牌待核')} · ${esc(product.category || '类目待补')} · ${esc(offers.find(o => o.shipFrom) ? shippingLabel(offers.find(o => o.shipFrom)) : '发货地待补')}</p><div class="detail-link-row">${sourceUrl ? `<a class="table-link" href="${esc(sourceUrl)}" target="_blank" rel="noopener">打开来源商品 ↗</a>` : '<span>暂无商品链接</span>'}<button class="text-action" data-search-similar="${esc(product.id)}">在 1688 搜同名货源 ↗</button></div>${product.images?.length ? `<div class="image-strip">${product.images.slice(0,8).map(src => { const url = safeUrl(src); return url ? `<a href="${esc(url)}" target="_blank" rel="noopener"><img src="${esc(url)}" alt="商品图片" loading="lazy"></a>` : ''; }).join('')}</div>` : ''}<section class="detail-section"><div class="section-heading"><h3>货源与报价 <span>${offers.length}</span></h3><button class="small-action" data-add-offer="${esc(product.id)}">＋ 添加货源</button></div>${offers.length ? offers.map(o => { const url = safeUrl(o.url); return `<article class="offer-card"><div><strong>${esc(o.supplierName || '供应商待补')}</strong><span>${esc(o.priceText || '价格待询')} · 起订 ${esc(o.moqText || '待询')}</span><small>${esc(o.salesText || '')} · ${esc(shippingLabel(o))}</small></div>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener" title="打开货源">↗</a>` : ''}${offerDetailsLink(o)}</article>`; }).join('') : '<p class="subtle-empty">从搜索结果捕获货源，或手动添加候选供应商。</p>'}</section><section class="detail-section"><div class="section-heading"><h3>参数与资料</h3><button class="small-action" data-edit-product="${esc(product.id)}">编辑</button></div><p class="spec-text">${esc(product.specs || '尚未补充规格参数。')}</p></section><section class="detail-section"><div class="section-heading"><h3>认证核验 <span>${certificates.length}</span></h3><button class="small-action" data-add-cert="${esc(product.id)}">＋ 添加记录</button></div>${certificates.length ? certificates.map(c => `<div class="certificate-line"><span class="cert-status ${esc(c.status)}">${{unverified:'待核验',verified:'已核验',invalid:'未通过'}[c.status] || '待核验'}</span><span>${esc(c.type)} ${esc(c.number)}</span></div>`).join('') : '<p class="subtle-empty">记录证书编号和官方核验结果；商品页自述不自动标记为已核验。</p>'}</section><section class="detail-section notes-section"><span>内部备注</span><p>${esc(product.notes || '—')}</p></section><footer class="detail-footer">创建于 ${date(product.createdAt)} · ${product.images?.length || 0} 个图片链接</footer>`;
+    const scopeLabel = product.scope ? `${product.scope.rankingLabel} · ${product.scope.categoryName} · 中国` : '历史记录 · 采集范围待补';
+    panel.innerHTML = `<div class="detail-top"><span class="eyebrow">PRODUCT DOSSIER</span><div class="detail-actions"><button class="icon-button" data-edit-product="${esc(product.id)}" title="编辑商品" aria-label="编辑商品">✎</button><button class="icon-button danger" data-delete-product="${esc(product.id)}" title="删除商品" aria-label="删除商品">×</button></div></div><h2>${esc(product.title)}</h2><p class="detail-subtitle">${esc(product.brand || '品牌待核')} · ${esc(product.category || '类目待补')} · ${esc(offers.find(o => o.shipFrom) ? shippingLabel(offers.find(o => o.shipFrom)) : '发货地待补')}</p><p class="detail-subtitle">采集范围：${esc(scopeLabel)}</p><div class="detail-link-row">${sourceUrl ? `<a class="table-link" href="${esc(sourceUrl)}" target="_blank" rel="noopener">打开来源商品 ↗</a>` : '<span>暂无商品链接</span>'}<button class="text-action" data-search-similar="${esc(product.id)}">在 1688 搜同名货源 ↗</button></div>${product.images?.length ? `<div class="image-strip">${product.images.slice(0,8).map(src => { const url = safeUrl(src); return url ? `<a href="${esc(url)}" target="_blank" rel="noopener"><img src="${esc(url)}" alt="商品图片" loading="lazy"></a>` : ''; }).join('')}</div>` : ''}<section class="detail-section"><div class="section-heading"><h3>货源与报价 <span>${offers.length}</span></h3><button class="small-action" data-add-offer="${esc(product.id)}">＋ 添加货源</button></div>${offers.length ? offers.map(o => { const url = safeUrl(o.url); return `<article class="offer-card"><div><strong>${esc(o.supplierName || '供应商待补')}</strong><span>${esc(o.priceText || '价格待询')} · 起订 ${esc(o.moqText || '待询')}</span><small>${esc(o.salesText || '')} · ${esc(shippingLabel(o))}</small></div>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener" title="打开货源">↗</a>` : ''}${offerDetailsLink(o)}</article>`; }).join('') : '<p class="subtle-empty">从搜索结果捕获货源，或手动添加候选供应商。</p>'}</section><section class="detail-section"><div class="section-heading"><h3>参数与资料</h3><button class="small-action" data-edit-product="${esc(product.id)}">编辑</button></div><p class="spec-text">${esc(product.specs || '尚未补充规格参数。')}</p></section><section class="detail-section"><div class="section-heading"><h3>认证核验 <span>${certificates.length}</span></h3><button class="small-action" data-add-cert="${esc(product.id)}">＋ 添加记录</button></div>${certificates.length ? certificates.map(c => `<div class="certificate-line"><span class="cert-status ${esc(c.status)}">${{unverified:'待核验',verified:'已核验',invalid:'未通过'}[c.status] || '待核验'}</span><span>${esc(c.type)} ${esc(c.number)}</span></div>`).join('') : '<p class="subtle-empty">记录证书编号和官方核验结果；商品页自述不自动标记为已核验。</p>'}</section><section class="detail-section notes-section"><span>内部备注</span><p>${esc(product.notes || '—')}</p></section><footer class="detail-footer">创建于 ${date(product.createdAt)} · ${product.images?.length || 0} 个图片链接</footer>`;
   }
 
   function render() {
     renderDetailJob();
-    const names = { products: ['商品池', '从榜单和搜索结果收集候选商品，再补全采购与上架资料。'], offers: ['货源比较', '按候选商品横向比较供应商、价格、起订量和页面可见销量。'], certificates: ['认证核验', '集中检查待核验的证书记录与证据来源。'] };
+    const names = {
+      products: ['商品池', '从榜单和搜索结果收集候选商品，再补全采购与上架资料。'],
+      offers: ['货源比较', '按候选商品横向比较供应商、价格、起订量和页面可见销量。'],
+      certificates: ['认证核验', '集中检查待核验的证书记录与证据来源。'],
+      sourcing: ['寻源工作区', state.sourcingMode === 'image' ? '从商品截图识别商品信息，并自动整理可比较的货源候选。' : '手动设置条件、分路搜索，再筛选候选货源。']
+    };
+    const archiveView = ['products', 'offers', 'certificates'].includes(state.view);
+    $('#workspace-products').hidden = !archiveView;
+    $('#workspace-sourcing').hidden = state.view !== 'sourcing';
+    $('#sourcing-manual').hidden = state.sourcingMode !== 'manual';
+    $('#workspace-image-sourcing').hidden = state.sourcingMode !== 'image';
+    $('#workspace-search').hidden = !archiveView;
+    $('#new-product').hidden = state.view !== 'products';
+    $('#csv-button').hidden = !archiveView;
     $('#view-title').textContent = names[state.view][0]; $('#view-description').textContent = names[state.view][1];
     document.querySelectorAll('.nav-item').forEach(el => el.classList.toggle('active', el.dataset.view === state.view));
+    document.querySelectorAll('[data-sourcing-mode]').forEach(el => {
+      const active = el.dataset.sourcingMode === state.sourcingMode;
+      el.classList.toggle('active', active);
+      el.setAttribute('aria-selected', String(active));
+      el.tabIndex = active ? 0 : -1;
+    });
     document.querySelectorAll('.segment').forEach(el => el.classList.toggle('active', el.dataset.filter === state.filter));
     $('#product-count').textContent = state.products.length; $('#offer-count').textContent = state.offers.length;
     $('#metric-products').textContent = state.products.length; $('#metric-offers').textContent = state.offers.length;
     $('#metric-incomplete').textContent = state.products.filter(p => completeness(p).startsWith('待')).length;
     $('#metric-certificates').textContent = state.certificates.filter(c => c.status === 'unverified').length;
     const isProducts = state.view === 'products';
+    const rankingFiltersVisible = isProducts && ['all', 'ranking'].includes(state.filter);
+    $('#ranking-filter-controls').hidden = !rankingFiltersVisible;
+    if (rankingFiltersVisible) {
+      renderRankingFilters();
+      const hasScopeFilter = state.filterRanking !== 'all' || state.filterCategory !== 'all';
+      const parts = [state.filterRanking !== 'all' ? rankingScope.ranking(state.filterRanking).label : '', state.filterCategory !== 'all' ? rankingScope.category(state.filterCategory).label : '', ...(hasScopeFilter ? ['中国'] : [])].filter(Boolean);
+      $('#ranking-filter-summary').textContent = `${parts.join(' · ') || '榜单范围不限'} · ${filteredProducts().length} 件`;
+    }
     document.querySelector('.segmented').hidden = !isProducts;
-    const table = document.querySelector('table');
-    table.innerHTML = state.view === 'products'
-      ? '<thead><tr><th>商品</th><th>来源</th><th>参考价 / 起订</th><th>货源数</th><th>资料状态</th><th></th></tr></thead><tbody id="product-rows"></tbody>'
-      : state.view === 'offers'
-        ? '<thead><tr><th>商品</th><th>供应商</th><th>价格 / 起订</th><th>页面可见销量</th><th>链接</th><th></th></tr></thead><tbody id="product-rows"></tbody>'
-        : '<thead><tr><th>商品</th><th>证书</th><th>机构</th><th>核验状态</th><th>证据</th><th></th></tr></thead><tbody id="product-rows"></tbody>';
-    const rows = $('#product-rows');
-    if (isProducts) rows.innerHTML = filteredProducts().map(productRow).join('');
-    else if (state.view === 'offers') rows.innerHTML = offerRows();
-    else rows.innerHTML = renderCertificates();
-    const hasRows = rows.children.length > 0;
-    $('#empty-state').hidden = hasRows;
-    $('#result-count').textContent = `${rows.children.length} 条记录`;
+    if (archiveView) {
+      const table = document.querySelector('#workspace-products table');
+      table.innerHTML = state.view === 'products'
+        ? '<thead><tr><th>商品</th><th>来源</th><th>参考价 / 起订</th><th>货源数</th><th>资料状态</th><th></th></tr></thead><tbody id="product-rows"></tbody>'
+        : state.view === 'offers'
+          ? '<thead><tr><th>商品</th><th>供应商</th><th>价格 / 起订</th><th>页面可见销量</th><th>链接</th><th></th></tr></thead><tbody id="product-rows"></tbody>'
+          : '<thead><tr><th>商品</th><th>证书</th><th>机构</th><th>核验状态</th><th>证据</th><th></th></tr></thead><tbody id="product-rows"></tbody>';
+      const rows = $('#product-rows');
+      if (isProducts) rows.innerHTML = filteredProducts().map(productRow).join('');
+      else if (state.view === 'offers') rows.innerHTML = offerRows();
+      else rows.innerHTML = renderCertificates();
+      const hasRows = rows.children.length > 0;
+      $('#empty-state').hidden = hasRows;
+      $('#result-count').textContent = `${rows.children.length} 条记录`;
+    } else {
+      $('#empty-state').hidden = true;
+    }
     $('#detail-panel').hidden = true;
     if (isProducts) {
       renderDetail();
@@ -236,7 +317,8 @@
   });
 
   document.addEventListener('click', async event => {
-    const nav = event.target.closest('[data-view]'); if (nav) { state.view = nav.dataset.view; render(); return; }
+    const sourcingMode = event.target.closest('[data-sourcing-mode]'); if (sourcingMode) { state.view = 'sourcing'; state.sourcingMode = sourcingMode.dataset.sourcingMode; history.replaceState(null, '', state.sourcingMode === 'image' ? '#image-sourcing' : '#sourcing'); render(); return; }
+    const nav = event.target.closest('[data-view]'); if (nav) { event.preventDefault(); state.view = nav.dataset.view; history.replaceState(null, '', `#${state.view === 'sourcing' && state.sourcingMode === 'image' ? 'image-sourcing' : state.view}`); render(); return; }
     const filter = event.target.closest('[data-filter]'); if (filter) { state.filter = filter.dataset.filter; render(); return; }
     const close = event.target.closest('[data-close]'); if (close) { close.closest('dialog').close(); return; }
     const row = event.target.closest('[data-product]'); if (row && !event.target.closest('button')) { state.selectedId = row.dataset.product; render(); return; }
@@ -275,10 +357,12 @@
     if (action.dataset.deleteCert) { state.certificates = state.certificates.filter(x => x.id !== action.dataset.deleteCert); await save(); render(); return; }
   });
   $('#search').addEventListener('input', event => { state.query = event.target.value; render(); });
+  $('#filter-ranking').addEventListener('change', event => { state.filterRanking = event.target.value; render(); });
+  $('#filter-category').addEventListener('change', event => { state.filterCategory = event.target.value; render(); });
   $('#export-button').addEventListener('click', () => download('imagegrab-research-backup.json', JSON.stringify({ schemaVersion: 2, exportedAt: new Date().toISOString(), products: state.products, offers: state.offers, certificates: state.certificates }, null, 2), 'application/json'));
   $('#csv-button').addEventListener('click', () => {
-    const headers = ['商品名','品牌','类目','来源','排名','商品链接','图片链接','规格参数','产地','供应商','供应商主页','货源链接','价格','起订量','页面销量','供应商地区','认证类型','证书编号','核验状态','核验来源','发货地','价格说明','商品参数JSON','规格报价JSON','图片角色JSON','销量来源JSON','视频链接'];
-    const rows = state.products.flatMap(p => { const offers = state.offers.filter(o => o.productId === p.id); const certs = state.certificates.filter(c => c.productId === p.id); return (offers.length ? offers : [{}]).flatMap(o => (certs.length ? certs : [{}]).map(c => [p.title,p.brand,p.category,p.sourceType,p.rank,p.sourceUrl,(p.images||[]).join(' '),p.specs,p.origin,o.supplierName,o.supplierUrl,o.url,o.priceText,o.moqText,o.salesText,o.location,c.type,c.number,c.status,c.evidenceUrl,o.shipFrom,o.priceContext,JSON.stringify(o.details?.attributes||[]),JSON.stringify(o.details?.skus||[]),JSON.stringify(o.details?.media||[]),JSON.stringify(o.salesObservations||[]),(p.videoUrls||[]).join(' ')])); });
+    const headers = ['商品名','品牌','类目','来源','排名','榜单类别','商品大类','采集地区','榜单参数','1688类目ID','商品链接','图片链接','规格参数','产地','供应商','供应商主页','货源链接','价格','起订量','页面销量','供应商地区','认证类型','证书编号','核验状态','核验来源','发货地','价格说明','商品参数JSON','规格报价JSON','图片角色JSON','销量来源JSON','视频链接'];
+    const rows = state.products.flatMap(p => { const offers = state.offers.filter(o => o.productId === p.id); const certs = state.certificates.filter(c => c.productId === p.id); const scope = p.scope || {}; return (offers.length ? offers : [{}]).flatMap(o => (certs.length ? certs : [{}]).map(c => [p.title,p.brand,p.category,p.sourceType,p.rank,scope.rankingLabel || '',scope.categoryName || '',scope.countryName || '',scope.rankingName || '',scope.cateId || '',p.sourceUrl,(p.images||[]).join(' '),p.specs,p.origin,o.supplierName,o.supplierUrl,o.url,o.priceText,o.moqText,o.salesText,o.location,c.type,c.number,c.status,c.evidenceUrl,o.shipFrom,o.priceContext,JSON.stringify(o.details?.attributes||[]),JSON.stringify(o.details?.skus||[]),JSON.stringify(o.details?.media||[]),JSON.stringify(o.salesObservations||[]),(p.videoUrls||[]).join(' ')])); });
     const csv = [headers, ...rows].map(row => row.map(v => { const value = String(v ?? '').replace(/^[\u0000-\u0020]*(?=[=+@-])/, "'"); return `"${value.replace(/"/g,'""')}"`; }).join(',')).join('\r\n'); download('imagegrab-research-export.csv', '\ufeff' + csv, 'text/csv;charset=utf-8');
   });
   function download(filename, content, type) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([content], { type })); a.download = filename; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
@@ -308,6 +392,12 @@
     state.certificates = Array.isArray(saved.certificates) ? saved.certificates : [];
     state.selectedId = state.products.some(p => p.id === saved.selectedId) ? saved.selectedId : '';
     if (detailJob?.status !== 'running' && offerData.migrate(state)) await save();
+    if (rankingScope) {
+      const scopeSaved = (await chrome.storage.local.get(SCOPE_KEY))[SCOPE_KEY];
+      Object.assign(scopeState, rankingScope.normalize(scopeSaved || rankingScope.defaults));
+      renderScope();
+      renderRankingFilters();
+    }
     const capturePage = await chrome.storage.local.get(CAPTURE_KEY);
     if (capturePage[CAPTURE_KEY]?.products?.length) await importCapture();
     if (!state.selectedId) state.selectedId = state.products[0]?.id || '';

@@ -1,14 +1,16 @@
 {
   "manifest_version": 3,
   "name": "图提取 · ImageGrab",
-  "version": "1.6.2",
-  "description": "采集商品图片、自动翻页收集榜单并整理选品与供应商档案。",
+  "version": "1.9.5",
+  "description": "本机识别商品截图，搜索候选货源并整理选品与供应商档案。",
   "permissions": ["activeTab", "scripting", "downloads", "storage", "tabs", "unlimitedStorage", "alarms"],
+  "optional_host_permissions": ["https://*.alicdn.com/*"],
   "host_permissions": [
     "*://*.taobao.com/*", "*://*.tmall.com/*", "*://*.1688.com/*", "*://*.jd.com/*",
     "*://*.pinduoduo.com/*", "*://*.yangkeduo.com/*"
   ],
   "background": { "service_worker": "background.js" },
+  "content_security_policy": { "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'" },
   "content_scripts": [{
     "matches": [
       "*://*.taobao.com/*", "*://*.tmall.com/*", "*://*.jd.com/*",
@@ -17,7 +19,7 @@
     "js": ["sales.js", "content.js"], "css": ["content.css"], "run_at": "document_idle"
   }, {
     "matches": ["*://*.1688.com/*"],
-    "js": ["detail-capture.js", "research-capture.js"], "css": ["content.css"], "run_at": "document_idle"
+    "js": ["ranking-scope.js", "detail-capture.js", "research-capture.js"], "css": ["content.css"], "run_at": "document_idle"
   }],
   "action": { "default_title": "图提取 · ImageGrab" },
   "options_page": "gallery.html"

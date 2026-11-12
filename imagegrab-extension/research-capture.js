@@ -58,6 +58,30 @@
     const rankMatch = body.match(RANK);
     return { title: title.slice(0, 180), url: anchor.href, images: imageUrls(card), priceText, salesText, moqText, rank: rankMatch?.[1] || rankMatch?.[2] || rankMatch?.[3] || '', supplierName: supplier.name, supplierUrl: supplier.url, visibleText: body.slice(0, 900) };
   }
+  // Current image-search cards navigate through JS instead of ordinary offer anchors.
+  // Read only the offer ID and fields attached to each actual rendered offer card.
+  function collectImageSearchCards() {
+    return [...document.querySelectorAll('[data-tracker="offer"][data-renderkey]')].map(card => {
+      const renderId = card.getAttribute('data-renderkey')?.match(/_(\d{6,})$/)?.[1];
+      const reportId = card.getAttribute('data-aplus-report')?.match(/(?:^|\^)object_id@(\d{6,})(?:\^|$)/)?.[1];
+      if (!renderId || (reportId && reportId !== renderId)) return null;
+      const title = text(card.querySelector('[class*="titleText--"]'));
+      const images = imageUrls(card);
+      if (!title || !images.length) return null;
+      const body = text(card);
+      const priceNode = card.querySelector('.offer-price-row [class*="priceItem--"]');
+      const price = text(priceNode).replace(/\s+/g, '');
+      const salesArea = card.querySelector('.offer-price-row [class*="colDescAfter--"]');
+      const salesText = [...(salesArea?.querySelectorAll('[class*="descText--"]') || [])].map(text)
+        .find(value => /^\d[\d,.]*(?:万|千)?\+?件$/.test(value)) || '';
+      const supplier = supplierFrom(card);
+      return {title: title.slice(0,180), url:`https://detail.1688.com/offer/${renderId}.html`, images,
+        priceText: PRICE.test(price) ? price.match(PRICE)[0] : '', salesText,
+        moqText: body.match(/\d+\s*(?:件|个|套|箱)起批/)?.[0] || '',
+        supplierName: text(card.querySelector('[class*="shopName--"]')) || supplier.name,
+        supplierUrl:supplier.url, visibleText:body.slice(0,900)};
+    }).filter(Boolean);
+  }
   async function collect() {
     if (rankingPage()) return collectRankingCards();
     const detail = location.pathname.includes('/offer/') && OFFER_URL.test(location.href);
@@ -69,6 +93,7 @@
       if (!row.images.length && !row.title) continue;
       if (!rows.has(row.url)) rows.set(row.url, row);
     }
+    for (const row of collectImageSearchCards()) if (!rows.has(row.url)) rows.set(row.url, row);
     return [...rows.values()].slice(0, 100);
   }
   function pageSignature() {
@@ -143,6 +168,24 @@
     await saveJob(job); updateButtons(job);
     chrome.runtime.sendMessage({ type: 'FINISH_RESEARCH_AUTO' }, () => {});
   }
+  async function startAutoCapture(scope) {
+    if ((await readJob())?.running) return { ok: false, error: '已有榜单采集任务正在运行' };
+    if (scope && !rankingPage()) return { ok: false, error: '当前页面不是 1688 榜单页' };
+    if ((await chrome.storage.local.get('imagegrabDetailJob')).imagegrabDetailJob?.status === 'running') return { ok: false, error: '请先停止详情补全' };
+    const normalizedScope = scope && globalThis.ImageGrabRankingScope ? globalThis.ImageGrabRankingScope.normalize(scope) : null;
+    const job = { running: true, ownerTabToken: tabToken, stopRequested: false, products: [], processedPages: [], pageCount: 0, startedAt: Date.now(), sourceUrl: location.href, pageTitle: document.title, scope: normalizedScope };
+    await saveJob(job); updateButtons(job); runAutoCapture();
+    return { ok: true, scope: job.scope };
+  }
+  async function waitForRankingCards(timeoutMs = 15000) {
+    const started = Date.now();
+    while (Date.now() - started < timeoutMs) {
+      if (challengeVisible()) return false;
+      if (document.querySelectorAll('.cgf-product-card').length) return true;
+      await new Promise(resolve => window.setTimeout(resolve, 400));
+    }
+    return false;
+  }
   let autoRunnerActive = false;
   async function runAutoCapture() {
     if (autoRunnerActive) return;
@@ -154,6 +197,7 @@
         if (job.stopRequested) { await finishAuto(job, '用户停止'); return; }
         if (challengeVisible()) { await finishAuto(job, '页面要求登录或安全验证'); return; }
         if (job.products.length >= AUTO_LIMIT) { await finishAuto(job, `达到 ${AUTO_LIMIT} 条上限`); return; }
+        if (rankingPage() && !await waitForRankingCards()) { await finishAuto(await readJob(), challengeVisible() ? '页面要求登录或安全验证' : '榜单页面未加载出商品卡片'); return; }
         const signature = pageSignature();
         if (job.processedPages.includes(signature)) { await finishAuto(job, '检测到重复页面，已停止'); return; }
         const rows = await collect();
@@ -226,14 +270,11 @@
     autoButton.id = AUTO_BUTTON_ID; autoButton.type = 'button'; autoButton.textContent = '自动采集榜单';
     autoButton.title = `从当前页开始逐页采集，最多 ${AUTO_LIMIT} 条；遇到验证、分页异常或重复页会停止`;
     autoButton.addEventListener('click', async () => {
-      if ((await readJob())?.running) return;
-      if ((await chrome.storage.local.get('imagegrabDetailJob')).imagegrabDetailJob?.status === 'running') {
-        autoButton.textContent = '请先停止详情补全';
+      const result = await startAutoCapture(globalThis.ImageGrabRankingScope?.fromUrl(location.href) || null);
+      if (!result.ok) {
+        autoButton.textContent = result.error === '请先停止详情补全' ? result.error : '自动采集不可用';
         window.setTimeout(() => { autoButton.textContent = '自动采集榜单'; }, 2500);
-        return;
       }
-      const job = { running: true, ownerTabToken: tabToken, stopRequested: false, products: [], processedPages: [], pageCount: 0, startedAt: Date.now(), sourceUrl: location.href, pageTitle: document.title };
-      await saveJob(job); updateButtons(job); runAutoCapture();
     });
     const stopButton = document.createElement('button');
     stopButton.id = STOP_BUTTON_ID; stopButton.type = 'button'; stopButton.textContent = '停止'; stopButton.hidden = true;
@@ -243,6 +284,15 @@
     document.documentElement.appendChild(controls);
     readJob().then(job => { updateButtons(job); if (job?.running && job.ownerTabToken === tabToken) runAutoCapture(); });
   }
+  chrome.runtime.onMessage?.addListener((message, sender, sendResponse) => {
+    if(message?.type==='SOURCING_READ_CANDIDATES'){
+      if(challengeVisible()){sendResponse({ok:false,error:'当前页面需要登录或安全验证，请处理后再读取'});return false;}
+      collect().then(products=>sendResponse({ok:true,products,sourceUrl:location.href})).catch(error=>sendResponse({ok:false,error:error.message}));return true;
+    }
+    if (message?.type !== 'START_RANKING_AUTO') return false;
+    startAutoCapture(message.scope || null).then(sendResponse).catch(error => sendResponse({ ok: false, error: error.message }));
+    return true;
+  });
   addButton();
   new MutationObserver(addButton).observe(document.documentElement, { childList: true, subtree: true });
 })();

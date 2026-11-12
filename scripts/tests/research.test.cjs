@@ -14,6 +14,7 @@ test('research workbench imports captured offers and manages product dossier dat
     const store = {
       imagegrabResearchCapture: {
         sourceUrl: 'https://s.1688.com/selloffer/offer_search.htm?keywords=面霜',
+        scope: { rankingKey: 'hot', categoryKey: 'home' },
         products: [{ title: '测试面霜', url: 'https://detail.1688.com/offer/123.html', images: ['https://example.test/a.jpg'], priceText: '¥12.50', salesText: '100件成交', moqText: '2件起批', supplierName: '测试工厂', supplierUrl: 'https://shop.1688.com/page/index.htm', visibleText: '测试面霜 100件成交' }]
       }
     };
@@ -26,12 +27,29 @@ test('research workbench imports captured offers and manages product dossier dat
       };
     });
     await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/offer-data.js') });
+    await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/ranking-scope.js') });
     await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/research.js') });
     await page.locator('.product-row').waitFor();
     assert.equal(await page.locator('.product-row').count(), 1);
     assert.match(await page.locator('.product-row').innerText(), /测试面霜/);
     assert.match(await page.locator('.product-row').innerText(), /¥12\.50/);
     assert.match(await page.locator('.product-row').innerText(), /1 家/);
+    assert.match(await page.locator('.product-row').innerText(), /人气热销.*居家日用品.*中国/);
+
+    assert.equal(await page.locator('[data-view="sourcing"]').count(), 1);
+    assert.equal(await page.locator('[data-view="image-sourcing"]').count(), 0);
+    await page.locator('[data-view="sourcing"]').click();
+    assert.equal(await page.locator('#view-title').innerText(), '寻源工作区');
+    assert.equal(await page.locator('#sourcing-manual').isVisible(), true);
+    assert.equal(await page.locator('#workspace-image-sourcing').isVisible(), false);
+    await page.locator('[data-sourcing-mode="image"]').click();
+    assert.equal(await page.locator('#sourcing-manual').isVisible(), false);
+    assert.equal(await page.locator('#workspace-image-sourcing').isVisible(), true);
+    assert.equal(await page.evaluate(() => location.hash), '#image-sourcing');
+    await page.locator('[data-sourcing-mode="manual"]').click();
+    assert.equal(await page.locator('#sourcing-manual').isVisible(), true);
+    assert.equal(await page.evaluate(() => location.hash), '#sourcing');
+    await page.locator('.nav-item[data-view="products"]').click();
 
     await page.locator('[data-add-offer]').click();
     await page.locator('#offer-form [name="supplierName"]').fill('第二供应商');
@@ -52,7 +70,7 @@ test('research workbench imports captured offers and manages product dossier dat
     assert.match(await page.locator('tbody').innerText(), /待核验/);
 
     page.on('dialog', dialog => dialog.accept());
-    await page.locator('[data-view="products"]').click();
+    await page.locator('.nav-item[data-view="products"]').click();
     await page.locator('#new-product').click();
     await page.locator('#product-form [name="title"]').fill('同款候选面霜');
     await page.locator('#product-form [name="sourceUrl"]').fill('https://detail.1688.com/offer/789.html');

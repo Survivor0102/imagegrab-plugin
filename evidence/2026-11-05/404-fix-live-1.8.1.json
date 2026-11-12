@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-11-05T16:11:15.641Z",
+  "version": "1.8.1",
+  "kind": "Read installed ordinary Chrome extension storage after update; resume trigger not traced in this tool sequence",
+  "products": 220,
+  "offers": 220,
+  "preReloadBackupKey": "imagegrabBefore404Fix181Reload",
+  "job": {
+    "status": "finished_with_errors",
+    "total": 220,
+    "counts": {
+      "unavailable": 9,
+      "complete": 69,
+      "failed": 2,
+      "skipped": 140
+    }
+  },
+  "failedItems": [
+    {
+      "url": "https://detail.1688.com/offer/1078056288818.html",
+      "errorCode": "page_not_found",
+      "finalUrl": "https://page.1688.com/shtml/static/wrongpage.html"
+    },
+    {
+      "url": "https://detail.1688.com/offer/1088722016408.html",
+      "errorCode": "page_not_found",
+      "finalUrl": "https://page.1688.com/shtml/static/wrongpage.html"
+    }
+  ],
+  "observation": "Known 404 failures persisted and queue reached end. Data changed through further collection after backup; no claim of byte-identical archive or untouched job."
+}

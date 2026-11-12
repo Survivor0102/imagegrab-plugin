@@ -5,9 +5,15 @@ const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'imagegrab-extension/manifest.json'), 'utf8'));
 const sourceRoot = path.join(root, 'imagegrab-extension');
-const files = fs.readdirSync(sourceRoot, { withFileTypes: true })
-  .filter((entry) => entry.isFile())
-  .map((entry) => `imagegrab-extension/${entry.name}`)
+function sourceFiles(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const absolutePath = path.join(directory, entry.name);
+    return entry.isDirectory() ? sourceFiles(absolutePath) : entry.isFile() ? [absolutePath] : [];
+  });
+}
+
+const files = sourceFiles(sourceRoot)
+  .map((absolutePath) => path.relative(root, absolutePath).split(path.sep).join('/'))
   .sort()
   .map((relativePath) => {
     const content = fs.readFileSync(path.join(root, relativePath));

@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-11-12T14:42:51.035Z",
+  "kind": "installed-extension integration against routed synthetic 1688 pages; not live-site collection",
+  "version": "1.9.3",
+  "items": [
+    {
+      "url": "https://detail.1688.com/offer/22222222.html",
+      "status": "failed",
+      "errorCode": "page_not_found",
+      "finalUrl": "https://page.1688.com/shtml/static/wrongpage.html"
+    },
+    {
+      "url": "https://detail.1688.com/offer/11111111.html",
+      "status": "unavailable"
+    },
+    {
+      "url": "https://detail.1688.com/offer/12345678.html",
+      "status": "complete",
+      "skuCount": 2,
+      "imageCount": 2
+    },
+    {
+      "url": "https://detail.1688.com/offer/87654321.html",
+      "status": "complete",
+      "skuCount": 2,
+      "imageCount": 2
+    }
+  ],
+  "status": "finished_with_errors",
+  "preservedForeground": true,
+  "redirect404ContinuedQueue": true,
+  "retryButtonVisible": true
+}

@@ -1,0 +1,1047 @@
+{
+  "checkedAt": "2026-11-05T13:05:14.472Z",
+  "kind": "Live 1688 rendered image-search results in existing authorized ordinary Chrome; detail enrichment not run",
+  "version": "1.8.0",
+  "url": "chrome-extension://pohbjcpafhgfbjifdbickbpjfllbepgg/sourcing.html",
+  "status": "筛选完成：共 60 件，优先 0 件。实际比对图片 32 件，0 件图片读取失败；每次最多比对100件，每件最多2张。\n未比对或条件缺失的商品仍保留在待确认中；排序分不是同款概率。",
+  "summary": "优先 0 · 待确认 32 · 其余 0 · 排除 28 · 共 60",
+  "busy": false,
+  "criteria": {
+    "brand": "",
+    "category": "筒灯",
+    "exclude": "电池 胶带 包装盒 识字 球泡",
+    "hasImage": true,
+    "limit": 10,
+    "mode": "alternative",
+    "model": "",
+    "name": "亮亮照明 LED 筒灯",
+    "required": "",
+    "specs": ""
+  },
+  "candidateCount": 60,
+  "crop": null,
+  "evaluations": [
+    {
+      "title": "LED筒灯批发嵌入式天花桶灯2.5寸3.5寸4寸6寸5W9W12W18W开孔灯",
+      "url": "https://detail.1688.com/offer/616683079278.html",
+      "price": "¥2.99",
+      "supplier": "常州市飞际照明科技有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：63"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 59,
+      "status": "review",
+      "visualScore": 63
+    },
+    {
+      "title": "亮亮照明厂家生产LED球泡灯防水节能灯泡LED暖白节能灯家居球形",
+      "url": "https://detail.1688.com/offer/915972997019.html",
+      "price": "¥6",
+      "supplier": "文安县阿尔海克商贸有限公司",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：球泡"
+      ],
+      "missing": [
+        "图片未比对"
+      ],
+      "reasons": [
+        "名称命中 4/5 个片段"
+      ],
+      "score": 20,
+      "status": "excluded"
+    },
+    {
+      "title": "幸福亮亮照明LED柱形球泡家用工程超亮节能护眼E27球泡节能灯护眼",
+      "url": "https://detail.1688.com/offer/946267966933.html",
+      "price": "¥2.6",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：球泡"
+      ],
+      "missing": [
+        "图片未比对"
+      ],
+      "reasons": [
+        "名称命中 4/5 个片段"
+      ],
+      "score": 20,
+      "status": "excluded"
+    },
+    {
+      "title": "亮亮照明LED全塑嵌入式筒灯5W9W12W18W6500k白光吸顶装饰孔灯暗装",
+      "url": "https://detail.1688.com/offer/1051533200769.html",
+      "price": "¥7.3",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：56"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 5/5 个片段"
+      ],
+      "score": 72,
+      "status": "review",
+      "visualScore": 56
+    },
+    {
+      "title": "亚明LED筒灯6/9/12W吊顶天花灯嵌入式客厅射灯超薄走廊过道商用灯",
+      "url": "https://detail.1688.com/offer/740234133612.html",
+      "price": "¥3.38",
+      "supplier": "常州蓝骏光电有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：50"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 55,
+      "status": "review",
+      "visualScore": 50
+    },
+    {
+      "title": "上海亚明照明LED筒灯嵌入式天花灯11W白光节能高亮孔灯",
+      "url": "https://detail.1688.com/offer/855160233333.html",
+      "price": "¥3.18",
+      "supplier": "常州虹海照明电器有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：63"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 64,
+      "status": "review",
+      "visualScore": 63
+    },
+    {
+      "title": "正品亚明led筒灯嵌入式家用6w9w12w18w天花灯2.5寸4寸吊顶孔灯",
+      "url": "https://detail.1688.com/offer/532865743947.html",
+      "price": "¥3.85",
+      "supplier": "钟楼区邹区灯仓灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：63"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 59,
+      "status": "review",
+      "visualScore": 63
+    },
+    {
+      "title": "筒灯led嵌入式家用天花射灯客厅吊顶孔灯简约三色牛眼灯商用照明",
+      "url": "https://detail.1688.com/offer/960191417627.html",
+      "price": "¥2.11",
+      "supplier": "中山市仪乐照明厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：39"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 57,
+      "status": "review",
+      "visualScore": 39
+    },
+    {
+      "title": "cr2032的纽扣电池CR2025CR2016CR2430CR2450型号CR2032型紐扣電池",
+      "url": "https://detail.1688.com/offer/816318507237.html",
+      "price": "¥0.13",
+      "supplier": "义乌市泓冠电池厂",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：电池"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "3m思高单面带胶神奇隐形改错题修复透明胶带810卷材测试胶带制品",
+      "url": "https://detail.1688.com/offer/670596095106.html",
+      "price": "¥4.2",
+      "supplier": "深圳鸿泰工业制品有限公司",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：胶带"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "CR2032纽扣电池LED铜线灯写字板电子遥控器3V锂锰扣式CR2032电池",
+      "url": "https://detail.1688.com/offer/629328597494.html",
+      "price": "¥0.01",
+      "supplier": "义乌市泓冠电池厂",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：电池"
+      ],
+      "missing": [
+        "图片未比对"
+      ],
+      "reasons": [
+        "名称命中 1/5 个片段"
+      ],
+      "score": 5,
+      "status": "excluded"
+    },
+    {
+      "title": "飞利浦LED恒亮筒灯专柜同款高显指无频闪卧室客厅走道孔灯天花灯",
+      "url": "https://detail.1688.com/offer/806715389147.html",
+      "price": "¥7.9",
+      "supplier": "深圳市曜影商贸有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：47"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 54,
+      "status": "review",
+      "visualScore": 47
+    },
+    {
+      "title": "AG0-AG13系列1.55v钮扣电池lr44的纽扣电池lr1130lr41lr44电池",
+      "url": "https://detail.1688.com/offer/816297907632.html",
+      "price": "¥0.05",
+      "supplier": "义乌市泓冠电池厂",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：电池"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "LED筒灯批发嵌入式天花桶灯2.5寸3.5寸4寸6寸5W9W12W18W开孔灯",
+      "url": "https://detail.1688.com/offer/922724678985.html",
+      "price": "¥2.29",
+      "supplier": "安徽长金贸易有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：49"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 55,
+      "status": "review",
+      "visualScore": 49
+    },
+    {
+      "title": "幼儿识字书儿童认字启蒙早教安静书幼儿园宝宝益智认知片玩具",
+      "url": "https://detail.1688.com/offer/963374075299.html",
+      "price": "¥0.86",
+      "supplier": "义乌市寒萩电子商务商行",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：识字"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "泰祥照明led筒灯 孔灯超薄桶灯吊顶天花家用灯嵌入式洞灯客厅射灯",
+      "url": "https://detail.1688.com/offer/723883404069.html",
+      "price": "¥2.1",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：36"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 56,
+      "status": "review",
+      "visualScore": 36
+    },
+    {
+      "title": "亚明led筒灯嵌入式家用6w9w12w18w天花灯2.5寸4寸吊顶防眩孔灯",
+      "url": "https://detail.1688.com/offer/1066018410526.html",
+      "price": "¥8.28",
+      "supplier": "江苏浦昱工程照明有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：50"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 55,
+      "status": "review",
+      "visualScore": 50
+    },
+    {
+      "title": "鑫盟泰照明 合金系列超薄LED合金筒灯射灯暗装孔灯面板平板天花灯",
+      "url": "https://detail.1688.com/offer/724499941872.html",
+      "price": "¥3.1",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：40"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 57,
+      "status": "review",
+      "visualScore": 40
+    },
+    {
+      "title": "识字启蒙安静书幼儿认字早教儿童识字黏贴卡片全套幼儿园宝宝认知",
+      "url": "https://detail.1688.com/offer/924334579568.html",
+      "price": "¥0.86",
+      "supplier": "义乌市伊起赢电子商务商行",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：识字"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "LED筒灯嵌入式天花灯桶灯2.5寸3.5寸4寸6寸5W9W12W18W客厅开孔灯",
+      "url": "https://detail.1688.com/offer/648602304519.html",
+      "price": "¥2.5",
+      "supplier": "常州贝通照明科技有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：47"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 54,
+      "status": "review",
+      "visualScore": 47
+    },
+    {
+      "title": "鑫盟泰照明led超薄筒灯格栅嵌入式天花灯家用客厅吊顶方形面板灯",
+      "url": "https://detail.1688.com/offer/628639068433.html",
+      "price": "¥4.83",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：49"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 60,
+      "status": "review",
+      "visualScore": 49
+    },
+    {
+      "title": "开尔照明国际LED筒灯嵌入式3000K暖光4000K中性光6000K白光",
+      "url": "https://detail.1688.com/offer/1060242386672.html",
+      "price": "¥5.5",
+      "supplier": "惠东县吉隆粤惠业五金灯饰批发部",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：49"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 60,
+      "status": "review",
+      "visualScore": 49
+    },
+    {
+      "title": "超薄led筒灯三色变光嵌入式7.5公分家用客厅吊顶天花灯高亮孔灯5w",
+      "url": "https://detail.1688.com/offer/1001591135569.html",
+      "price": "¥4.8",
+      "supplier": "中山市团普照明有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：42"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 53,
+      "status": "review",
+      "visualScore": 42
+    },
+    {
+      "title": "手机数据线开窗透明快充线彩盒USB充电线收纳盒线材包装纸壳数码",
+      "url": "https://detail.1688.com/offer/45309941406.html",
+      "price": "¥0.22",
+      "supplier": "金华市鹤鼎印刷包装有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "得力NS687棱净大师橡皮擦人体工程学集屑擦皮擦字成线学生小皮擦",
+      "url": "https://detail.1688.com/offer/995249790760.html",
+      "price": "¥6.9",
+      "supplier": "南京辉展电子商务有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "天地盖包装盒礼盒定制茶叶飞机白卡纸开窗彩盒翻盖抽屉包装盒定制",
+      "url": "https://detail.1688.com/offer/1045954205732.html",
+      "price": "¥0.2",
+      "supplier": "龙港市北翱包装厂",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：包装盒"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "适用华为GT6/5/4/3/2pro手表无线充电器一体式底座磁吸充电线快充",
+      "url": "https://detail.1688.com/offer/808238585401.html",
+      "price": "¥13.5",
+      "supplier": "深圳市海高杰电子科技有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "3m透明胶带 手撕书写油墨测试胶修改复印学生文具隐形胶带思高810",
+      "url": "https://detail.1688.com/offer/670902513336.html",
+      "price": "¥4.2",
+      "supplier": "深圳绮涵工业材料有限公司",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：胶带"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "索蚁照明LED筒灯嵌入式灵燕系列店铺商用家用客厅卧室悬吊式天花",
+      "url": "https://detail.1688.com/offer/1037773446362.html",
+      "price": "¥2.4",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：57"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 62,
+      "status": "review",
+      "visualScore": 57
+    },
+    {
+      "title": "LED筒灯嵌入式天花灯家用客厅店铺过道暗装LED照明灯射灯天花板",
+      "url": "https://detail.1688.com/offer/969805461912.html",
+      "price": "¥5",
+      "supplier": "广州广珠电缆有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：46"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 59,
+      "status": "review",
+      "visualScore": 46
+    },
+    {
+      "title": "鑫盟泰led筒灯合金嵌入式天花灯2.5寸7w3寸9w4寸12w6寸18孔灯洞灯",
+      "url": "https://detail.1688.com/offer/826324454131.html",
+      "price": "¥2.2",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：48"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 54,
+      "status": "review",
+      "visualScore": 48
+    },
+    {
+      "title": "上海亚明照明led筒灯嵌入式家用防水天花灯批发4寸吊顶防眩孔灯",
+      "url": "https://detail.1688.com/offer/1066414738389.html",
+      "price": "¥3.18",
+      "supplier": "江苏浦昱工程照明有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：54"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 61,
+      "status": "review",
+      "visualScore": 54
+    },
+    {
+      "title": "圆形防水贴创可贴 输液瓶口贴圆形洗澡防水脸部痘痘贴迷你创可贴",
+      "url": "https://detail.1688.com/offer/862410585008.html",
+      "price": "¥1.2",
+      "supplier": "义乌市钰蕾日用品商行",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "AG0到AG13全系列AG10AG3电子1.55V碱性LR44LR1130LR41纽扣电池",
+      "url": "https://detail.1688.com/offer/841593261276.html",
+      "price": "¥0.05",
+      "supplier": "义乌市华道电池有限公司",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：电池"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "蓝果趣味水果便利贴可抽拉式透明珠光学生用考试记事贴纸可粘贴",
+      "url": "https://detail.1688.com/offer/1068077795341.html",
+      "price": "¥1.3",
+      "supplier": "义乌市宸习贸易有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "亚明LED筒灯6/9/12W吊顶天花灯嵌入式客厅射灯超薄走廊过道商用灯",
+      "url": "https://detail.1688.com/offer/1066407746396.html",
+      "price": "¥3.35",
+      "supplier": "江苏浦昱工程照明有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：50"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 55,
+      "status": "review",
+      "visualScore": 50
+    },
+    {
+      "title": "镭射银卡纸包装盒定制书型盒开窗白卡纸彩盒定制 化妆品包装礼盒",
+      "url": "https://detail.1688.com/offer/683953962542.html",
+      "price": "¥0.2",
+      "supplier": "龙港市北翱包装厂",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：包装盒"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "123白富美4寸筒灯led孔灯5寸简灯天花灯6寸18w嵌入式桶灯开孔15公",
+      "url": "https://detail.1688.com/offer/1087212728302.html",
+      "price": "¥1.92",
+      "supplier": "钟楼区邹区发红照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：52"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 56,
+      "status": "review",
+      "visualScore": 52
+    },
+    {
+      "title": "厂家直销RGB天花灯射灯筒灯3W牛眼灯豆胆灯LED跨境爆款遥控七彩灯",
+      "url": "https://detail.1688.com/offer/614217421099.html",
+      "price": "¥10.6",
+      "supplier": "中山市朗舒照明科技有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：41"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 52,
+      "status": "review",
+      "visualScore": 41
+    },
+    {
+      "title": "LED嵌入式筒灯2.5-8寸7W-24W天花桶灯批发",
+      "url": "https://detail.1688.com/offer/1069483298462.html",
+      "price": "¥7.99",
+      "supplier": "中山市横栏镇仝企灯饰厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：47"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 54,
+      "status": "review",
+      "visualScore": 47
+    },
+    {
+      "title": "泰祥led超薄筒灯客厅走道廊吊顶嵌入式天花灯7W4寸12W20W射灯洞灯",
+      "url": "https://detail.1688.com/offer/1025258895171.html",
+      "price": "¥2.4",
+      "supplier": "临沂市兰山区开尔照明工程商行",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：44"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 53,
+      "status": "review",
+      "visualScore": 44
+    },
+    {
+      "title": "典范阳光筒灯6w9w12w18w服装店商场美容院理发店眼镜店洞压铸铝白",
+      "url": "https://detail.1688.com/offer/680559543392.html",
+      "price": "¥6.83",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：45"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 1/5 个片段"
+      ],
+      "score": 49,
+      "status": "review",
+      "visualScore": 45
+    },
+    {
+      "title": "匠百年照明高亮度嵌入式LED清晖系列超薄筒灯家用商用店铺用洞灯",
+      "url": "https://detail.1688.com/offer/946924449206.html",
+      "price": "¥8.8",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：52"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 61,
+      "status": "review",
+      "visualScore": 52
+    },
+    {
+      "title": "得力便签纸彩色记事贴学生办公用便利贴多规格粘性强ins风便条贴",
+      "url": "https://detail.1688.com/offer/1052054375725.html",
+      "price": "¥0.88",
+      "supplier": "长沙品臣文化用品有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "匠百年LED超薄筒灯照明4寸20W6寸24W嵌入式天花灯办公室展厅筒灯",
+      "url": "https://detail.1688.com/offer/907312818088.html",
+      "price": "¥6.8",
+      "supplier": "兰山区顺冠神州光科亚明照明灯具厂",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：49"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 3/5 个片段"
+      ],
+      "score": 60,
+      "status": "review",
+      "visualScore": 49
+    },
+    {
+      "title": "SHINWOO韩国古筝胶布琵琶指甲儿童专用不粘手专业演奏型胶带透气",
+      "url": "https://detail.1688.com/offer/1092179058153.html",
+      "price": "¥4.5",
+      "supplier": "杭州艺钛客乐器有限公司",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：胶带"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "LED筒灯嵌入式天花桶灯2.5寸3.5寸4寸6寸5W9W12W18W开孔灯",
+      "url": "https://detail.1688.com/offer/1074050003173.html",
+      "price": "¥1.97",
+      "supplier": "袁州区城西菲力五金网店",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：47"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 54,
+      "status": "review",
+      "visualScore": 47
+    },
+    {
+      "title": "适用华为手表GT6 Pro充电器Watch5/GT3/Fit5铝合金壳磁吸充电座",
+      "url": "https://detail.1688.com/offer/978625812918.html",
+      "price": "¥16.3",
+      "supplier": "惠州市格欧科技有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "鑫盟泰照明大功率压铸铝筒黑壳白壳孔灯洞灯高亮星宇系列高亮度灯",
+      "url": "https://detail.1688.com/offer/826317514261.html",
+      "price": "¥7.1",
+      "supplier": "临沂市兰山区东南照明灯具厂",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "图片未比对"
+      ],
+      "reasons": [
+        "名称命中 1/5 个片段"
+      ],
+      "score": 5,
+      "status": "excluded"
+    },
+    {
+      "title": "绿林焊锡丝高纯度锡丝自带松香批发无铅低温锡线打火机电烙铁锡焊",
+      "url": "https://detail.1688.com/offer/813997498991.html",
+      "price": "¥6.65",
+      "supplier": "烟台市绿林工具有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "led传奇筒灯2寸超薄筒灯嵌入式圆形天花灯客厅筒灯格栅灯隔离驱动",
+      "url": "https://detail.1688.com/offer/598716952748.html",
+      "price": "¥12.2",
+      "supplier": "江门市灯家家照明有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：48"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 54,
+      "status": "review",
+      "visualScore": 48
+    },
+    {
+      "title": "汉方传承儿童泡澡包 家用婴幼儿沐浴包艾草瑶浴批发儿童泡澡包",
+      "url": "https://detail.1688.com/offer/745035300163.html",
+      "price": "¥3.4",
+      "supplier": "南阳宛医汉艾健康科技有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "欧司朗灯具OSRAM明睿led筒灯办公走廊酒店过道防眩窄边铝合金射灯",
+      "url": "https://detail.1688.com/offer/765192686103.html",
+      "price": "¥7.49",
+      "supplier": "恩西利(深圳)智能科技有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：51"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 55,
+      "status": "review",
+      "visualScore": 51
+    },
+    {
+      "title": "Paraiso/松芝源CR2032/CR2025/CR2016 3v锂车钥匙遥控纽扣电池",
+      "url": "https://detail.1688.com/offer/624165208653.html",
+      "price": "¥1.3",
+      "supplier": "广州松芝源电子有限公司",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：电池"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "AG2纽扣电池1.55V碱性LR59小电子397钮扣电池LR621L621电池批发",
+      "url": "https://detail.1688.com/offer/847091056006.html",
+      "price": "¥0.06",
+      "supplier": "义乌市泓冠电池厂",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：电池"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "宝莱美露亮净舒宠物滴眼液60ml 狗狗滴眼液 猫咪洗眼液清洁泪痕",
+      "url": "https://detail.1688.com/offer/583320246539.html",
+      "price": "¥3.5",
+      "supplier": "成都麦蒂供应链科技有限公司",
+      "excluded": [
+        "品类未命中：筒灯"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "3m思高测试胶带 600强力无痕透明单面胶带文具油墨百格测试胶带",
+      "url": "https://detail.1688.com/offer/743298999103.html",
+      "price": "¥3.3",
+      "supplier": "3M品牌专营店",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：胶带"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "超薄奔驰筒灯LED筒灯套件砂黑筒灯外壳LED贴片筒灯天花灯面板灯",
+      "url": "https://detail.1688.com/offer/539739673793.html",
+      "price": "¥6",
+      "supplier": "佛山市海飞五金制品有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：62"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 2/5 个片段"
+      ],
+      "score": 59,
+      "status": "review",
+      "visualScore": 62
+    },
+    {
+      "title": "飞狮助听器电池Camelion6粒卡A10/A312/A13/A675 1.45V锌空电池",
+      "url": "https://detail.1688.com/offer/855789910660.html",
+      "price": "¥15",
+      "supplier": "深圳市会丰能源科技有限公司",
+      "excluded": [
+        "品类未命中：筒灯",
+        "标题含排除词：电池"
+      ],
+      "missing": [
+        "名称未命中",
+        "图片未比对"
+      ],
+      "reasons": [],
+      "score": 0,
+      "status": "excluded"
+    },
+    {
+      "title": "厂家直销 爆款3.5寸 10-12W 塑包铝筒灯 筒灯外壳 面板灯套件",
+      "url": "https://detail.1688.com/offer/531161880548.html",
+      "price": "¥4.9",
+      "supplier": "深圳市科菲特光电有限公司",
+      "excluded": [],
+      "missing": [
+        "图片外观参考分较低：35"
+      ],
+      "reasons": [
+        "标题命中品类",
+        "名称命中 1/5 个片段"
+      ],
+      "score": 46,
+      "status": "review",
+      "visualScore": 35
+    }
+  ],
+  "archive": {
+    "products": 220,
+    "offers": 220
+  },
+  "detailJob": {
+    "status": "paused",
+    "total": 220
+  },
+  "referenceUploadedToPlatformThisRun": false
+}

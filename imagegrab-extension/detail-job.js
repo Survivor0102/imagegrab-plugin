@@ -3,8 +3,10 @@
   'use strict';
   const KEY='imagegrabDetailJob', DATA='imagegrabResearchData', ALARM='imagegrab-detail-queue';
   function canonical(value){try{const u=new URL(value);const m=u.pathname.match(/^\/offer\/(\d+)\.html$/);return u.protocol==='https:'&&['detail.1688.com','offer.1688.com'].includes(u.hostname)&&m?`https://detail.1688.com/offer/${m[1]}.html`:'';}catch{return '';}}
+  function notFoundPage(value){try{const u=new URL(value);return /^https?:$/.test(u.protocol)&&u.hostname==='page.1688.com'&&u.pathname==='/shtml/static/wrongpage.html';}catch{return false;}}
+  const pageFailure=url=>({kind:'page_not_found',reason:'1688页面未找到（404），已继续下一件；可重试',url});
   function covered(offer){const c=offer.details?.optionCollection;return c?.status==='complete'||Boolean(c&&!c.status&&c.collected?.length&&c.collected.length===c.expectedCombinations&&!c.skipped?.length);}
-  function makeQueue(data,productIds){const ids=Array.isArray(productIds)?new Set(productIds):null;const urls=new Set();return (data.offers||[]).filter(o=>!ids||ids.has(o.productId)).flatMap(o=>{const url=canonical(o.url);if(!url||urls.has(url))return [];urls.add(url);return [{url,offerId:o.id,productId:o.productId,title:data.products?.find(p=>p.id===o.productId)?.title||url,status:covered(o)?'skipped':'pending',attempts:0}];});}
+  function makeQueue(data,productIds,offerUrls,options={}){const recaptureCompleted=options.recaptureCompleted===true;const ids=Array.isArray(productIds)?new Set(productIds):null;const allowed=Array.isArray(offerUrls)?new Set(offerUrls.map(canonical).filter(Boolean)):null;const urls=new Set();return (data.offers||[]).filter(o=>!ids||ids.has(o.productId)).flatMap(o=>{const url=canonical(o.url);if(!url||urls.has(url)||(allowed&&!allowed.has(url)))return [];urls.add(url);return [{url,offerId:o.id,productId:o.productId,title:data.products?.find(p=>p.id===o.productId)?.title||url,status:covered(o)&&!recaptureCompleted?'skipped':'pending',attempts:0}];});}
   function mergeCapture(data,item,row,offerData){
     if(canonical(row.url)!==item.url||row.captureKind!=='detail')throw Error('返回的商品与队列链接不一致，未保存');
     const offer=(data.offers||[]).find(o=>o.id===item.offerId&&canonical(o.url)===item.url);
@@ -42,17 +44,30 @@
       if(job.tabId){try{const tab=await api.tabs.get(job.tabId);if(job.tabUrl ? canonical(tab.pendingUrl||tab.url)===job.tabUrl : tab.url==='about:blank')return tab.id;}catch{}job.tabId=null;job.tabUrl='';}
       const tab=await api.tabs.create({url:'about:blank',active:false});job.tabId=tab.id;job.tabUrl='';await save(job);return tab.id;
     }
-    async function closeOwned(job){if(!job?.tabId)return;try{const t=await api.tabs.get(job.tabId);if((job.tabUrl && canonical(t.pendingUrl||t.url)===job.tabUrl)||t.url==='about:blank')await api.tabs.remove(job.tabId);}catch{}job.tabId=null;job.tabUrl='';}
-    async function ready(job,item){
-      const start=now();
+    async function closeOwned(job,errorUrl){if(!job?.tabId)return;try{const t=await api.tabs.get(job.tabId);if((job.tabUrl && canonical(t.pendingUrl||t.url)===job.tabUrl)||t.url==='about:blank'||(notFoundPage(errorUrl)&&(t.pendingUrl||t.url)===errorUrl))await api.tabs.remove(job.tabId);}catch{}job.tabId=null;job.tabUrl='';}
+    async function ready(job,item,observedError=()=>null){
+      const start=now();let mismatchSince=null;
       while(now()-start<timing.readyTimeout){
         await valid(job.id);
         const tab=await api.tabs.get(job.tabId);
         if(/login\.|\/punish|captcha|passport\./i.test(tab.url||''))throw Error('需要登录或安全验证');
-        if(canonical(tab.pendingUrl||tab.url)!==item.url)throw Error('采集标签页已离开目标商品');
+        // Catch the known redirect before it automatically leaves for the home page,
+        // including cases where the error document cannot be injected into yet.
+        const redirected=[tab.pendingUrl,tab.url,observedError()].find(notFoundPage);
+        if(redirected)return pageFailure(redirected);
         let status;
-        try{status=await execute(job.tabId,()=>({url:location.href,title:document.title,ready:document.readyState!=='loading'&&Boolean(document.querySelector('#productTitle .title-content h1')?.innerText && document.querySelector('#mainPrice .price-info')?.innerText && document.querySelector('#skuSelection')),challenge:Boolean(document.querySelector('iframe[src*="captcha"],iframe[src*="punish"]'))}));}catch{await sleep(timing.poll);continue;}
+        try{status=await execute(job.tabId,()=>{const body=document.body?.innerText||'';const title=document.title||'';const hasProduct=Boolean(document.querySelector('#productTitle .title-content h1')?.innerText);return {url:location.href,title,ready:document.readyState!=='loading'&&Boolean(hasProduct && document.querySelector('#mainPrice .price-info')?.innerText && document.querySelector('#skuSelection')),challenge:Boolean(document.querySelector('iframe[src*="captcha"],iframe[src*="punish"]')),unavailable:!hasProduct&&body.split(/\r?\n/).some(line=>/^(?:该)?商品(?:已下架|已失效|不存在)[。！!\s]*$/.test(line.trim()))};});}catch{await sleep(timing.poll);continue;}
         if(status.challenge||/安全验证|访问验证|请完成验证|验证码|滑动验证|访问异常/.test(status.title))throw Error('需要登录或安全验证');
+        // Chrome can expose about:blank or the previous item's DOM while navigation commits.
+        if(tab.status==='loading'||(canonical(tab.pendingUrl)===item.url&&canonical(status.url)!==item.url)){await sleep(timing.poll);continue;}
+        if(canonical(tab.pendingUrl||tab.url)!==item.url){
+          if(mismatchSince===null)mismatchSince=now();
+          if(now()-mismatchSince>=2000)throw Error('采集标签页已离开目标商品');
+          await sleep(timing.poll);continue;
+        }
+        mismatchSince=null;
+        if(canonical(status.url)!==item.url){await sleep(timing.poll);continue;}
+        if(status.unavailable)return {kind:'unavailable',reason:'商品已下架或已失效',url:status.url,title:status.title};
         // A pending navigation can still expose the previous product's loaded DOM.
         if(status.ready&&canonical(status.url)===item.url&&tab.status!=='loading')return;
         await sleep(timing.poll);
@@ -90,8 +105,23 @@
           item.status='running';item.attempts++;await save(job);
           try{
             const tabId=await ownTab(job);await valid(job.id);
-            job.tabUrl=item.url;await save(job);await api.tabs.update(tabId,{url:item.url,active:false});
-            await ready(job,item);
+            job.tabUrl=item.url;await save(job);
+            let errorUrl=null;
+            const onUpdated=(id,change)=>{if(id===tabId&&notFoundPage(change.url))errorUrl=change.url;};
+            api.tabs.onUpdated?.addListener(onUpdated);
+            let readiness;
+            try{await api.tabs.update(tabId,{url:item.url,active:false});readiness=await ready(job,item,()=>errorUrl);}
+            finally{api.tabs.onUpdated?.removeListener(onUpdated);}
+            if(readiness?.kind==='page_not_found'){
+              const current=await valid(job.id);job=current;
+              Object.assign(job.items[index],{status:'failed',error:readiness.reason,errorCode:'page_not_found',finalUrl:readiness.url,completedAt:now()});
+              await closeOwned(job,readiness.url);job.nextAt=now()+timing.between;await save(job);continue;
+            }
+            if(readiness?.kind==='unavailable'){
+              const current=await read();if(!current||current.id!==job.id)return;job=current;
+              Object.assign(job.items[index],{status:'unavailable',error:readiness.reason,completedAt:now()});
+              await closeOwned(job);job.nextAt=now()+timing.between;await save(job);continue;
+            }
             const row=await capture(job,item);await valid(job.id);
             const data=(await api.storage.local.get(DATA))[DATA]||{products:[],offers:[],certificates:[]};
             mergeCapture(data,item,row,globalThis.ImageGrabOfferData);
@@ -118,15 +148,16 @@
       if(runner)return {ok:false,error:'上一任务正在收尾，请稍后重试'};
       if(message.type==='DETAIL_JOB_RESUME'){
         if(!job)return {ok:false,error:'没有可继续的任务'};
-        for(const i of job.items)if(!['complete','skipped'].includes(i.status)){i.status='pending';i.attempts=0;i.error='';}
+        for(const i of job.items)if(!['complete','skipped','unavailable'].includes(i.status)){i.status='pending';i.attempts=0;i.error='';delete i.errorCode;delete i.finalUrl;delete i.completedAt;}
         job.status='running';job.stopRequested=false;job.reason='';
       }else{
         const ranking=(await api.storage.local.get('imagegrabResearchAutoJob')).imagegrabResearchAutoJob;
         if(ranking?.running)return {ok:false,error:'请先停止榜单采集，再补全详情'};
         const data=(await api.storage.local.get(DATA))[DATA]||{};
-        const items=makeQueue(data,message.productIds);
-        if(!items.some(i=>i.status==='pending'))return {ok:false,error:'所选范围没有待补全的1688货源，已有完整规格的商品会自动跳过'};
-        job={id:crypto.randomUUID(),status:'running',items,current:-1,createdAt:now(),stopRequested:false};
+        const recaptureCompleted=message.recaptureCompleted===true;
+        const items=makeQueue(data,message.productIds,message.offerUrls,{recaptureCompleted});
+        if(!items.some(i=>i.status==='pending'))return {ok:false,error:recaptureCompleted?'所选范围没有可采集的1688货源链接':'所选范围没有待补全的1688货源，已有完整规格的商品会自动跳过'};
+        job={id:crypto.randomUUID(),status:'running',items,current:-1,createdAt:now(),stopRequested:false,recaptureCompleted};
       }
       await save(job);await arm();kick();return {ok:true,jobId:job.id};
     });}

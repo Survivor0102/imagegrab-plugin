@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-11-05T14:53:38.723Z",
+  "version": "1.8.1",
+  "tests": 49,
+  "passed": 49,
+  "failed": 0,
+  "skipped": 0,
+  "zipFiles": 28,
+  "sourceFiles": 28,
+  "hashesMatch": true,
+  "zipSha256": "79503ae2a8456acd1fa465271f76ff364899045bf32feed9031e30fa94b8a73c",
+  "browserTest": "Real installed extension against routed synthetic redirect/error/valid product pages; no new live-site collection",
+  "retryable404": true,
+  "loginAndDepartureStillPause": true
+}

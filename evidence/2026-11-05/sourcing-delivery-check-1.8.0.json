@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-11-05T13:23:58.223Z",
+  "version": "1.8.0",
+  "tests": {
+    "tests": 45,
+    "pass": 45,
+    "fail": 0,
+    "skipped": 0
+  },
+  "sourceFiles": 28,
+  "zipFiles": 28,
+  "zipSourceHashEqualityVerified": true,
+  "zipBytes": 74320,
+  "zipSha256": "5f38a701a76fbb215578592ebeff91b470499b4c08777ae9306bc22901241c17",
+  "snapshotVerification": "28 source hashes and 300 archived historical image records passed; not new collection",
+  "liveEvidence": [
+    "sourcing-live-validation-1.8.0.json",
+    "sourcing-live-cropped-image-1.8.0.json",
+    "sourcing-live-name-only-1.8.0.json"
+  ],
+  "githubPushedThisTask": false
+}

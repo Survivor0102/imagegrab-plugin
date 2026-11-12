@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>选品研究台 · ImageGrab</title>
   <link rel="stylesheet" href="research.css">
+  <link rel="stylesheet" href="sourcing.css">
+  <link rel="stylesheet" href="sourcing-image.css">
+  <link rel="stylesheet" href="sourcing-workspace.css">
 </head>
 <body>
   <header class="app-header">
@@ -23,23 +26,35 @@
       <button class="nav-item active" data-view="products"><span>▦</span>商品池 <b id="product-count">0</b></button>
       <button class="nav-item" data-view="offers"><span>⇄</span>货源比较 <b id="offer-count">0</b></button>
       <button class="nav-item" data-view="certificates"><span>✓</span>认证核验</button>
+      <button class="nav-item" data-view="sourcing"><span>⌕</span>寻源工作区</button>
       <div class="sidebar-foot"><span class="local-dot"></span><span>数据保存在此浏览器</span></div>
     </aside>
     <main class="main-content">
       <div class="page-heading">
         <div><p class="eyebrow">1688 / SOURCING WORKSPACE</p><h1 id="view-title">商品池</h1><p id="view-description" class="muted">从榜单和搜索结果收集候选商品，再补全采购与上架资料。</p></div>
-        <label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="搜索品名、品牌、供应商"></label>
+        <label id="workspace-search" class="search-box"><span>⌕</span><input id="search" type="search" placeholder="搜索品名、品牌、供应商"></label>
       </div>
+      <div id="workspace-products" class="workspace-view">
       <section class="summary-strip" aria-label="数据概览">
         <div><span>商品记录</span><strong id="metric-products">0</strong></div>
         <div><span>供应商报价</span><strong id="metric-offers">0</strong></div>
         <div><span>待补资料</span><strong id="metric-incomplete">0</strong></div>
         <div><span>待核认证</span><strong id="metric-certificates">0</strong></div>
       </section>
+      <section class="scope-panel" aria-label="自动采集榜单范围">
+        <div class="scope-heading"><div><p class="eyebrow">RANKING SCOPE</p><h2>榜单采集范围</h2><p class="muted">先确定榜单类别和商品大类，再启动自动采集。地区固定为中国。</p></div><button id="scope-start" class="button primary">打开并自动采集</button></div>
+        <div class="scope-grid">
+          <fieldset><legend>榜单类别</legend><div id="scope-ranking" class="scope-options"></div></fieldset>
+          <fieldset><legend>商品大类</legend><div class="scope-category-row"><select id="scope-category" aria-label="1688一级商品类目"></select></div><small id="scope-category-help">选择1688一级商品类目；类目 ID 由已核实的选项自动带入。</small></fieldset>
+          <div class="scope-fixed"><span>地区</span><strong id="scope-fixed-country">中国</strong><small>countryCode=CN，当前固定</small></div>
+        </div>
+        <p id="scope-status" class="scope-status" role="status"></p>
+      </section>
       <section class="detail-job-panel" aria-label="第二阶段：补全商品详情">
         <div class="detail-job-heading"><div><strong>第二阶段 · 商品详情</strong><p class="muted">先在榜单或搜索页采集链接，再按链接逐个补全参数、发货地及各选项规格。</p></div>
-          <div class="detail-job-actions"><label>采集范围 <select id="detail-job-scope"><option value="filtered">当前筛选的商品</option><option value="selected">当前选中商品</option><option value="all">全部商品</option></select></label><button id="detail-job-start" class="button primary">批量补全详情</button><button id="detail-job-resume" class="button secondary" hidden>继续 / 重试未完成</button><button id="detail-job-stop" class="button secondary" hidden>停止补全</button></div>
+          <div class="detail-job-actions"><label>采集范围 <select id="detail-job-scope"><option value="filtered">当前筛选的商品</option><option value="selected">当前选中商品</option><option value="all">全部商品</option></select></label><label class="detail-job-recapture"><input id="detail-job-recapture" type="checkbox" aria-describedby="detail-job-mode-hint">重新采集已完成记录</label><button id="detail-job-start" class="button primary">批量补全详情</button><button id="detail-job-resume" class="button secondary" hidden>继续 / 重试未完成</button><button id="detail-job-stop" class="button secondary" hidden>停止补全</button></div>
         </div>
+        <p id="detail-job-mode-hint" class="muted">默认跳过已有完整详情；勾选后，新任务会重新采集所选范围内的已完成记录。若只采集到部分规格，会保留原完整资料。</p>
         <p id="detail-job-status" role="status" aria-live="polite" class="muted">尚未开始；已有完整选项采集记录的货源会自动跳过。</p>
         <progress id="detail-job-progress" max="1" value="0" hidden aria-label="详情补全进度"></progress>
         <details id="detail-job-records" hidden><summary>逐件采集记录</summary><ul id="detail-job-items"></ul></details>
@@ -51,6 +66,11 @@
           <button class="segment" data-filter="similar">同款寻源</button>
           <button class="segment" data-filter="manual">手动</button>
         </div>
+        <div id="ranking-filter-controls" class="ranking-filter-controls" aria-label="榜单范围筛选">
+          <label>榜单类别<select id="filter-ranking" aria-label="按榜单类别筛选"><option value="all">全部榜单</option></select></label>
+          <label>商品大类<select id="filter-category" aria-label="按商品大类筛选"><option value="all">全部大类</option></select></label>
+          <span id="ranking-filter-summary" class="muted"></span>
+        </div>
         <span id="result-count" class="muted"></span>
       </div>
       <div class="work-area">
@@ -60,6 +80,80 @@
         </section>
         <aside id="detail-panel" class="detail-panel" hidden></aside>
       </div>
+      </div>
+      <section id="workspace-sourcing" class="workspace-view sourcing-shell" hidden>
+        <div class="sourcing-mode-tabs" role="tablist" aria-label="寻源方式">
+          <button id="sourcing-manual-tab" type="button" class="sourcing-mode-tab active" role="tab" aria-selected="true" aria-controls="sourcing-manual" data-sourcing-mode="manual">图片 / 名称筛选</button>
+          <button id="sourcing-image-tab" type="button" class="sourcing-mode-tab" role="tab" aria-selected="false" aria-controls="workspace-image-sourcing" data-sourcing-mode="image">截图自动寻源</button>
+        </div>
+        <section id="sourcing-manual" role="tabpanel" aria-labelledby="sourcing-manual-tab">
+        <div class="sourcing-grid">
+          <section class="panel">
+            <h2>1 · 要找什么</h2>
+            <label>目标<select id="mode"><option value="alternative">可接受其他品牌的相似替代品</option><option value="exact">同品牌 / 同型号候选</option></select></label>
+            <label>商品名称<input id="name" placeholder="例如：亮亮照明 LED 嵌入式筒灯"></label>
+            <div class="two"><label>商品品类（多个词任选其一）<input id="category" placeholder="筒灯 天花灯"></label><label>规格要求<input id="specs" placeholder="5W 95mm"></label></div>
+            <div class="two"><label>品牌<input id="brand" placeholder="亮亮照明"></label><label>型号<input id="model" placeholder="有准确型号再填写"></label></div>
+            <div class="two"><label>必需词（全部命中）<input id="required" placeholder="嵌入式"></label><label>排除词<input id="exclude" placeholder="灯泡 电池 胶带"></label></div>
+            <label>参考图片<input id="reference-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+            <div id="crop-wrap" hidden><p class="muted">拖动框选商品本体；不框选时使用整图。</p><canvas id="reference-canvas" width="420" height="300" aria-label="拖动框选参考商品"></canvas><div class="actions"><button id="crop-apply" class="button">使用框选区域</button><button id="crop-reset" class="button">恢复整图</button></div></div>
+            <div class="actions"><button id="text-search" class="button">打开1688名称搜索</button><button id="image-search" class="button">打开1688图片搜索</button><button id="reference-clear" class="button">移除参考图</button></div>
+            <p id="search-help" class="muted">名称和图片分开搜索；筛选条件在候选读取后本地应用。</p>
+          </section>
+          <section class="panel">
+            <h2>2 · 收集候选</h2><p>读取1688结果页当前已加载的商品卡片；滚动加载更多后可再次读取。</p>
+            <div class="actions"><select id="source-tab" aria-label="1688结果标签页"></select><button id="tabs-refresh" class="button">刷新标签列表</button></div>
+            <div class="actions"><select id="channel" aria-label="候选来源"><option value="image">图片搜索结果</option><option value="name">名称搜索结果</option></select><button id="capture" class="button primary">读取该页候选</button><button id="from-pool" class="button">使用商品池已有记录</button></div>
+            <p id="pool-status" role="status">尚未收集候选</p><button id="clear-pool" class="button">清空本次候选池</button>
+            <h2>3 · 本地筛选</h2>
+            <label>优先展示数量<input id="limit" type="number" min="1" max="50" value="10"></label>
+            <div class="actions"><button id="allow-images" class="button">允许读取商品图片作本地比对</button><button id="screen" class="button primary">开始筛选</button><button id="cancel-screen" class="button" hidden>停止</button></div>
+            <p class="muted">外观分是本地比对线索，不代表同款概率；缺少依据的记录保留在待确认中。</p>
+            <p id="status" role="status" aria-live="polite"></p>
+            <div class="actions"><button id="select-top" class="button">勾选优先候选</button><button id="admit" class="button">将勾选项加入商品池</button><button id="enrich" class="button primary">仅补全勾选项详情</button><button id="export" class="button">导出本次候选 JSON</button></div>
+            <p id="job-status" class="muted"></p><a class="table-link" href="#products" data-view="products">到研究台查看详情任务、暂停或续采 →</a>
+          </section>
+        </div>
+        <section class="panel"><h2>筛选结果</h2><div class="actions"><label>显示<select id="result-view"><option value="shortlist">优先候选</option><option value="review">待确认</option><option value="remaining">其余符合条件</option><option value="excluded">已排除</option></select></label><span id="sourcing-result-count"></span></div><div id="results" class="candidate-grid"></div></section>
+        </section>
+        <section id="workspace-image-sourcing" class="image-intake-shell" role="tabpanel" aria-labelledby="sourcing-image-tab" hidden>
+        <details id="auto-intake-form" open>
+        <summary>开始新的截图寻源</summary>
+        <div class="image-intake-grid">
+          <section class="panel">
+            <h2>商品截图</h2>
+            <label class="image-upload-control">选择商品图片<input id="auto-reference-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+            <img id="auto-preview" class="image-intake-preview" alt="待识别商品截图" hidden>
+            <p id="auto-ocr-status" class="muted" role="status" aria-live="polite">选择截图后会在本机识别文字；图片不会发送给 OCR 服务。</p>
+            <details><summary>识别到的原文</summary><pre id="auto-raw-text"></pre></details>
+          </section>
+          <section class="panel">
+            <h2>识别结果</h2>
+            <div id="auto-fields" class="auto-fields" hidden>
+              <label class="wide">商品名称（选填，留空仅做图片搜索）<input id="auto-title" autocomplete="off"></label>
+              <div class="two"><label>品牌线索<input id="auto-brand" autocomplete="off"></label><label>品类关键词<input id="auto-category" autocomplete="off"></label></div>
+              <label>规格线索<input id="auto-specs" autocomplete="off"></label>
+              <div class="two"><label>条码<input id="auto-barcode" readonly></label><label>SKU<input id="auto-sku" readonly></label></div>
+              <label>SPU<input id="auto-spu" readonly></label>
+              <p id="auto-confidence" class="muted"></p>
+            </div>
+            <div class="actions"><button id="auto-run" class="button primary" disabled>自动搜索并筛选</button><button id="auto-stop" class="button" hidden>停止</button></div>
+            <p id="auto-job-status" class="muted" role="status" aria-live="polite"></p>
+            <p class="intake-disclosure">启动后将参考图交给1688图片搜索；有可用名称时再独立搜索名称。仅在本次搜索结果加载稳定后读取候选。遇到登录或安全验证会暂停；不会自动确认同款。</p>
+          </section>
+        </div>
+        </details>
+        <section id="auto-saved-results" class="panel" hidden>
+          <div class="auto-results-heading"><img id="auto-saved-reference" alt="本次寻源参考图" hidden><div><h2 id="auto-saved-title"></h2><p id="auto-saved-meta" class="muted"></p></div></div>
+          <p id="auto-score-help" class="muted"></p>
+          <div class="actions"><button id="auto-score" class="button primary">比对候选图片并评分</button><button id="auto-cancel-score" class="button" hidden>停止评分</button></div>
+          <p id="auto-score-status" role="status" aria-live="polite"></p>
+          <div class="actions"><label>显示<select id="auto-result-view"><option value="shortlist">优先候选</option><option value="review">待确认</option><option value="remaining">其余符合条件</option><option value="excluded">已排除</option></select></label><span id="auto-result-count"></span></div>
+          <div class="actions"><button id="auto-select-top" class="button">勾选优先候选</button><button id="auto-admit" class="button">将勾选项加入商品池</button><button id="auto-enrich" class="button">仅补全勾选项详情</button><button id="auto-export" class="button">导出本次候选 JSON</button></div>
+          <div id="auto-results" class="candidate-grid"></div>
+        </section>
+        </section>
+      </section>
     </main>
   </div>
   <dialog id="product-dialog" class="editor-dialog">
@@ -108,6 +202,14 @@
   </dialog>
   <div id="toast" role="status" aria-live="polite"></div>
   <script src="offer-data.js"></script>
+  <script src="ranking-scope.js"></script>
+  <script src="sourcing-match.js"></script>
+  <script src="sourcing-results.js"></script>
+  <script src="sourcing-image.js"></script>
+  <script src="ocr/tesseract.min.js"></script>
+  <script src="sourcing.js"></script>
+  <script src="sourcing-auto-results.js"></script>
+  <script src="sourcing-auto.js"></script>
   <script src="research.js"></script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-11-07T15:01:36.449Z",
+  "version": "1.8.2",
+  "kind": "Installed extension integration on routed synthetic 1688 pages; not live 1688 verification",
+  "captured": 3,
+  "afterCrossChannelDedupe": 3,
+  "shortlist": 1,
+  "excluded": 2,
+  "actualImageComparison": true,
+  "cropSaved": true,
+  "selectedDetailQueue": 1,
+  "taskStatus": "complete",
+  "oldArchivePreserved": true,
+  "foregroundPreserved": true,
+  "nativeImageInputReceivedFile": true,
+  "nativeChineseSearchSubmitted": true,
+  "unauthorizedSourceRejected": true,
+  "reloadPersistence": true
+}
