@@ -75,3 +75,50 @@ test('ranking scope filters the product list and constrain the current-filtered 
     await browser.close();
   }
 });
+
+test('offer comparison inherits product source and scope filters and adds detail completeness filters', { timeout: 30000 }, async () => {
+  const browser = await chromium.launch({ executablePath: chromePath, headless: true });
+  try {
+    const page = await browser.newPage();
+    const products = [
+      { id: 'hot-home', title: '榜单日用品', sourceType: 'ranking', scope: { rankingKey: 'hot', rankingLabel: '人气热销', categoryKey: 'home', categoryName: '居家日用品', countryName: '中国' }, images: [] },
+      { id: 'trend-toys', title: '趋势玩具', sourceType: 'ranking', scope: { rankingKey: 'trend', rankingLabel: '近期趋势', categoryKey: 'toys', categoryName: '玩具', countryName: '中国' }, images: [] },
+      { id: 'similar', title: '同款候选', sourceType: 'similar', images: [] },
+      { id: 'manual', title: '手动候选', sourceType: 'manual', images: [] }
+    ];
+    const offers = [
+      { id: 'offer-hot', productId: 'hot-home', supplierName: '榜单工厂', detailCapturedAt: Date.now(), shipFrom: '浙江义乌', customerService: { url: 'https://amos.alicdn.com/getcid.aw?v=2&groupid=1&site=cnalichn&s=1&charset=utf-8' } },
+      { id: 'offer-trend', productId: 'trend-toys', supplierName: '趋势工厂' },
+      { id: 'offer-similar', productId: 'similar', supplierName: '同款工厂', detailCapturedAt: Date.now(), shipFrom: '广东广州' },
+      { id: 'offer-manual', productId: 'manual', supplierName: '手动工厂', shipFrom: '江苏南通' }
+    ];
+    const store = { imagegrabResearchData: { products, offers, certificates: [], selectedId: 'hot-home' } };
+    await page.setContent(fs.readFileSync(path.join(root, 'imagegrab-extension/research.html'), 'utf8').replace(/<link[^>]+>/, '').replace('<script src="research.js"></script>', ''));
+    await page.evaluate(value => { window.__store = value; }, store);
+    await page.evaluate(() => {
+      window.chrome = { storage: { local: { get: async key => ({ [key]: window.__store[key] }), set: async values => Object.assign(window.__store, values), remove: async key => { delete window.__store[key]; } } }, runtime: { sendMessage: async () => ({ ok: true }) } };
+    });
+    await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/offer-data.js') });
+    await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/ranking-scope.js') });
+    await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/research.js') });
+    await page.locator('.product-row').first().waitFor();
+
+    await page.locator('[data-view="offers"]').click();
+    assert.equal(await page.locator('#offer-filter-controls').isVisible(), true);
+    assert.equal(await page.locator('#product-rows tr').count(), 4);
+
+    await page.locator('[data-offer-filter="ranking"]').click();
+    assert.equal(await page.locator('#product-rows tr').count(), 2);
+    await page.locator('#offer-filter-ranking').selectOption('hot');
+    assert.equal(await page.locator('#product-rows tr').count(), 1);
+    assert.match(await page.locator('#product-rows').innerText(), /榜单工厂/);
+
+    await page.locator('#offer-filter-detail').selectOption('complete');
+    await page.locator('#offer-filter-customer').selectOption('known');
+    assert.equal(await page.locator('#product-rows tr').count(), 1);
+    await page.locator('#offer-filter-customer').selectOption('missing');
+    assert.equal(await page.locator('#product-rows tr').count(), 0);
+  } finally {
+    await browser.close();
+  }
+});

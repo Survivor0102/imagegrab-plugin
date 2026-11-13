@@ -1,11 +1,11 @@
 {
-  "extension_version": "1.9.6",
+  "extension_version": "1.9.7",
   "snapshot_kind": "ImageGrab source integrity snapshot; see validation notes for synthetic tests and live-site status",
   "files": [
     {
       "path": "imagegrab-extension/README.md",
-      "bytes": 1760,
-      "sha256": "e635d6898571ed636198495740ca72d574287b9aab63ff1748c199ff6d571be8"
+      "bytes": 1895,
+      "sha256": "2a6afa4865d27d1881fda12e91e5ecdf7d90b61c6bec7dbf309e1de7057da490"
     },
     {
       "path": "imagegrab-extension/background.js",
@@ -55,7 +55,7 @@
     {
       "path": "imagegrab-extension/manifest.json",
       "bytes": 1240,
-      "sha256": "2204b5dafd1e909ecc2903e9559378a8fc30cb92c3525b34b0c1e5fa3d1f60f9"
+      "sha256": "7346bde2dd1b56be81daf088a9bc178b9d7dc632c2b1a9a590d52ef74acac681"
     },
     {
       "path": "imagegrab-extension/ocr/LICENSE.tessdata_best",
@@ -154,18 +154,18 @@
     },
     {
       "path": "imagegrab-extension/research.css",
-      "bytes": 14691,
-      "sha256": "d0bc736109a2946d6084357993ae129f88b5a0114f4c9247d3c50d9651717205"
+      "bytes": 15581,
+      "sha256": "2f03c05de1ca38761c76e5e3129a68da8d05eb49903a9cb37b625d88f8993874"
     },
     {
       "path": "imagegrab-extension/research.html",
-      "bytes": 20283,
-      "sha256": "5e2fdd993281e3ee51d1fab132329e93805abce9a69bbbfc3991eb265f6fb4ed"
+      "bytes": 22073,
+      "sha256": "060b922ca9e3dfbb0a31779d553d9c84e428e3622765a6cf4f99ebccac1fdc40"
     },
     {
       "path": "imagegrab-extension/research.js",
-      "bytes": 44146,
-      "sha256": "fce8e027674a2c9a21c8067426acb4abe0e0505ec301cbc08747d4e4f3699b46"
+      "bytes": 48222,
+      "sha256": "90484531cdf537a1f534eabdd4af05fe4e801404cd56345f7040aca0afdb54f0"
     },
     {
       "path": "imagegrab-extension/sales.js",

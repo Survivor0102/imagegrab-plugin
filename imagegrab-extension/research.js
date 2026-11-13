@@ -6,7 +6,7 @@
   const SCOPE_KEY = 'imagegrabResearchScope';
   let detailJob = null;
   const hashView = location.hash.slice(1);
-  const state = { products: [], offers: [], certificates: [], view: hashView === 'image-sourcing' ? 'sourcing' : ['offers', 'certificates', 'sourcing'].includes(hashView) ? hashView : 'products', sourcingMode: hashView === 'image-sourcing' ? 'image' : 'manual', filter: 'all', filterRanking: 'all', filterCategory: 'all', selectedId: '', query: '' };
+  const state = { products: [], offers: [], certificates: [], view: hashView === 'image-sourcing' ? 'sourcing' : ['offers', 'certificates', 'sourcing'].includes(hashView) ? hashView : 'products', sourcingMode: hashView === 'image-sourcing' ? 'image' : 'manual', filter: 'all', filterRanking: 'all', filterCategory: 'all', offerFilter: 'all', offerRanking: 'all', offerCategory: 'all', offerDetail: 'all', offerShipping: 'all', offerCustomer: 'all', selectedId: '', query: '' };
   const offerData = globalThis.ImageGrabOfferData;
   const $ = selector => document.querySelector(selector);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -30,6 +30,17 @@
     if (ranking.options.length === 1) ranking.insertAdjacentHTML('beforeend', rankingScope.RANKINGS.map(item => `<option value="${esc(item.key)}">${esc(item.label)}</option>`).join(''));
     if (category.options.length === 1) category.insertAdjacentHTML('beforeend', rankingScope.CATEGORIES.map(item => `<option value="${esc(item.key)}">${esc(item.label)}</option>`).join(''));
     ranking.value = state.filterRanking; category.value = state.filterCategory;
+  }
+  function renderOfferFilters() {
+    if (!rankingScope) return;
+    const ranking = $('#offer-filter-ranking'), category = $('#offer-filter-category');
+    if (ranking.options.length === 1) ranking.insertAdjacentHTML('beforeend', rankingScope.RANKINGS.map(item => `<option value="${esc(item.key)}">${esc(item.label)}</option>`).join(''));
+    if (category.options.length === 1) category.insertAdjacentHTML('beforeend', rankingScope.CATEGORIES.map(item => `<option value="${esc(item.key)}">${esc(item.label)}</option>`).join(''));
+    ranking.value = state.offerRanking; category.value = state.offerCategory;
+    $('#offer-filter-detail').value = state.offerDetail;
+    $('#offer-filter-shipping').value = state.offerShipping;
+    $('#offer-filter-customer').value = state.offerCustomer;
+    document.querySelectorAll('.offer-segment').forEach(el => el.classList.toggle('active', el.dataset.offerFilter === state.offerFilter));
   }
   function updateScope(patch) {
     Object.assign(scopeState, rankingScope.normalize({ ...scopeState, ...patch }));
@@ -175,6 +186,22 @@
   const customerServiceFor = offer => offer.customerService?.url ? offer.customerService : offer.details?.customerService;
   const customerServiceLink = offer => { const contact = customerServiceFor(offer), url = safeUrl(contact?.url); return url ? `<a class="table-link" data-customer-service="${esc(offer.id)}" href="${esc(url)}" target="_blank" rel="noopener" title="${esc(contact.loginId || '联系供应商')}">联系客服 ↗</a>` : ''; };
   const offerDetailsLink = offer => `<a class="table-link offer-spec-link" data-offer-details="${esc(offer.id)}" href="offer.html?id=${encodeURIComponent(offer.id)}">规格与图片</a>`;
+  const offerHasDetails = offer => Boolean(offer.detailCapturedAt || offer.details?.capturedAt || offer.details?.optionCollection);
+  function filteredOffers() {
+    const query = state.query.toLocaleLowerCase();
+    return state.offers.filter(o => {
+      const product = state.products.find(p => p.id === o.productId);
+      const sourceType = product?.sourceType || o.sourceType || 'manual';
+      const sourceMatch = state.offerFilter === 'all' || sourceType === state.offerFilter;
+      const rankingMatch = state.offerRanking === 'all' || (sourceType === 'ranking' && product?.scope?.rankingKey === state.offerRanking);
+      const categoryMatch = state.offerCategory === 'all' || (sourceType === 'ranking' && product?.scope?.categoryKey === state.offerCategory);
+      const detailMatch = state.offerDetail === 'all' || (state.offerDetail === 'complete' ? offerHasDetails(o) : !offerHasDetails(o));
+      const shippingMatch = state.offerShipping === 'all' || (state.offerShipping === 'known' ? Boolean(o.shipFrom) : !o.shipFrom);
+      const customerMatch = state.offerCustomer === 'all' || (state.offerCustomer === 'known' ? Boolean(customerServiceFor(o)?.url) : !customerServiceFor(o)?.url);
+      const text = [o.supplierName, o.priceText, o.shipFrom, o.location, o.visibleText, product?.title, product?.brand, product?.category, product?.scope?.rankingLabel, product?.scope?.categoryName].join(' ').toLocaleLowerCase();
+      return sourceMatch && rankingMatch && categoryMatch && detailMatch && shippingMatch && customerMatch && (!query || text.includes(query));
+    });
+  }
   function completeness(product) {
     const missing = ['brand', 'category'].filter(key => !product[key]);
     if (!state.offers.some(offer => offer.productId === product.id && offer.shipFrom)) missing.push('发货地');
@@ -193,7 +220,7 @@
     return `<tr class="product-row ${state.selectedId === product.id ? 'selected' : ''}" data-product="${esc(product.id)}"><td><div class="product-cell">${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy">` : '<span class="thumb-placeholder">▧</span>'}<div><strong>${esc(product.title || '未命名商品')}</strong><span>${esc(product.brand || product.category || '品牌/类目待补')}</span></div></div></td><td><span class="source-tag ${esc(product.sourceType)}">${source}</span>${product.rank ? `<small>排名 ${esc(product.rank)}</small>` : ''}${scope}</td><td>${esc(price)}<small>${offers.find(x => x.moqText)?.moqText ? `起订 ${esc(offers.find(x => x.moqText).moqText)}` : '起订量待核'}</small></td><td>${offers.length} 家</td><td><span class="status-text ${completeness(product).startsWith('待') ? 'pending' : 'done'}">${completeness(product)}</span></td><td>${action}</td></tr>`;
   }
   function offerRows() {
-    return state.offers.filter(o => !state.query || [o.supplierName, o.priceText, o.shipFrom, o.location, o.visibleText, state.products.find(p => p.id === o.productId)?.title].join(' ').toLocaleLowerCase().includes(state.query.toLocaleLowerCase())).map(o => {
+    return filteredOffers().map(o => {
       const p = state.products.find(x => x.id === o.productId);
       const url = safeUrl(o.url);
       const supplierUrl = safeUrl(o.supplierUrl);
@@ -253,6 +280,13 @@
       const hasScopeFilter = state.filterRanking !== 'all' || state.filterCategory !== 'all';
       const parts = [state.filterRanking !== 'all' ? rankingScope.ranking(state.filterRanking).label : '', state.filterCategory !== 'all' ? rankingScope.category(state.filterCategory).label : '', ...(hasScopeFilter ? ['中国'] : [])].filter(Boolean);
       $('#ranking-filter-summary').textContent = `${parts.join(' · ') || '榜单范围不限'} · ${filteredProducts().length} 件`;
+    }
+    const offersVisible = state.view === 'offers';
+    $('#offer-filter-controls').hidden = !offersVisible;
+    if (offersVisible) {
+      renderOfferFilters();
+      const parts = [state.offerRanking !== 'all' ? rankingScope.ranking(state.offerRanking).label : '', state.offerCategory !== 'all' ? rankingScope.category(state.offerCategory).label : '', state.offerDetail === 'complete' ? '已补全' : state.offerDetail === 'pending' ? '待补全' : '', state.offerShipping === 'known' ? '已记录发货地' : state.offerShipping === 'missing' ? '待记录发货地' : '', state.offerCustomer === 'known' ? '已采集客服' : state.offerCustomer === 'missing' ? '待采集客服' : ''].filter(Boolean);
+      $('#offer-filter-summary').textContent = `${parts.join(' · ') || '筛选不限'} · ${filteredOffers().length} 条`;
     }
     document.querySelector('.segmented').hidden = !isProducts;
     if (archiveView) {
@@ -323,6 +357,7 @@
     const sourcingMode = event.target.closest('[data-sourcing-mode]'); if (sourcingMode) { state.view = 'sourcing'; state.sourcingMode = sourcingMode.dataset.sourcingMode; history.replaceState(null, '', state.sourcingMode === 'image' ? '#image-sourcing' : '#sourcing'); render(); return; }
     const nav = event.target.closest('[data-view]'); if (nav) { event.preventDefault(); state.view = nav.dataset.view; history.replaceState(null, '', `#${state.view === 'sourcing' && state.sourcingMode === 'image' ? 'image-sourcing' : state.view}`); render(); return; }
     const filter = event.target.closest('[data-filter]'); if (filter) { state.filter = filter.dataset.filter; render(); return; }
+    const offerFilter = event.target.closest('[data-offer-filter]'); if (offerFilter) { state.offerFilter = offerFilter.dataset.offerFilter; render(); return; }
     const close = event.target.closest('[data-close]'); if (close) { close.closest('dialog').close(); return; }
     const row = event.target.closest('[data-product]'); if (row && !event.target.closest('button')) { state.selectedId = row.dataset.product; render(); return; }
     const action = event.target.closest('button'); if (!action) return;
@@ -362,6 +397,11 @@
   $('#search').addEventListener('input', event => { state.query = event.target.value; render(); });
   $('#filter-ranking').addEventListener('change', event => { state.filterRanking = event.target.value; render(); });
   $('#filter-category').addEventListener('change', event => { state.filterCategory = event.target.value; render(); });
+  $('#offer-filter-ranking').addEventListener('change', event => { state.offerRanking = event.target.value; render(); });
+  $('#offer-filter-category').addEventListener('change', event => { state.offerCategory = event.target.value; render(); });
+  $('#offer-filter-detail').addEventListener('change', event => { state.offerDetail = event.target.value; render(); });
+  $('#offer-filter-shipping').addEventListener('change', event => { state.offerShipping = event.target.value; render(); });
+  $('#offer-filter-customer').addEventListener('change', event => { state.offerCustomer = event.target.value; render(); });
   $('#export-button').addEventListener('click', () => download('imagegrab-research-backup.json', JSON.stringify({ schemaVersion: 2, exportedAt: new Date().toISOString(), products: state.products, offers: state.offers, certificates: state.certificates }, null, 2), 'application/json'));
   $('#csv-button').addEventListener('click', () => {
     const headers = ['商品名','品牌','类目','来源','排名','榜单类别','商品大类','采集地区','榜单参数','1688类目ID','商品链接','图片链接','规格参数','产地','供应商','供应商主页','货源链接','价格','起订量','页面销量','供应商地区','认证类型','证书编号','核验状态','核验来源','发货地','价格说明','商品参数JSON','规格报价JSON','图片角色JSON','销量来源JSON','视频链接','客服链接','客服账号','客服会员ID','客服采集来源','客服采集时间'];
