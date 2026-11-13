@@ -12,6 +12,7 @@ test('supplier detail page migrates real sample, isolates offers, exports SKUs a
   try {
     const page = await browser.newPage();
     const product = structuredClone(sample.product), first = structuredClone(sample.offers[0]);
+    first.customerService = { status: 'available', url: 'https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichnwood', loginId: '木珠客服', source: 'page-context-seller', capturedAt: 1234 };
     const second = { id: 'second-supplier', productId: product.id, supplierName: '第二家工厂', url: 'https://detail.1688.com/offer/987654321.html', shipFrom: '广东广州', priceText: '¥9.99' };
     const store = { imagegrabResearchData: { products: [product], offers: [first, second], certificates: [] } };
     await page.route('**/*', route => {
@@ -47,6 +48,7 @@ test('supplier detail page migrates real sample, isolates offers, exports SKUs a
     assert.equal(await page.locator('.sku-table tbody tr').count(), 15);
     assert.match(await page.locator('.offer-meta').innerText(), /天台乐铭工艺品厂/);
     assert.match(await page.locator('.offer-meta').innerText(), /浙江台州/);
+    assert.equal(await page.locator('#customer-service').getAttribute('href'), first.customerService.url);
     assert.equal(await page.locator('.sku-table tbody tr').first().locator('img').getAttribute('src'), product.skus[0].imageUrl);
     assert.match(await page.locator('.sku-table tbody tr').first().innerText(), /6mm2颗（孔2mm）/);
     assert.match(await page.locator('.sku-table tbody tr').first().innerText(), /¥0.01/);
@@ -62,11 +64,14 @@ test('supplier detail page migrates real sample, isolates offers, exports SKUs a
     assert.match(csv, /6mm2颗（孔2mm）/);
     assert.match(csv, /¥0.01/);
     assert.match(csv, /共享选项图/);
+    assert.match(csv, /客服链接/);
+    assert.match(csv, /cnalichnwood/);
     assert.match(csv, /O1CN01Op4vyb2DACGTymJTT/);
     const jsonPromise = page.waitForEvent('download');
     await page.locator('#export-offer').click();
     let json = ''; for await (const chunk of await (await jsonPromise).createReadStream()) json += chunk.toString('utf8');
     assert.equal(JSON.parse(json).offer.details.skus.length, 15);
+    assert.equal(JSON.parse(json).offer.customerService.url, first.customerService.url);
 
     await page.locator('[data-download-image]').first().click();
     await page.waitForFunction(() => document.querySelector('#download-status').textContent.includes('已完成 1'));
@@ -86,6 +91,7 @@ test('supplier detail page migrates real sample, isolates offers, exports SKUs a
     assert.equal(await page.locator('.media-grid img').count(), 0);
     assert.match(await page.locator('.offer-meta').innerText(), /第二家工厂/);
     assert.equal(await page.locator('#export-skus').isDisabled(), true);
+    assert.equal(await page.locator('#customer-service').count(), 0);
 
     await page.evaluate(() => {
       const stored = JSON.parse(localStorage.getItem('testStore'));

@@ -1,0 +1,158 @@
+{
+  "checkedAt": "2026-11-12T16:34:11.377Z",
+  "kind": "live ordinary Chrome, installed extension, actual three-item second-stage recapture; not synthetic fixtures",
+  "version": "1.9.6",
+  "chromeVersion": "156.0.8078.80",
+  "jobId": "ebaaf8e8-8ddb-43f7-b525-a6796fc323c7",
+  "status": "complete",
+  "items": [
+    {
+      "url": "https://detail.1688.com/offer/1043547592522.html",
+      "status": "complete",
+      "error": "",
+      "skuCount": 28,
+      "imageCount": 50
+    },
+    {
+      "url": "https://detail.1688.com/offer/895666369320.html",
+      "status": "complete",
+      "error": "",
+      "skuCount": 47,
+      "imageCount": 124
+    },
+    {
+      "url": "https://detail.1688.com/offer/1032187555310.html",
+      "status": "complete",
+      "error": "",
+      "skuCount": 28,
+      "imageCount": 47
+    }
+  ],
+  "counts": {
+    "products": 424,
+    "offers": 424
+  },
+  "preservation": {
+    "untouchedOffers": true,
+    "untouchedProducts": true,
+    "certificates": true
+  },
+  "foregroundTabIds": [
+    1419392974
+  ],
+  "backupKey": "imagegrabCustomerServiceBackup20261113",
+  "contacts": [
+    {
+      "offerUrl": "https://detail.1688.com/offer/1043547592522.html",
+      "supplier": "义乌市禾锦文化用品有限公司",
+      "customerService": {
+        "capturedAt": 1794500992259,
+        "loginId": "禾锦文化用品厂",
+        "memberId": "b2b-2222147935028037c8",
+        "method": "platform-web-im-route",
+        "offerId": "1043547592522",
+        "source": "page-context-seller",
+        "sourceUrl": "https://detail.1688.com/offer/1043547592522.html",
+        "status": "available",
+        "url": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E7%A6%BE%E9%94%A6%E6%96%87%E5%8C%96%E7%94%A8%E5%93%81%E5%8E%82&siteid=cnalichn&offerId=1043547592522"
+      },
+      "skuCount": 28
+    },
+    {
+      "offerUrl": "https://detail.1688.com/offer/895666369320.html",
+      "supplier": "义乌市君跃玩具有限公司",
+      "customerService": {
+        "capturedAt": 1794501016196,
+        "loginId": "君驰日用百货",
+        "memberId": "b2b-22168088175328797a",
+        "method": "platform-web-im-route",
+        "offerId": "895666369320",
+        "source": "page-context-seller",
+        "sourceUrl": "https://detail.1688.com/offer/895666369320.html",
+        "status": "available",
+        "url": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E5%90%9B%E9%A9%B0%E6%97%A5%E7%94%A8%E7%99%BE%E8%B4%A7&siteid=cnalichn&offerId=895666369320"
+      },
+      "skuCount": 47
+    },
+    {
+      "offerUrl": "https://detail.1688.com/offer/1032187555310.html",
+      "supplier": "义乌市禾锦文化用品有限公司",
+      "customerService": {
+        "capturedAt": 1794501039211,
+        "loginId": "禾锦文化用品厂",
+        "memberId": "b2b-2222147935028037c8",
+        "method": "platform-web-im-route",
+        "offerId": "1032187555310",
+        "source": "page-context-seller",
+        "sourceUrl": "https://detail.1688.com/offer/1032187555310.html",
+        "status": "available",
+        "url": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E7%A6%BE%E9%94%A6%E6%96%87%E5%8C%96%E7%94%A8%E5%93%81%E5%8E%82&siteid=cnalichn&offerId=1032187555310"
+      },
+      "skuCount": 28
+    }
+  ],
+  "sdkComparisons": [
+    {
+      "customerService": {
+        "capturedAt": 1794500782221,
+        "loginId": "君驰日用百货",
+        "memberId": "b2b-22168088175328797a",
+        "method": "platform-web-im-route",
+        "offerId": "895666369320",
+        "source": "page-context-seller",
+        "sourceUrl": "https://detail.1688.com/offer/895666369320.html",
+        "status": "available",
+        "url": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E5%90%9B%E9%A9%B0%E6%97%A5%E7%94%A8%E7%99%BE%E8%B4%A7&siteid=cnalichn&offerId=895666369320"
+      },
+      "matchingParameters": {
+        "offerId": true,
+        "siteid": true,
+        "touid": true
+      },
+      "offerUrl": "https://detail.1688.com/offer/895666369320.html",
+      "sdkUrl": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E5%90%9B%E9%A9%B0%E6%97%A5%E7%94%A8%E7%99%BE%E8%B4%A7&siteid=cnalichn&status=1&portalId=&gid=&offerId=895666369320&itemsId=&spm=&sourceValue=%257B%2522sourceType%2522%253A%2522pcOD%2522%252C%2522targetLoginId%2522%253A%2522%25E5%2590%259B%25E9%25A9%25B0%25E6%2597%25A5%25E7%2594%25A8%25E7%2599%25BE%25E8%25B4%25A7%2522%252C%2522source%2522%253A%2522od%2522%252C%2522offerId%2522%253A895666369320%252C%2522extra%2522%253A%257B%257D%257D",
+      "supplier": "义乌市君跃玩具有限公司"
+    },
+    {
+      "customerService": {
+        "capturedAt": 1794500782223,
+        "loginId": "禾锦文化用品厂",
+        "memberId": "b2b-2222147935028037c8",
+        "method": "platform-web-im-route",
+        "offerId": "1043547592522",
+        "source": "page-context-seller",
+        "sourceUrl": "https://detail.1688.com/offer/1043547592522.html",
+        "status": "available",
+        "url": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E7%A6%BE%E9%94%A6%E6%96%87%E5%8C%96%E7%94%A8%E5%93%81%E5%8E%82&siteid=cnalichn&offerId=1043547592522"
+      },
+      "matchingParameters": {
+        "offerId": true,
+        "siteid": true,
+        "touid": true
+      },
+      "offerUrl": "https://detail.1688.com/offer/1043547592522.html",
+      "sdkUrl": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E7%A6%BE%E9%94%A6%E6%96%87%E5%8C%96%E7%94%A8%E5%93%81%E5%8E%82&siteid=cnalichn&status=1&portalId=&gid=&offerId=1043547592522&itemsId=&spm=&sourceValue=%257B%2522sourceType%2522%253A%2522pcOD%2522%252C%2522targetLoginId%2522%253A%2522%25E7%25A6%25BE%25E9%2594%25A6%25E6%2596%2587%25E5%258C%2596%25E7%2594%25A8%25E5%2593%2581%25E5%258E%2582%2522%252C%2522source%2522%253A%2522od%2522%252C%2522offerId%2522%253A1043547592522%252C%2522extra%2522%253A%257B%257D%257D",
+      "supplier": "义乌市禾锦文化用品有限公司"
+    }
+  ],
+  "ui": {
+    "offerListLinks": [
+      {
+        "offerId": "12f1934e-a9af-4300-abac-ae2287d6f685",
+        "href": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E7%A6%BE%E9%94%A6%E6%96%87%E5%8C%96%E7%94%A8%E5%93%81%E5%8E%82&siteid=cnalichn&offerId=1043547592522",
+        "text": "联系客服 ↗"
+      },
+      {
+        "offerId": "71f666de-aa17-4623-874b-71c11fb5edc3",
+        "href": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E5%90%9B%E9%A9%B0%E6%97%A5%E7%94%A8%E7%99%BE%E8%B4%A7&siteid=cnalichn&offerId=895666369320",
+        "text": "联系客服 ↗"
+      },
+      {
+        "offerId": "0383d61c-ab8a-479d-9f51-8a0da51d5c58",
+        "href": "https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn%E7%A6%BE%E9%94%A6%E6%96%87%E5%8C%96%E7%94%A8%E5%93%81%E5%8E%82&siteid=cnalichn&offerId=1032187555310",
+        "text": "联系客服 ↗"
+      }
+    ]
+  },
+  "jobTabClosed": true
+}

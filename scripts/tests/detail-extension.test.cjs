@@ -16,7 +16,10 @@ test('installed extension runs the two-stage queue with real storage, tabs, scri
       if(!/^https:\/\/detail\.1688\.com\/offer\/\d+\.html/.test(route.request().url()))return route.fulfill({status:404,body:''});
       if(route.request().url().includes('/offer/22222222.html'))return route.fulfill({status:302,headers:{location:'https://page.1688.com/shtml/static/wrongpage.html'}});
       if(route.request().url().includes('/offer/11111111.html'))return route.fulfill({contentType:'text/html; charset=utf-8',body:'<!doctype html><html><head><meta charset="utf-8"><title>商品详情</title></head><body><main>商品已下架</main></body></html>'});
+      const offerId=route.request().url().match(/\/offer\/(\d+)\.html/)[1];
+      const customerContext={result:{hierarchy:{root:'Root'},data:{Root:{fields:{dataJson:{offerBaseInfo:{offerId},frontSellerMemberModel:{frontOfferId:offerId,frontSellerLoginId:'测试客服'+offerId,frontSellerMemberId:'b2b-'+offerId}}}}}}};
       return route.fulfill({contentType:'text/html; charset=utf-8',body:`<!doctype html><html><head><meta charset="utf-8"></head><body>
+        <script type="application/x-fixture">window.context=(function(b,d){return d})(window.contextPath,${JSON.stringify(customerContext)});</script>
         <div id="productTitle"><div class="title-content"><h1>安装扩展测试商品</h1></div></div><div id="mainPrice"><div class="price-info">¥1.00</div></div><div id="productAttributes"><div class="cpv-attr-item"><span class="cpv-attr-label">品牌</span><span class="cpv-attr-value">测试品牌</span></div></div><div id="shippingServices"><span class="location">浙江金华</span></div><div id="description"></div>
         <div id="skuSelection"><div class="feature-item"><h3>颜色</h3><button class="sku-filter-button active" onclick="selectColor(this)"><span class="label-name">银色</span><img src="https://img.test/silver.jpg"></button><button class="sku-filter-button" onclick="selectColor(this)"><span class="label-name">黑色</span><img src="https://img.test/black.jpg"></button></div><div class="feature-item"><h3>尺寸</h3><div class="expand-view-item"><span class="item-label">10cm</span><span class="item-price-stock" id="price">¥1.00</span><span class="item-price-stock">库存100条</span></div></div></div>
         <script>function selectColor(b){document.querySelectorAll('.sku-filter-button').forEach(x=>x.classList.toggle('active',x===b));document.getElementById('price').innerText=b.innerText==='黑色'?'¥2.00':'¥1.00';}</script></body></html>`});
@@ -64,6 +67,8 @@ test('installed extension runs the two-stage queue with real storage, tabs, scri
     assert.equal(result.job.items[0].errorCode,'page_not_found');assert.equal(result.job.items[0].finalUrl,'https://page.1688.com/shtml/static/wrongpage.html');
     assert.equal(result.data.offers[0].details,undefined);assert.equal(result.data.offers[1].details,undefined);
     for(const offer of result.data.offers.slice(2)){assert.equal(offer.details.skus.length,2);assert.equal(offer.details.skus[0].priceText,'¥1.00');assert.equal(offer.details.skus[1].priceText,'¥2.00');assert.equal(offer.details.skus[1].imageUrl,'https://img.test/black.jpg');assert.equal(offer.shipFrom,'浙江金华');assert.equal(offer.details.optionCollection.status,'complete');}
+    for(const offer of result.data.offers.slice(2)){const id=offer.url.match(/\/offer\/(\d+)/)[1];assert.equal(offer.customerService.loginId,'测试客服'+id);assert.equal(new URL(offer.customerService.url).searchParams.get('offerId'),id);assert.deepEqual(offer.customerService,offer.details.customerService);}
+    assert.notEqual(result.data.offers[2].customerService.url,result.data.offers[3].customerService.url);
     assert.equal(result.job.tabId,null);assert.equal(result.data.products[2].rank,'1');
     await page.locator('#detail-job-status').filter({hasText:'下架/失效 1'}).waitFor();
     assert.equal(await page.locator('#detail-job-resume').isVisible(),true);

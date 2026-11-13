@@ -38,6 +38,23 @@ test('second stage visits links sequentially, saves per-offer details and preser
   assert.equal(j.status,'complete');assert.deepEqual(f.visits,['https://detail.1688.com/offer/123.html','https://detail.1688.com/offer/456.html']);assert.equal(f.closed.length,1);
   assert.equal(d.offers[0].details.skus[0].priceText,'¥0.02');assert.equal(d.offers[0].shipFrom,'浙江金华');assert.equal(d.products[0].rank,'1');assert.equal(d.products[0].notes,'保留手写备注');assert.equal(d.certificates[0].number,'保留证书');assert.equal(d.offers[0].salesObservations.length,2);assert.equal(d.offers[0].details.optionCollection.status,'complete');
 });
+
+test('second-stage merge keeps customer links separate by offer and preserves prior contact on a missing capture',()=>{
+  const f=fixture(),data=f.store.imagegrabResearchData;
+  for(const offer of data.offers){
+    const item={url:offer.url,offerId:offer.id};
+    const row=capture(offer.url);
+    row.customerService={status:'available',url:'https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html?touid=cnalichn'+offer.id,loginId:offer.id,capturedAt:1234};
+    jobs.mergeCapture(data,item,row,context.ImageGrabOfferData);
+    assert.equal(offer.customerService.loginId,offer.id);
+    assert.equal(offer.details.customerService.loginId,offer.id);
+  }
+  assert.notEqual(data.offers[0].customerService.url,data.offers[1].customerService.url);
+  const row=capture(data.offers[0].url);row.customerService={status:'not-found',url:''};
+  jobs.mergeCapture(data,{url:data.offers[0].url,offerId:'o1'},row,context.ImageGrabOfferData);
+  assert.equal(data.offers[0].customerService.loginId,'o1');
+  assert.equal(data.offers[0].customerService.capturedAt,1234);
+});
 test('recapture is opt-in and still respects product scope, offer allowlist and URL deduplication',()=>{
   const data={offers:[{id:'a',productId:'p1',url:'https://detail.1688.com/offer/123.html',details:{optionCollection:{status:'complete'}}},{id:'duplicate',productId:'p1',url:'https://detail.1688.com/offer/123.html?tracking=1'},{id:'b',productId:'p2',url:'https://detail.1688.com/offer/456.html',details:{optionCollection:{status:'complete'}}}]};
   assert.equal(jobs.makeQueue(data,['p1'])[0].status,'skipped');

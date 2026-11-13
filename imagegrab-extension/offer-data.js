@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const fields = ['title', 'attributes', 'skus', 'selectedOptions', 'media', 'images', 'videoUrls', 'services', 'packaging', 'promotionText', 'certificateEvidence', 'specs', 'optionCollection'];
+  const fields = ['title', 'attributes', 'skus', 'selectedOptions', 'media', 'images', 'videoUrls', 'services', 'packaging', 'promotionText', 'certificateEvidence', 'specs', 'optionCollection', 'customerService'];
   const http = value => { try { const url = new URL(value); return ['http:', 'https:'].includes(url.protocol) ? url.href : ''; } catch { return ''; } };
   function canonical(value) { const url = http(value); const match = url.match(/(?:detail|offer)\.1688\.com\/offer\/(\d+)\.html/); return match ? `https://detail.1688.com/offer/${match[1]}.html` : url; }
   function fromCapture(row) {

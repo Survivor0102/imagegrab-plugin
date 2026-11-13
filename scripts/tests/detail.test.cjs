@@ -26,6 +26,9 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     await page.evaluate(() => {
       document.querySelector('v-detail-j').attachShadow({ mode: 'open' }).innerHTML = '<style>.private{color:red}</style><img src="https://img.test/description.jpg"><a href="https://detail.1688.com/offer/999.html"><img src="https://img.test/recommended-in-description.jpg"></a>';
       window.chrome = { storage: { local: { get: async () => ({}) } }, runtime: { sendMessage(message, callback) { window.__capture = message; callback({ ok: true }); } } };
+      const script = document.createElement('script'); script.type = 'application/x-fixture';
+      script.textContent = 'window.context=(function(b,d){return d})(window.contextPath,' + JSON.stringify({ result: { hierarchy: { root: 'Root' }, data: { Root: { fields: { dataJson: { offerBaseInfo: { offerId: 123 }, frontSellerMemberModel: { frontOfferId: 123, frontSellerLoginId: '木珠客服', frontSellerMemberId: 'b2b-wood' } } } } } } }) + ');';
+      document.body.appendChild(script);
     });
     await page.addScriptTag({ path: source('detail-capture.js') });
     const manifest = JSON.parse(fs.readFileSync(source('manifest.json'), 'utf8'));
@@ -51,6 +54,8 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     assert.equal(row.brand, '乐铭工艺');
     assert.equal(row.origin, '');
     assert.equal(row.shipFrom, '浙江台州');
+    assert.equal(row.customerService.loginId, '木珠客服');
+    assert.equal(new URL(row.customerService.url).searchParams.get('touid'), 'cnalichn木珠客服');
     assert.deepEqual(row.packaging, [{ headers: ['重量(g)'], rows: [['50']] }]);
     assert.equal(row.moqText, '100个起批');
     assert.equal(row.skus.length, 3);
@@ -116,18 +121,23 @@ test('detail capture excludes recommendations, reads shadow images and enriches 
     const stream = await (await downloaded).createReadStream();
     let csv = ''; for await (const chunk of stream) csv += chunk.toString('utf8');
     assert.match(csv, /规格报价JSON/);
+    assert.match(csv, /客服链接/);
+    assert.match(csv, /木珠客服/);
     assert.match(csv, /6mm/);
     assert.match(csv, /ranking-displayed-sales/);
     assert.equal(store.imagegrabResearchData.offers.length, 1);
     assert.equal(store.imagegrabResearchData.products[0].sourceType, 'ranking');
     assert.equal(store.imagegrabResearchData.products[0].brand, '乐铭工艺');
     assert.equal(store.imagegrabResearchData.offers[0].supplierName, '木珠工厂');
+    assert.equal(store.imagegrabResearchData.offers[0].customerService.url, row.customerService.url);
+    assert.equal(await workbench.locator('.offer-card [data-customer-service="o1"]').getAttribute('href'), row.customerService.url);
     assert.equal(store.imagegrabResearchData.offers[0].salesObservations.length, 2);
     assert.match(await workbench.locator('#detail-panel').innerText(), /规格报价（3 项）/);
     assert.match(await workbench.locator('.offer-card').innerText(), /发货地：浙江台州/);
     assert.match(await workbench.locator('.status-text').innerText(), /基础资料齐全/);
     await workbench.locator('[data-view="offers"]').click();
     assert.match(await workbench.locator('tbody').innerText(), /发货地：浙江台州/);
+    assert.equal(await workbench.locator('tbody [data-customer-service="o1"]').getAttribute('href'), row.customerService.url);
     assert.doesNotMatch(await workbench.locator('tbody').innerText(), /地区待补/);
     await workbench.locator('#search').fill('浙江台州');
     assert.equal(await workbench.locator('tbody tr').count(), 1);

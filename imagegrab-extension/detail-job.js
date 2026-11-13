@@ -14,6 +14,7 @@
     if(!offer||!product)throw Error('该货源已被删除或修改，未保存');
     if(covered(offer)&&row.optionCollection?.status!=='complete')throw Error('本次只读到部分规格，已保留原完整资料');
     offer.details=offerData.fromCapture(row);
+    if(row.customerService?.url)offer.customerService=row.customerService;
     for(const key of ['supplierName','supplierUrl','priceText','moqText','priceContext','shipFrom','supplierMetrics','supplierYears','supplierCategory','supplierRating'])if(row[key])offer[key]=row[key];
     offer.detailSourceUrl=item.url;offer.detailCapturedAt=row.capturedAt;
     const observations=offer.salesObservations||[];

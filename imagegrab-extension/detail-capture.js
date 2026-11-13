@@ -44,6 +44,65 @@
     if (!root) return [];
     return [root, ...all(root, '*').filter(el => el.shadowRoot).flatMap(el => shadowRoots(el.shadowRoot))];
   }
+  function customerService(url, capturedAt) {
+    const offerId = url.match(/\/offer\/(\d+)/)?.[1] || '';
+    const missing = { status: 'not-found', url: '', loginId: '', memberId: '', sourceUrl: url, capturedAt };
+    // Read only the page's serialized public seller data. Content scripts cannot
+    // access page-world globals; do not execute the site's inline JavaScript.
+    for (const script of all(document, 'script:not([src])')) {
+      const raw = script.textContent || '';
+      if (!raw.includes('window.context=') && !/window\.context\s*=/.test(raw)) continue;
+      const marker = /\}\)\s*\(\s*window\.contextPath\s*,\s*/.exec(raw);
+      if (!marker) continue;
+      try {
+        // The full initializer contains JavaScript numeric keys (skuWeight),
+        // so JSON.parse on the whole initializer fails on real pages. Extract
+        // only the small public seller objects, ignoring keys inside strings.
+        const objects = new Map(['frontSellerMemberModel', 'offerBaseInfo', 'sellerModel', 'offerDetail'].map(key => [key, []]));
+        function stringEnd(start) {
+          let index = start + 1;
+          for (; index < raw.length; index++) {
+            if (raw[index] === '\\') { index++; continue; }
+            if (raw[index] === '"') return index + 1;
+          }
+          return raw.length;
+        }
+        for (let index = marker.index + marker[0].length; index < raw.length; index++) {
+          if (raw[index] !== '"') continue;
+          const end = stringEnd(index), key = raw.slice(index + 1, end - 1);
+          index = end - 1;
+          if (!objects.has(key)) continue;
+          const after = /^\s*:\s*\{/.exec(raw.slice(end));
+          if (!after) continue;
+          const start = end + after[0].length - 1;
+          let cursor = start + 1, depth = 1;
+          for (; cursor < raw.length && depth; cursor++) {
+            if (raw[cursor] === '"') { cursor = stringEnd(cursor) - 1; continue; }
+            if (raw[cursor] === '{') depth++;
+            if (raw[cursor] === '}') depth--;
+          }
+          try { objects.get(key).push(JSON.parse(raw.slice(start, cursor))); } catch { /* Skip unsupported fragments. */ }
+        }
+        const base = objects.get('offerBaseInfo').find(value => String(value.offerId || '') === offerId);
+        const detail = objects.get('offerDetail').find(value => String(value.offerId || '') === offerId);
+        if (!base && !detail) continue;
+        const fronts = objects.get('frontSellerMemberModel');
+        const front = fronts.find(value => String(value.frontOfferId || '') === offerId);
+        if (fronts.some(value => value.frontSellerLoginId) && !front) continue;
+        const sellers = objects.get('sellerModel');
+        const seller = sellers.length === 1 ? sellers[0] : null;
+        const loginId = front?.frontSellerLoginId || base?.sellerLoginId || seller?.loginId;
+        const memberId = front?.frontSellerLoginId ? front.frontSellerMemberId : base?.sellerLoginId ? base.sellerMemberId : seller?.memberId;
+        if (typeof loginId !== 'string' || !loginId.trim()) continue;
+        const link = new URL('https://air.1688.com/app/ocms-fusion-components-1688/def_cbu_web_im/index.html');
+        link.searchParams.set('touid', `cnalichn${loginId}`);
+        link.searchParams.set('siteid', 'cnalichn');
+        link.searchParams.set('offerId', offerId);
+        return { status: 'available', url: link.href, loginId, memberId: typeof memberId === 'string' ? memberId : '', offerId, source: 'page-context-seller', method: 'platform-web-im-route', sourceUrl: url, capturedAt };
+      } catch { /* An unsupported page template must not stop SKU collection. */ }
+    }
+    return missing;
+  }
   function collect() {
     const title = text(document.querySelector('#productTitle .title-content h1'));
     if (!title) throw new Error('未识别当前商品详情模板；请等待商品标题加载');
@@ -82,6 +141,7 @@
       captureKind: 'detail', offerId: url.match(/\/offer\/(\d+)/)?.[1] || '', title, url,
       brand: attr('品牌'), category: attr('类别'), origin: attr('产地'), attributes,
       supplierName: text(supplier), supplierUrl: http(supplier?.href || ''), supplierMetrics,
+      customerService: customerService(url, capturedAt),
       supplierYears: text(document.querySelector('#shopNavigation .shop-tp-year')),
       supplierCategory: text(document.querySelector('#shopNavigation .shop-category-name')), supplierRating: text(document.querySelector('#shopNavigation .shop-star-text')),
       shipFrom: text(document.querySelector('#shippingServices .location')),
