@@ -6,7 +6,8 @@
   const SCOPE_KEY = 'imagegrabResearchScope';
   let detailJob = null;
   const hashView = location.hash.slice(1);
-  const state = { products: [], offers: [], certificates: [], view: hashView === 'image-sourcing' ? 'sourcing' : ['offers', 'certificates', 'sourcing'].includes(hashView) ? hashView : 'products', sourcingMode: hashView === 'image-sourcing' ? 'image' : 'manual', filter: 'all', filterRanking: 'all', filterCategory: 'all', offerFilter: 'all', offerRanking: 'all', offerCategory: 'all', offerDetail: 'all', offerShipping: 'all', offerCustomer: 'all', selectedId: '', query: '' };
+  const initialSourcingMode = hashView === 'image-sourcing' ? 'image' : hashView === 'substitute-sourcing' ? 'substitute' : 'manual';
+  const state = { products: [], offers: [], certificates: [], view: ['image-sourcing','substitute-sourcing'].includes(hashView) ? 'sourcing' : ['offers', 'certificates', 'sourcing'].includes(hashView) ? hashView : 'products', sourcingMode: initialSourcingMode, filter: 'all', filterRanking: 'all', filterCategory: 'all', offerFilter: 'all', offerRanking: 'all', offerCategory: 'all', offerDetail: 'all', offerShipping: 'all', offerCustomer: 'all', selectedId: '', query: '' };
   const offerData = globalThis.ImageGrabOfferData;
   const $ = selector => document.querySelector(selector);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -249,13 +250,14 @@
       products: ['商品池', '从榜单和搜索结果收集候选商品，再补全采购与上架资料。'],
       offers: ['货源比较', '按候选商品横向比较供应商、价格、起订量和页面可见销量。'],
       certificates: ['认证核验', '集中检查待核验的证书记录与证据来源。'],
-      sourcing: ['寻源工作区', state.sourcingMode === 'image' ? '从商品截图识别商品信息，并自动整理可比较的货源候选。' : '手动设置条件、分路搜索，再筛选候选货源。']
+      sourcing: ['寻源工作区', state.sourcingMode === 'image' ? '从商品截图识别商品信息，并自动整理可比较的货源候选。' : state.sourcingMode === 'substitute' ? '从名称或图片提取目标规格，分组比较同品牌和可替代品牌候选。' : '手动设置条件、分路搜索，再筛选候选货源。']
     };
     const archiveView = ['products', 'offers', 'certificates'].includes(state.view);
     $('#workspace-products').hidden = !archiveView;
     $('#workspace-sourcing').hidden = state.view !== 'sourcing';
     $('#sourcing-manual').hidden = state.sourcingMode !== 'manual';
     $('#workspace-image-sourcing').hidden = state.sourcingMode !== 'image';
+    $('#workspace-substitute-sourcing').hidden = state.sourcingMode !== 'substitute';
     $('#workspace-search').hidden = !archiveView;
     $('#new-product').hidden = state.view !== 'products';
     $('#csv-button').hidden = !archiveView;
@@ -354,8 +356,8 @@
   });
 
   document.addEventListener('click', async event => {
-    const sourcingMode = event.target.closest('[data-sourcing-mode]'); if (sourcingMode) { state.view = 'sourcing'; state.sourcingMode = sourcingMode.dataset.sourcingMode; history.replaceState(null, '', state.sourcingMode === 'image' ? '#image-sourcing' : '#sourcing'); render(); return; }
-    const nav = event.target.closest('[data-view]'); if (nav) { event.preventDefault(); state.view = nav.dataset.view; history.replaceState(null, '', `#${state.view === 'sourcing' && state.sourcingMode === 'image' ? 'image-sourcing' : state.view}`); render(); return; }
+    const sourcingMode = event.target.closest('[data-sourcing-mode]'); if (sourcingMode) { state.view = 'sourcing'; state.sourcingMode = sourcingMode.dataset.sourcingMode; history.replaceState(null, '', state.sourcingMode === 'image' ? '#image-sourcing' : state.sourcingMode === 'substitute' ? '#substitute-sourcing' : '#sourcing'); render(); return; }
+    const nav = event.target.closest('[data-view]'); if (nav) { event.preventDefault(); state.view = nav.dataset.view; history.replaceState(null, '', `#${state.view === 'sourcing' ? (state.sourcingMode === 'image' ? 'image-sourcing' : state.sourcingMode === 'substitute' ? 'substitute-sourcing' : 'sourcing') : state.view}`); render(); return; }
     const filter = event.target.closest('[data-filter]'); if (filter) { state.filter = filter.dataset.filter; render(); return; }
     const offerFilter = event.target.closest('[data-offer-filter]'); if (offerFilter) { state.offerFilter = offerFilter.dataset.offerFilter; render(); return; }
     const close = event.target.closest('[data-close]'); if (close) { close.closest('dialog').close(); return; }

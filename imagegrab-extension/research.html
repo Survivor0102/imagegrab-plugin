@@ -101,6 +101,7 @@
         <div class="sourcing-mode-tabs" role="tablist" aria-label="寻源方式">
           <button id="sourcing-manual-tab" type="button" class="sourcing-mode-tab active" role="tab" aria-selected="true" aria-controls="sourcing-manual" data-sourcing-mode="manual">图片 / 名称筛选</button>
           <button id="sourcing-image-tab" type="button" class="sourcing-mode-tab" role="tab" aria-selected="false" aria-controls="workspace-image-sourcing" data-sourcing-mode="image">截图自动寻源</button>
+          <button id="sourcing-substitute-tab" type="button" class="sourcing-mode-tab" role="tab" aria-selected="false" aria-controls="workspace-substitute-sourcing" data-sourcing-mode="substitute">规格替代寻源</button>
         </div>
         <section id="sourcing-manual" role="tabpanel" aria-labelledby="sourcing-manual-tab">
         <div class="sourcing-grid">
@@ -131,6 +132,36 @@
           </section>
         </div>
         <section class="panel"><h2>筛选结果</h2><div class="actions"><label>显示<select id="result-view"><option value="shortlist">优先候选</option><option value="review">待确认</option><option value="remaining">其余符合条件</option><option value="excluded">已排除</option></select></label><span id="sourcing-result-count"></span></div><div id="results" class="candidate-grid"></div></section>
+        </section>
+        <section id="workspace-substitute-sourcing" class="substitute-sourcing-shell" role="tabpanel" aria-labelledby="sourcing-substitute-tab" hidden>
+          <div class="sourcing-grid">
+            <section class="panel">
+              <h2>1 · 识别目标商品</h2>
+              <p class="muted">用于寻找同品牌候选，以及不同品牌但规格或用途可替代的候选。新分支使用独立候选池。</p>
+              <label>商品名称<input id="substitute-name" placeholder="例如：亮亮照明 LED 筒灯"></label>
+              <div class="two"><label>品牌线索<input id="substitute-brand" placeholder="亮亮照明"></label><label>商品大类<input id="substitute-category" placeholder="灯具 / 居家日用品"></label></div>
+              <label>目标规格线索<input id="substitute-specs" placeholder="5W 95mm 色温 4000K"></label>
+              <label>规格匹配方式<select id="substitute-match-mode"><option value="exact">完全一致</option><option value="allow-difference">允许差异</option></select></label>
+              <label>商品图片（可选，支持1～2张）<input id="substitute-reference-file" type="file" accept="image/png,image/jpeg,image/webp" multiple></label>
+              <div id="substitute-preview" class="substitute-preview"></div>
+              <div class="actions"><button id="substitute-extract" class="button">提取图片文字</button><button id="substitute-reference-clear" class="button">移除图片</button></div>
+              <p id="substitute-intake-status" class="muted" role="status">先填写或修正目标名称、品牌和规格，再进行搜索。</p>
+            </section>
+            <section class="panel">
+              <h2>2 · 收集候选</h2>
+              <p>分别打开1688名称搜索或图片搜索；候选读取后在本地标注品牌关系和目标规格状态。</p>
+              <div class="actions"><button id="substitute-text-search" class="button">打开1688名称搜索</button><button id="substitute-image-search" class="button">打开1688图片搜索</button></div>
+              <div class="actions"><select id="substitute-source-tab" aria-label="规格替代寻源1688结果标签页"></select><button id="substitute-tabs-refresh" class="button">刷新标签列表</button></div>
+              <div class="actions"><select id="substitute-channel" aria-label="规格替代寻源候选来源"><option value="name">名称搜索结果</option><option value="image">图片搜索结果</option></select><button id="substitute-capture" class="button primary">读取该页候选</button><button id="substitute-from-pool" class="button">使用商品池记录</button></div>
+              <p id="substitute-pool-status" role="status">独立候选池尚未收集</p>
+              <div class="actions"><button id="substitute-clear-pool" class="button">清空本分支候选</button><label>优先展示<input id="substitute-limit" type="number" min="1" max="50" value="20"></label></div>
+              <h2>3 · 筛选与详情补全</h2>
+              <div class="actions"><button id="substitute-screen" class="button primary">标注并筛选</button><button id="substitute-select-top" class="button">勾选前20个</button><button id="substitute-admit" class="button">加入商品池</button><button id="substitute-enrich" class="button primary">详情补全</button><button id="substitute-export" class="button">导出 JSON</button></div>
+              <p id="substitute-status" role="status" aria-live="polite"></p>
+              <p id="substitute-job-status" class="muted"></p>
+            </section>
+          </div>
+          <section class="panel"><h2>规格替代候选</h2><div class="actions"><label>显示<select id="substitute-result-view"><option value="shortlist">优先候选</option><option value="review">待核对</option><option value="remaining">其余符合条件</option><option value="excluded">已排除</option></select></label><span id="substitute-result-count"></span></div><div id="substitute-results" class="candidate-grid"></div></section>
         </section>
         <section id="workspace-image-sourcing" class="image-intake-shell" role="tabpanel" aria-labelledby="sourcing-image-tab" hidden>
         <details id="auto-intake-form" open>
@@ -226,6 +257,7 @@
   <script src="sourcing.js"></script>
   <script src="sourcing-auto-results.js"></script>
   <script src="sourcing-auto.js"></script>
+  <script src="sourcing-substitute.js"></script>
   <script src="research.js"></script>
 </body>
 </html>

@@ -180,6 +180,7 @@ chrome.runtime.onInstalled.addListener(() => chrome.storage.local.set({ imagegra
 chrome.action.onClicked.addListener(() => chrome.tabs.create({ url: chrome.runtime.getURL('research.html') }));
 
 let sourcingStore;
+let substituteSourcingStore;
 async function registerSourcingSearch(tabId, channel, keyword, runId, baselineSignature = '') {
   const job=(await chrome.storage.local.get('imagegrabSourcingAutoJob')).imagegrabSourcingAutoJob;
   if(!job?.running||job.stop||job.runId!==runId)throw Error('自动寻源已停止或任务已替换');
@@ -191,6 +192,9 @@ async function registerSourcingSearch(tabId, channel, keyword, runId, baselineSi
 function sourcePage(value){try{const u=new URL(value);return u.protocol==='https:'&&(u.hostname==='1688.com'||u.hostname.endsWith('.1688.com'))&&!['detail.1688.com','offer.1688.com'].includes(u.hostname);}catch{return false;}}
 async function handleSourcing(message){
   if(!sourcingStore)sourcingStore=ImageGrabSourcingStore.create(chrome,ImageGrabSourcingMatch);
+  const substitute=message.type.startsWith('SOURCING_SUBSTITUTE_');
+  if(substitute&&!substituteSourcingStore)substituteSourcingStore=ImageGrabSourcingStore.create(chrome,ImageGrabSourcingMatch,{key:'imagegrabSourcingSubstituteData'});
+  const activeStore=substitute?substituteSourcingStore:sourcingStore;
   if(message.type==='SOURCING_AUTO_BEGIN'){
     const job=(await chrome.storage.local.get('imagegrabSourcingAutoJob')).imagegrabSourcingAutoJob;
     if(job?.running)throw Error('已有截图自动寻源任务正在运行');
@@ -249,27 +253,27 @@ async function handleSourcing(message){
     }
     throw Error(`等待候选超时：${lastError}。搜索页保留在后台，可切回手动筛选读取。`);
   }
-  if(message.type==='SOURCING_GET')return {ok:true,state:await sourcingStore.get()};
-  if(message.type==='SOURCING_UPDATE')return sourcingStore.update(message.patch||{});
+  if(message.type==='SOURCING_GET'||message.type==='SOURCING_SUBSTITUTE_GET')return {ok:true,state:await activeStore.get()};
+  if(message.type==='SOURCING_UPDATE'||message.type==='SOURCING_SUBSTITUTE_UPDATE')return activeStore.update(message.patch||{});
   if(message.type==='SOURCING_AUTO_GET'){const run=await sourcingStore.getAuto();if(!run||run.id!==message.runId)throw Error('找不到本次截图自动寻源结果');return {ok:true,run};}
   if(message.type==='SOURCING_AUTO_UPDATE')return sourcingStore.updateAuto(message.runId,message.patch||{});
   if(message.type==='SOURCING_AUTO_CLEAR')return sourcingStore.clearAuto(message.runId);
-  if(message.type==='SOURCING_CLEAR')return sourcingStore.clear();
-  if(message.type==='SOURCING_TABS')return {ok:true,tabs:(await chrome.tabs.query({})).filter(t=>sourcePage(t.url)).map(({id,title,url})=>({id,title,url}))};
-  if(message.type==='SOURCING_CAPTURE'){
+  if(message.type==='SOURCING_CLEAR'||message.type==='SOURCING_SUBSTITUTE_CLEAR')return activeStore.clear();
+  if(message.type==='SOURCING_TABS'||message.type==='SOURCING_SUBSTITUTE_TABS')return {ok:true,tabs:(await chrome.tabs.query({})).filter(t=>sourcePage(t.url)).map(({id,title,url})=>({id,title,url}))};
+  if(message.type==='SOURCING_CAPTURE'||message.type==='SOURCING_SUBSTITUTE_CAPTURE'){
     const tab=await chrome.tabs.get(message.tabId);if(!sourcePage(tab.url))throw Error('请选择1688结果页，不能读取其他网站');
     let result;try{result=await chrome.tabs.sendMessage(tab.id,{type:'SOURCING_READ_CANDIDATES'});}catch{throw Error('当前1688标签页尚未加载新版插件，请先刷新该页再读取');}
     if(!result?.ok)throw Error(result?.error||'未读取到商品卡片');
     if(!result.products?.length)throw Error('当前页面未读到商品卡片；请完成搜索并等待列表加载');
-    return sourcingStore.add(result.products,{channel:message.channel==='image'?'image':'name',url:tab.url,capturedAt:Date.now()});
+    return activeStore.add(result.products,{channel:message.channel==='image'?'image':'name',url:tab.url,capturedAt:Date.now(),substitute});
   }
-  if(message.type==='SOURCING_FROM_POOL'){
+  if(message.type==='SOURCING_FROM_POOL'||message.type==='SOURCING_SUBSTITUTE_FROM_POOL'){
     const data=(await chrome.storage.local.get('imagegrabResearchData')).imagegrabResearchData||{};
     const rows=(data.offers||[]).map(offer=>{const p=data.products?.find(x=>x.id===offer.productId)||{};return {...p,...offer,title:p.title,images:p.images,url:offer.url};});
-    return sourcingStore.add(rows,{channel:'pool',capturedAt:Date.now()});
+    return activeStore.add(rows,{channel:'pool',capturedAt:Date.now(),substitute});
   }
-  if(message.type==='SOURCING_SEARCH')return openSimilarSearch(message.keyword,message.background===true,message.runId||'');
-  if(message.type==='SOURCING_IMAGE_SEARCH'){
+  if(message.type==='SOURCING_SEARCH'||message.type==='SOURCING_SUBSTITUTE_SEARCH')return openSimilarSearch(message.keyword,message.background===true,message.runId||'');
+  if(message.type==='SOURCING_IMAGE_SEARCH'||message.type==='SOURCING_SUBSTITUTE_IMAGE_SEARCH'){
     if(typeof message.image!=='string'||!/^data:image\/jpeg;base64,/.test(message.image)||message.image.length>4*1024*1024)throw Error('请先上传有效参考图');
     const tab=await chrome.tabs.create({url:'https://s.1688.com/selloffer/offer_search.htm',active:message.background!==true});
     let searchToken='';
@@ -289,10 +293,10 @@ async function handleSourcing(message){
     }
     return {ok:true,message:'1688搜索页仍在加载；请在页面中使用相机按钮上传参考图，再回到筛选页读取候选。'};
   }
-  if(['SOURCING_ADMIT','SOURCING_ENRICH'].includes(message.type)){
+  if(['SOURCING_ADMIT','SOURCING_ENRICH','SOURCING_SUBSTITUTE_ADMIT','SOURCING_SUBSTITUTE_ENRICH'].includes(message.type)){
     if((await chrome.storage.local.get('imagegrabResearchAutoJob')).imagegrabResearchAutoJob?.running)throw Error('请先停止正在运行的榜单采集');
-    const result=await sourcingStore.admit(message.urls,message.runId||'');
-    if(message.type==='SOURCING_ENRICH'){
+    const result=await activeStore.admit(message.urls,message.runId||'');
+    if(message.type==='SOURCING_ENRICH'||message.type==='SOURCING_SUBSTITUTE_ENRICH'){
       const task=await detailJobs.handle({type:'DETAIL_JOB_START',productIds:result.productIds,offerUrls:result.offerUrls});
       if(!task.ok)throw Error(`候选已加入商品池；${task.error}`);return {...result,jobId:task.jobId};
     }

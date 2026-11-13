@@ -46,6 +46,12 @@ test('research workbench imports captured offers and manages product dossier dat
     assert.equal(await page.locator('#sourcing-manual').isVisible(), false);
     assert.equal(await page.locator('#workspace-image-sourcing').isVisible(), true);
     assert.equal(await page.evaluate(() => location.hash), '#image-sourcing');
+    await page.locator('[data-sourcing-mode="substitute"]').click();
+    assert.equal(await page.locator('#sourcing-manual').isVisible(), false);
+    assert.equal(await page.locator('#workspace-image-sourcing').isVisible(), false);
+    assert.equal(await page.locator('#workspace-substitute-sourcing').isVisible(), true);
+    assert.equal(await page.evaluate(() => location.hash), '#substitute-sourcing');
+    assert.equal(await page.locator('#substitute-match-mode').inputValue(), 'exact');
     await page.locator('[data-sourcing-mode="manual"]').click();
     assert.equal(await page.locator('#sourcing-manual').isVisible(), true);
     assert.equal(await page.evaluate(() => location.hash), '#sourcing');

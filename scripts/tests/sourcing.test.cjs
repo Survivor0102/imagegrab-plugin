@@ -8,6 +8,21 @@ test('two sourcing channels deduplicate tracking URLs and retain both provenance
  const rows=match.dedupe([offer(123,'筒灯',{sources:[{channel:'image'}],images:['https://img.test/a.jpg']}),{url:'https://offer.1688.com/offer/123.html?x=1',title:'筒灯',sources:[{channel:'name'}],images:['https://img.test/b.jpg']},{url:'https://evil.test/offer/123.html',title:'不接受'}]);
  assert.equal(rows.length,1);assert.equal(rows[0].sources.length,2);assert.equal(rows[0].images.length,2);
 });
+test('specification substitute sourcing uses an independent pool and preserves replacement evidence',async()=>{
+ const store={imagegrabSourcingData:{criteria:{name:'旧分支'},candidates:[offer(91,'旧候选')],selected:[],reference:null},imagegrabResearchData:{products:[],offers:[],certificates:[]}};
+ const api={storage:{local:{get:async key=>({[key]:clone(store[key]??null)}),set:async value=>Object.assign(store,clone(value))}}};
+ const manual=context.ImageGrabSourcingStore.create(api,match);
+ const substitute=context.ImageGrabSourcingStore.create(api,match,{key:'imagegrabSourcingSubstituteData'});
+ await manual.add([offer(91,'旧候选')],{channel:'name'});
+ await substitute.update({criteria:{substitute:true,matchMode:'exact',brand:'亮亮照明',specs:'5W 95mm'}});
+ await substitute.add([{...offer(92,'其他品牌 LED 筒灯 5W 95mm'),brandRelation:'different',targetSpecStatus:'included'}],{channel:'name',substitute:true});
+ assert.equal((await manual.get()).candidates.length,1);assert.equal((await substitute.get()).candidates.length,1);
+ assert.equal(store.imagegrabSourcingSubstituteData.candidates[0].url,'https://detail.1688.com/offer/92.html');
+ assert.equal(store.imagegrabSourcingData.candidates[0].url,'https://detail.1688.com/offer/91.html');
+ const admitted=await substitute.admit(['https://detail.1688.com/offer/92.html']);
+ assert.equal(admitted.count,1);assert.equal(store.imagegrabResearchData.offers[0].sourcingEvidence.identity,'规格替代候选，尚未确认同款');
+ assert.equal(store.imagegrabResearchData.offers[0].sourcingEvidence.brandRelation,'different');assert.equal(store.imagegrabResearchData.offers[0].sourcingEvidence.targetSpecStatus,'included');
+});
 test('category and visible specification conflicts exclude unrelated goods without padding the shortlist',()=>{
  const r=match.screen([offer(1,'亮亮照明 LED 嵌入式筒灯 5W 95mm'),offer(2,'亮亮照明 LED 灯泡 5W'),offer(3,'绿色包装胶带'),offer(4,'LED 筒灯 12W 95mm')],{name:'亮亮照明LED',category:'筒灯',specs:'5W 95mm',exclude:'胶带 电池',limit:10});
  assert.equal(r.shortlist.length,1);assert.equal(r.excluded.length,3);assert.match(r.excluded.find(x=>x.url.includes('/4.html')).excluded.join(),/规格冲突/);
