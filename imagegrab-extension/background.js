@@ -1,4 +1,4 @@
-importScripts('offer-data.js', 'detail-options.js', 'detail-job.js', 'similar-search.js', 'ranking-scope.js', 'sourcing-match.js', 'sourcing-store.js', 'sourcing-native.js', 'sourcing-search.js');
+importScripts('offer-data.js', 'detail-options.js', 'detail-job.js', 'similar-search.js', 'ranking-scope.js', 'sourcing-match.js', 'sourcing-substitute-match.js', 'sourcing-requests.js', 'sourcing-store.js', 'sourcing-native.js', 'sourcing-search.js');
 const detailJobs = ImageGrabDetailJobs.create(chrome);
 chrome.alarms.onAlarm.addListener(alarm => { if (alarm.name === detailJobs.alarm) detailJobs.kick(); });
 chrome.runtime.onStartup.addListener(() => detailJobs.kick());
@@ -253,7 +253,8 @@ async function handleSourcing(message){
     }
     throw Error(`等待候选超时：${lastError}。搜索页保留在后台，可切回手动筛选读取。`);
   }
-  if(message.type==='SOURCING_GET'||message.type==='SOURCING_SUBSTITUTE_GET')return {ok:true,state:await activeStore.get()};
+  if(message.type==='SOURCING_SUBSTITUTE_GET')return {ok:true,state:await activeStore.refreshSubstitute()};
+  if(message.type==='SOURCING_GET')return {ok:true,state:await activeStore.get()};
   if(message.type==='SOURCING_UPDATE'||message.type==='SOURCING_SUBSTITUTE_UPDATE')return activeStore.update(message.patch||{});
   if(message.type==='SOURCING_AUTO_GET'){const run=await sourcingStore.getAuto();if(!run||run.id!==message.runId)throw Error('找不到本次截图自动寻源结果');return {ok:true,run};}
   if(message.type==='SOURCING_AUTO_UPDATE')return sourcingStore.updateAuto(message.runId,message.patch||{});

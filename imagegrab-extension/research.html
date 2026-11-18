@@ -16,6 +16,7 @@
       <button id="import-button" class="icon-button" title="导入 JSON" aria-label="导入 JSON">↑</button>
       <button id="export-button" class="icon-button" title="导出备份 JSON" aria-label="导出备份 JSON">↓</button>
       <button id="csv-button" class="button secondary">导出表格</button>
+      <button id="you-sync-open" class="button secondary">同步到 1688_you</button>
       <button id="new-product" class="button primary">＋ 新建商品</button>
       <input id="import-file" type="file" accept="application/json,.json" hidden>
     </div>
@@ -156,7 +157,7 @@
               <p id="substitute-pool-status" role="status">独立候选池尚未收集</p>
               <div class="actions"><button id="substitute-clear-pool" class="button">清空本分支候选</button><label>优先展示<input id="substitute-limit" type="number" min="1" max="50" value="20"></label></div>
               <h2>3 · 筛选与详情补全</h2>
-              <div class="actions"><button id="substitute-screen" class="button primary">标注并筛选</button><button id="substitute-select-top" class="button">勾选前20个</button><button id="substitute-admit" class="button">加入商品池</button><button id="substitute-enrich" class="button primary">详情补全</button><button id="substitute-export" class="button">导出 JSON</button></div>
+              <div class="actions"><button id="substitute-screen" class="button primary">标注并筛选</button><button id="substitute-select-top" class="button">勾选前N个待核候选</button><button id="substitute-admit" class="button">加入商品池</button><button id="substitute-enrich" class="button primary">详情补全</button><button id="substitute-export" class="button">导出 JSON</button></div>
               <p id="substitute-status" role="status" aria-live="polite"></p>
               <p id="substitute-job-status" class="muted"></p>
             </section>
@@ -201,6 +202,8 @@
         </section>
         </section>
       </section>
+
+
     </main>
   </div>
   <dialog id="product-dialog" class="editor-dialog">
@@ -247,10 +250,18 @@
       <div class="dialog-actions"><button type="button" class="button secondary" data-close>取消</button><button class="button primary" value="save">保存记录</button></div>
     </form>
   </dialog>
+  <dialog id="you-sync-dialog" class="editor-dialog">
+    <form method="dialog"><div class="dialog-heading"><h2>同步到 1688_you</h2><button class="icon-button" aria-label="关闭">×</button></div>
+      <div class="form-grid"><label class="wide">网站地址<select id="you-sync-origin"><option value="http://47.94.215.192:8000">47.94.215.192:8000</option><option value="https://shopserve.xin">shopserve.xin</option><option value="https://www.shopserve.xin">www.shopserve.xin</option></select></label></div>
+      <p id="you-sync-status" class="spec-text" role="status" aria-live="polite"></p>
+      <div class="dialog-actions"><button type="button" id="you-sync-website" class="button">打开网站展示台</button><button type="button" id="you-sync-start" class="button primary">开始同步</button></div>
+    </form>
+  </dialog>
   <div id="toast" role="status" aria-live="polite"></div>
   <script src="offer-data.js"></script>
   <script src="ranking-scope.js"></script>
   <script src="sourcing-match.js"></script>
+  <script src="sourcing-substitute-match.js"></script>
   <script src="sourcing-results.js"></script>
   <script src="sourcing-image.js"></script>
   <script src="ocr/tesseract.min.js"></script>
@@ -259,5 +270,7 @@
   <script src="sourcing-auto.js"></script>
   <script src="sourcing-substitute.js"></script>
   <script src="research.js"></script>
+  <script src="sourcing-requests.js"></script>
+  <script src="you-sync.js"></script>
 </body>
 </html>

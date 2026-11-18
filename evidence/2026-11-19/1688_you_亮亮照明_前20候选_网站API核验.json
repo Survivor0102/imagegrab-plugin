@@ -1,0 +1,2162 @@
+{
+  "requestId": 18,
+  "title": "亮亮照明 LED 全塑料筒灯 12W",
+  "criteria": {
+    "mode": "alternative",
+    "name": "亮亮照明 LED 全塑料筒灯 12W",
+    "brand": "亮亮照明",
+    "limit": 20,
+    "specs": "12W",
+    "category": "筒灯 灯具照明",
+    "matchMode": "exact",
+    "substitute": true
+  },
+  "candidateCounts": {
+    "priority": 0,
+    "review": 0,
+    "excluded": 0,
+    "unassessed": 20,
+    "total": 20,
+    "admitted": 20,
+    "planned": 0
+  },
+  "candidates": [
+    {
+      "id": 6,
+      "offerId": "612337510815",
+      "title": "开尔照明led筒灯4w6w8w12w18w24w嵌入式家用客厅天花灯筒灯洞灯",
+      "url": "https://detail.1688.com/offer/612337510815.html",
+      "supplier": "上海皓琪电子科技有限公司",
+      "shipFrom": "上海",
+      "detailStatus": "complete",
+      "skuCount": 21,
+      "mediaCount": 11,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：12W开孔12MM",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：12W开孔12MM",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "missing": [],
+        "conflicts": [],
+        "matchingSkus": [
+          {
+            "index": 4,
+            "value": "12W开孔12MM",
+            "imageUrl": "",
+            "priceText": "¥15"
+          },
+          {
+            "index": 11,
+            "value": "12W开孔12MM",
+            "imageUrl": "",
+            "priceText": "¥15"
+          },
+          {
+            "index": 18,
+            "value": "12W开孔12MM",
+            "imageUrl": "",
+            "priceText": "¥15"
+          }
+        ],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1794639631820,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 467,
+      "offerId": "762373020938",
+      "title": "理星照明LED超薄筒灯白光暖光中光嵌入式家装商铺15W18W12W面板灯",
+      "url": "https://detail.1688.com/offer/762373020938.html",
+      "supplier": "兰山区顺冠神州光科亚明照明灯具厂",
+      "shipFrom": "山东临沂",
+      "detailStatus": "complete",
+      "skuCount": 21,
+      "mediaCount": 28,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：5寸12W",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "塑料"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：5寸12W",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "塑料"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "missing": [],
+        "conflicts": [],
+        "matchingSkus": [
+          {
+            "index": 4,
+            "value": "5寸12W",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01J1GtkZ1eWdG0ZZGZQ_!!2209678443879-0-cib.jpg_.webp",
+            "priceText": "¥8.9"
+          },
+          {
+            "index": 11,
+            "value": "5寸12W",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01nIw2Jh1eWdFpyrV8M_!!2209678443879-0-cib.jpg_.webp",
+            "priceText": "¥8.9"
+          },
+          {
+            "index": 18,
+            "value": "5寸12W",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01DncF101eWdG0Zb0ld_!!2209678443879-0-cib.jpg_.webp",
+            "priceText": "¥8.99"
+          }
+        ],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026009158,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 466,
+      "offerId": "939544493287",
+      "title": "4寸筒灯led12W5寸简灯天花灯6寸18w嵌入式桶灯开孔15公分节能照明",
+      "url": "https://detail.1688.com/offer/939544493287.html",
+      "supplier": "中山市英韦达照明有限公司",
+      "shipFrom": "广东中山",
+      "detailStatus": "complete",
+      "skuCount": 22,
+      "mediaCount": 60,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：工程款 4寸白壳12W暖光★开孔11-13.5CM",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铁"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：工程款 4寸白壳12W暖光★开孔11-13.5CM",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铁"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026743236,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 465,
+      "offerId": "1046325667365",
+      "title": "led超薄筒灯嵌入式家用5W4寸6寸12W孔灯商场18W天花灯客厅15W大号",
+      "url": "https://detail.1688.com/offer/1046325667365.html",
+      "supplier": "中山市白帆照明科技有限公司",
+      "shipFrom": "广东中山",
+      "detailStatus": "complete",
+      "skuCount": 12,
+      "mediaCount": 36,
+      "customerService": true,
+      "brandRelation": "unknown",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：12W暖光-开孔11-13",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "压铸铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：12W暖光-开孔11-13",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "压铸铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026716223,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 464,
+      "offerId": "1086999090523",
+      "title": "台湾110v电压筒灯led嵌入式宽压崁灯美国马来西亚4寸12W15W面板灯",
+      "url": "https://detail.1688.com/offer/1086999090523.html",
+      "supplier": "温州经邦照明有限公司",
+      "shipFrom": "广东中山",
+      "detailStatus": "complete",
+      "skuCount": 23,
+      "mediaCount": 77,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：内置宽压110V【12W/4寸】暖光开孔：11~13cm",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "其它"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：内置宽压110V【12W/4寸】暖光开孔：11~13cm",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "其它"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026692150,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 463,
+      "offerId": "1089552669151",
+      "title": "超薄led筒灯开孔7-17cm嵌入式4寸12W家装6寸18W商用工程天花灯",
+      "url": "https://detail.1688.com/offer/1089552669151.html",
+      "supplier": "中山市安追照明有限公司",
+      "shipFrom": "广东中山",
+      "detailStatus": "complete",
+      "skuCount": 8,
+      "mediaCount": 44,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：足瓦4寸【12W白光】-开孔11-13.5cm",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "压铸铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：足瓦4寸【12W白光】-开孔11-13.5cm",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "压铸铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026666151,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 462,
+      "offerId": "616683079278",
+      "title": "LED筒灯批发嵌入式天花桶灯2.5寸3.5寸4寸6寸5W9W12W18W开孔灯",
+      "url": "https://detail.1688.com/offer/616683079278.html",
+      "supplier": "常州市飞际照明科技有限公司",
+      "shipFrom": "江苏常州",
+      "detailStatus": "complete",
+      "skuCount": 12,
+      "mediaCount": 17,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：4寸12W白壳【11-13厘米】开孔",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PVC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：4寸12W白壳【11-13厘米】开孔",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PVC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "missing": [],
+        "conflicts": [],
+        "matchingSkus": [
+          {
+            "index": 2,
+            "value": "4寸12W白壳【11-13厘米】开孔",
+            "imageUrl": "",
+            "priceText": "¥8"
+          },
+          {
+            "index": 6,
+            "value": "4寸12W白壳【11-13厘米】开孔",
+            "imageUrl": "",
+            "priceText": "¥8"
+          },
+          {
+            "index": 10,
+            "value": "4寸12W白壳【11-13厘米】开孔",
+            "imageUrl": "",
+            "priceText": "¥8"
+          }
+        ],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026641146,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 461,
+      "offerId": "623716110844",
+      "title": "led筒灯超薄压铸铝嵌入式孔灯2.5寸4寸12w黑白防眩防雾天花灯洞灯",
+      "url": "https://detail.1688.com/offer/623716110844.html",
+      "supplier": "常州市飞际照明科技有限公司",
+      "shipFrom": "江苏常州",
+      "detailStatus": "complete",
+      "skuCount": 15,
+      "mediaCount": 22,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：3.5寸【开孔9-10.8cm】12W",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：3.5寸【开孔9-10.8cm】12W",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026612140,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 460,
+      "offerId": "667953909156",
+      "title": "led筒灯超薄面板灯嵌入式2.5寸7w9w4寸12w20w客厅孔灯洞灯",
+      "url": "https://detail.1688.com/offer/667953909156.html",
+      "supplier": "兰山区洗墙灯灯带亚明照明厂",
+      "shipFrom": "山东临沂",
+      "detailStatus": "complete",
+      "skuCount": 5,
+      "mediaCount": 14,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：4寸12w",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "咨询客服"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：4寸12w",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "咨询客服"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026582234,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 459,
+      "offerId": "668295342683",
+      "title": "led筒灯超薄面板灯嵌入式2.5寸7w9w4寸12w20w客厅孔灯洞灯",
+      "url": "https://detail.1688.com/offer/668295342683.html",
+      "supplier": "山东流星雨网灯灯串照明有限公司",
+      "shipFrom": "山东临沂",
+      "detailStatus": "complete",
+      "skuCount": 5,
+      "mediaCount": 14,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：4寸12w",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "其它"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：4寸12w",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "其它"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026560145,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 458,
+      "offerId": "668302114440",
+      "title": "led筒灯2.5寸7w9w4寸12w20w客厅服装店理发店筒灯白光超薄中性光",
+      "url": "https://detail.1688.com/offer/668302114440.html",
+      "supplier": "兰山区洗墙灯灯带亚明照明厂",
+      "shipFrom": "山东临沂",
+      "detailStatus": "complete",
+      "skuCount": 10,
+      "mediaCount": 15,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：白光",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "咨询客服"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：白光",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "咨询客服"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026537147,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 457,
+      "offerId": "669104923756",
+      "title": "筒灯led天花灯嵌入式服装店4寸12w8寸面板灯圆形孔灯压铸铝15",
+      "url": "https://detail.1688.com/offer/669104923756.html",
+      "supplier": "兰山区应急灯照树灯地埋灯具厂",
+      "shipFrom": "山东临沂",
+      "detailStatus": "complete",
+      "skuCount": 12,
+      "mediaCount": 16,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "详情商品标题线索",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "咨询客服"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "详情商品标题线索",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "咨询客服"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026502150,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 456,
+      "offerId": "703283527875",
+      "title": "工厂直销批发led筒灯嵌入式洞灯4寸12W圆形6寸18W开孔15cm孔灯15W",
+      "url": "https://detail.1688.com/offer/703283527875.html",
+      "supplier": "中山市超酷照明有限公司",
+      "shipFrom": "广东中山",
+      "detailStatus": "complete",
+      "skuCount": 28,
+      "mediaCount": 83,
+      "customerService": true,
+      "brandRelation": "unknown",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：【4寸白色】12W白光★开孔11-13.5CM",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PVC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：【4寸白色】12W白光★开孔11-13.5CM",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PVC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "missing": [],
+        "conflicts": [],
+        "matchingSkus": [
+          {
+            "index": 6,
+            "value": "【4寸白色】12W白光★开孔11-13.5CM",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01tzFElz1EtpWFCpP4S_!!2213924970410-0-cib.jpg_.webp",
+            "priceText": "¥7.7"
+          },
+          {
+            "index": 7,
+            "value": "【4寸白色】12W暖光★开孔11-13.5CM",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01CkD56h1EtpWA125RD_!!2213924970410-0-cib.jpg_.webp",
+            "priceText": "¥7.7"
+          },
+          {
+            "index": 8,
+            "value": "【4寸白色】12W中性光★开孔11-13.5CM",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01krL9DI1EtpWFCoSux_!!2213924970410-0-cib.jpg_.webp",
+            "priceText": "¥7.7"
+          },
+          {
+            "index": 16,
+            "value": "【4寸黑色】12W白光★开孔11-13.5CM",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01EeL3Hx1EtpWEhs34L_!!2213924970410-0-cib.jpg_.webp",
+            "priceText": "¥7.7"
+          },
+          {
+            "index": 17,
+            "value": "【4寸黑色】12W暖光★开孔11-13.5CM",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01uFD4EM1EtpWA17ag3_!!2213924970410-0-cib.jpg_.webp",
+            "priceText": "¥7.7"
+          },
+          {
+            "index": 24,
+            "value": "工程12瓦开孔11-14CM白光",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01sfwOgG1EtpTBWhfw7_!!2213924970410-0-cib.jpg_.webp",
+            "priceText": "¥9.2"
+          },
+          {
+            "index": 25,
+            "value": "工程12瓦开孔11-14CM暖光",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01a7XcZU1EtpTAXn0Ma_!!2213924970410-0-cib.jpg_.webp",
+            "priceText": "¥9.2"
+          }
+        ],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026476216,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 455,
+      "offerId": "716900584722",
+      "title": "led超薄筒灯嵌入式开孔4寸5寸3寸6寸9W12W孔灯吊顶圆形18w天花灯",
+      "url": "https://detail.1688.com/offer/716900584722.html",
+      "supplier": "钟楼区邹区露宣照明灯具厂",
+      "shipFrom": "江苏常州",
+      "detailStatus": "complete",
+      "skuCount": 18,
+      "mediaCount": 62,
+      "customerService": true,
+      "brandRelation": "unknown",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：4寸12W开孔110—130MM白光",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：4寸12W开孔110—130MM白光",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026444461,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 454,
+      "offerId": "739012585701",
+      "title": "led筒灯嵌入式开孔4寸5寸3寸6寸8寸9W孔灯12W孔灯15公分18w天花灯",
+      "url": "https://detail.1688.com/offer/739012585701.html",
+      "supplier": "新乡市平原示范区旻澄商贸有限公司",
+      "shipFrom": "河南郑州",
+      "detailStatus": "complete",
+      "skuCount": 15,
+      "mediaCount": 60,
+      "customerService": true,
+      "brandRelation": "unknown",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "7瓦"
+            ],
+            "source": "SKU：刀锋系列2.5寸7瓦白光",
+            "status": "conflict",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "7瓦"
+            ],
+            "source": "SKU：刀锋系列2.5寸7瓦白光",
+            "status": "conflict",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铝"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026413416,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 453,
+      "offerId": "764249674104",
+      "title": "led超薄筒灯嵌入式家用5W4寸6寸12W孔灯商场18W天花灯客厅15W大号",
+      "url": "https://detail.1688.com/offer/764249674104.html",
+      "supplier": "温州乔言照明有限公司",
+      "shipFrom": "广东中山",
+      "detailStatus": "complete",
+      "skuCount": 21,
+      "mediaCount": 58,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：【白色】12W暖光-开孔11-14",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铁"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：【白色】12W暖光-开孔11-14",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铁"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026385380,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 452,
+      "offerId": "789016008574",
+      "title": "110V宽压筒灯led嵌入式台湾崁灯12W4寸美国通用电压15瓦面板灯",
+      "url": "https://detail.1688.com/offer/789016008574.html",
+      "supplier": "中山市超酷照明有限公司",
+      "shipFrom": "广东中山",
+      "detailStatus": "complete",
+      "skuCount": 24,
+      "mediaCount": 73,
+      "customerService": true,
+      "brandRelation": "unknown",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：内置宽压110V【12W/4寸】暖光开孔：11~13cm",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铁"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：内置宽压110V【12W/4寸】暖光开孔：11~13cm",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "铁"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026360159,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 451,
+      "offerId": "836529863230",
+      "title": "三雄极光照明led筒灯超薄嵌入式暗装客厅过道酒店走廊孔灯pvc星景",
+      "url": "https://detail.1688.com/offer/836529863230.html",
+      "supplier": "广州三雄极光贸易发展有限公司",
+      "shipFrom": "广东肇庆",
+      "detailStatus": "complete",
+      "skuCount": 16,
+      "mediaCount": 39,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：3000k 黄光",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PVC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：3000k 黄光",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PVC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "missing": [],
+        "conflicts": [],
+        "matchingSkus": [
+          {
+            "index": 13,
+            "value": "3000k 黄光",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01D8C3Dz1rMBCOH9un2_!!2208423555616-0-cib.jpg_.webp",
+            "priceText": "¥189"
+          },
+          {
+            "index": 14,
+            "value": "4000k 暖白光",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01D8C3Dz1rMBCOH9un2_!!2208423555616-0-cib.jpg_.webp",
+            "priceText": "¥189"
+          },
+          {
+            "index": 15,
+            "value": "6500k 白光",
+            "imageUrl": "https://cbu01.alicdn.com/img/ibank/O1CN01D8C3Dz1rMBCOH9un2_!!2208423555616-0-cib.jpg_.webp",
+            "priceText": "¥189"
+          }
+        ],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026334154,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 450,
+      "offerId": "856672675346",
+      "title": "led筒灯7W9W12W家用客厅牛眼孔灯嵌入式开孔7.5cm吊顶天花板射灯",
+      "url": "https://detail.1688.com/offer/856672675346.html",
+      "supplier": "广州常盈五金有限公司",
+      "shipFrom": "广东佛山",
+      "detailStatus": "complete",
+      "skuCount": 13,
+      "mediaCount": 67,
+      "customerService": true,
+      "brandRelation": "different",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：标准",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "亚克力"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：标准",
+            "status": "match",
+            "expected": "12W"
+          }
+        ],
+        "missing": [],
+        "conflicts": [
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "亚克力"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "conflict",
+            "expected": "塑料"
+          }
+        ],
+        "matchingSkus": [],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026296137,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    },
+    {
+      "id": 449,
+      "offerId": "894281522468",
+      "title": "欧普LED筒灯4-5-6寸开孔12W-13-14-15-16-17-18cm超薄嵌入式桶灯",
+      "url": "https://detail.1688.com/offer/894281522468.html",
+      "supplier": "义乌市万美迪照明电器有限公司",
+      "shipFrom": "",
+      "detailStatus": "complete",
+      "skuCount": 28,
+      "mediaCount": 12,
+      "customerService": true,
+      "brandRelation": "unknown",
+      "targetSpecStatus": null,
+      "evidence": {
+        "scope": "仅核对已知目标条件；未提供的参数不推断一致",
+        "checks": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：白光5700K",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "matched": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "actual": [
+              "12w"
+            ],
+            "source": "SKU：白光5700K",
+            "status": "match",
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "actual": [
+              "PC"
+            ],
+            "source": "详情属性：外壳材质",
+            "status": "match",
+            "expected": "塑料"
+          }
+        ],
+        "missing": [],
+        "conflicts": [],
+        "matchingSkus": [
+          {
+            "index": 16,
+            "value": "白光5700K",
+            "imageUrl": "",
+            "priceText": "¥22"
+          },
+          {
+            "index": 17,
+            "value": "中性光4000K",
+            "imageUrl": "",
+            "priceText": "¥22"
+          },
+          {
+            "index": 18,
+            "value": "暖光3000K",
+            "imageUrl": "",
+            "priceText": "¥22"
+          },
+          {
+            "index": 19,
+            "value": "三色变光5700K+3000K",
+            "imageUrl": "",
+            "priceText": "¥25"
+          }
+        ],
+        "requirements": [
+          {
+            "key": "power",
+            "max": 12,
+            "raw": "12w",
+            "unit": "W",
+            "label": "功率",
+            "value": 12,
+            "expected": "12W"
+          },
+          {
+            "key": "material",
+            "label": "材质",
+            "value": "塑料",
+            "expected": "塑料"
+          }
+        ],
+        "detailCapturedAt": 1795026236138,
+        "targetNotSpecified": [
+          "安装方式",
+          "开孔",
+          "电压"
+        ]
+      },
+      "missing": [],
+      "conflicts": []
+    }
+  ]
+}

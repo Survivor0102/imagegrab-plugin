@@ -3,6 +3,18 @@
   'use strict';
   const clean = value => String(value || '').normalize('NFKC').toLocaleLowerCase().replace(/\s+/g, ' ').trim();
   const terms = value => [...new Set(clean(value).split(/[\s,，;；、\n]+/).filter(Boolean))];
+  function recover(row) {
+    const out = {...row, fieldEvidence:{...(row.fieldEvidence || {})}}, text = String(row.visibleText || '').replace(/\s+/g,' ').trim();
+    // Restrict recovery to this saved card. Never borrow a neighbouring card's seller or price.
+    const body = row.title && text.startsWith(row.title) ? text.slice(row.title.length).trim() : text;
+    const price = body.match(/[¥￥]\s*\d+(?:,\d{3})*(?:\s*\.\s*\d+)?(?:\s*[-~至]\s*[¥￥]?\s*\d+(?:,\d{3})*(?:\s*\.\s*\d+)?)?/);
+    const sales = body.match(/(?:已售\s*[\d,.]+\s*(?:万|千|K|M)?\+?\s*件|成交\s*[\d,.]+\s*(?:笔|件)|[\d,.]+(?:万|千)?\+?\s*(?:人付款|人已付款|笔成交|件成交|件已售|人收货))/i);
+    const seller = body.match(/(?:^|\s)([^\s¥￥<>]{3,80}(?:工厂|公司|旗舰店|专营店|专卖店|商行|批发部|经营部|店|厂))$/);
+    for (const [key,value] of Object.entries({priceText:price?.[0]?.replace(/\s+/g,''),salesText:sales?.[0],supplierName:seller?.[1]})) {
+      if (!out[key] && value) {out[key]=value;out.fieldEvidence[key]={source:'搜索页保存文本',status:'recorded',value};}
+    }
+    return out;
+  }
   function canonical(value) {
     try { const u = new URL(value); const m = u.pathname.match(/^\/offer\/(\d+)\.html$/); return u.protocol === 'https:' && ['detail.1688.com','offer.1688.com'].includes(u.hostname) && m ? `https://detail.1688.com/offer/${m[1]}.html` : ''; } catch { return ''; }
   }
@@ -11,7 +23,7 @@
     for (const [inputIndex, input] of (rows || []).entries()) {
       const url = canonical(input.url); if (!url) continue;
       const old = map.get(url);
-      const row = { ...input, url, retrievalOrder: Number.isFinite(input.retrievalOrder) ? input.retrievalOrder : inputIndex, images: [...new Set(input.images || [])].slice(0, 8), sources: input.sources || [] };
+      const row = { ...recover(input), url, retrievalOrder: Number.isFinite(input.retrievalOrder) ? input.retrievalOrder : inputIndex, images: [...new Set(input.images || [])].slice(0, 8), sources: input.sources || [] };
       if (old) {
         old.retrievalOrder = Math.min(old.retrievalOrder, row.retrievalOrder);
         old.images = [...new Set([...old.images,...row.images])].slice(0, 8);
@@ -54,6 +66,7 @@
     return Math.round((shape*.45+layout*.4+color*.15)*100);
   }
   function evaluate(row,criteria={}) {
+    row = recover(row);
     const title=clean(row.title), text=clean([row.title,row.brand,row.model,row.category,row.visibleText].join(' '));
     const reasons=[],missing=[],excluded=[];let score=0, signals=0;
     if(criteria.nativeImageSearch)reasons.push('1688图片搜索结果，平台原始顺序优先');
@@ -85,5 +98,5 @@
     const limit=Math.min(50,Math.max(1,Number(criteria.limit)||10));
     return {shortlist:evaluated.filter(x=>x.status==='candidate').slice(0,limit),review:evaluated.filter(x=>x.status==='review'),excluded:evaluated.filter(x=>x.status==='excluded'),remaining:evaluated.filter(x=>x.status==='candidate').slice(limit),total:evaluated.length};
   }
-  globalThis.ImageGrabSourcingMatch={canonical,dedupe,describe,visualSimilarity,evaluate,screen};
+  globalThis.ImageGrabSourcingMatch={canonical,dedupe,recover,describe,visualSimilarity,evaluate,screen};
 })();

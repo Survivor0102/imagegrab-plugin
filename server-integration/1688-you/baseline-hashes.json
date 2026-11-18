@@ -1,0 +1,6 @@
+{
+  "backend/web/models/user.py": "63a265a68960a48a4285be00f4b2c7e4f7b0c2b658356afe171b55d8e4e5aee0",
+  "backend/web/urls.py": "a0e54e296615865736af7525b31ba3e692622479fddc90585e2f080698a5c87d",
+  "frontend/src/router/index.js": "a6e98bb50a2d75bc82a94ad23508f094eaffc737f00237fb326bc422e700d0d2",
+  "frontend/src/components/NavBar.vue": "c6c14cc6c7e6a50f53308735bdb10090e95c1a7debbc67cd4177ccf5c3ee37bb"
+}

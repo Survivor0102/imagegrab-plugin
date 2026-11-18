@@ -27,48 +27,6 @@
   const persist = patch => send('SOURCING_SUBSTITUTE_UPDATE', { patch });
   function poolStatus() { $('#substitute-pool-status').textContent = `独立候选池：${state.candidates.length} 件（不会覆盖图片 / 名称筛选和截图自动寻源）`; }
   function sourceTags(row) { return [...new Set((row.sources || []).map(s => ({ image:'图片搜索', name:'名称搜索', pool:'商品池' }[s.channel] || '页面采集')))].join(' + '); }
-  function numberSpecs(text) {
-    const out = [];
-    for (const m of clean(text).matchAll(/(\d+(?:\.\d+)?)\s*(mah|mm|cm|ml|kg|mg|gb|tb|w|v|g|l|毫米|厘米|毫升|千克|公斤|毫克|克|瓦|伏|升)/g)) out.push({ value: Number(m[1]), unit: m[2] });
-    return out;
-  }
-  function annotate(row, c) {
-    const text = clean([row.title, row.brand, row.model, row.category, row.visibleText].join(' '));
-    const brand = clean(c.brand);
-    const brandRelation = !brand ? 'unknown' : text.includes(brand) ? 'same' : 'different';
-    const expectedNumbers = numberSpecs(c.specs), actualNumbers = numberSpecs(text);
-    const expectedWords = clean(c.specs).replace(/\d+(?:\.\d+)?\s*(mah|mm|cm|ml|kg|mg|gb|tb|w|v|g|l|毫米|厘米|毫升|千克|公斤|毫克|克|瓦|伏|升)/g, ' ').split(/[\s,，;；、/]+/).filter(x => x.length > 1);
-    const exact = expectedNumbers.every(e => actualNumbers.some(a => a.unit === e.unit && Math.abs(a.value - e.value) < 0.01));
-    const unitPresent = expectedNumbers.every(e => actualNumbers.some(a => a.unit === e.unit));
-    const wordsPresent = expectedWords.every(word => text.includes(word));
-    let targetSpecStatus = 'unknown', specDifference = '';
-    if (expectedNumbers.length || expectedWords.length) {
-      if (exact && wordsPresent) targetSpecStatus = 'included';
-      else if (c.matchMode === 'allow-difference' && unitPresent && wordsPresent) {
-        targetSpecStatus = 'included';
-        specDifference = '同单位存在，但数值与目标规格存在差异';
-      } else if (expectedNumbers.some(e => actualNumbers.some(a => a.unit === e.unit && Math.abs(a.value - e.value) >= 0.01))) {
-        targetSpecStatus = 'excluded';
-        specDifference = '页面可见规格与目标规格冲突';
-      }
-    }
-    const reasons = [...(row.reasons || [])];
-    reasons.push(brandRelation === 'same' ? '标题或可见资料命中品牌' : brandRelation === 'different' ? '未命中目标品牌，作为替代品牌保留' : '品牌关系待详情页核对');
-    reasons.push(targetSpecStatus === 'included' ? (specDifference || '候选包含目标规格线索') : targetSpecStatus === 'excluded' ? specDifference : '搜索结果页规格不足，详情页后再核对');
-    return { ...row, substitute: true, brandRelation, targetSpecStatus, specDifference, reasons };
-  }
-  function annotateReport(raw, c) {
-    const groups = ['shortlist', 'review', 'remaining', 'excluded'];
-    const mapped = { shortlist: [], review: [], remaining: [], excluded: [] };
-    for (const group of groups) for (const original of raw[group] || []) {
-      const row = annotate(original, c);
-      const targetGroup = row.targetSpecStatus === 'excluded' ? 'excluded' : row.targetSpecStatus === 'unknown' && group === 'shortlist' ? 'review' : group;
-      mapped[targetGroup].push(row);
-    }
-    const all = groups.flatMap(group => mapped[group]);
-    const byUrl = new Map(all.map(row => [row.url, row]));
-    return { ...raw, ...mapped, total: all.length, all: [...byUrl.values()] };
-  }
   function render() {
     if (!report) return;
     $('#substitute-result-count').textContent = `优先 ${report.shortlist.length} · 待核对 ${report.review.length} · 其余 ${report.remaining.length} · 排除 ${report.excluded.length} · 共 ${report.total}`;
@@ -88,8 +46,7 @@
     poolStatus();
     if (state.reference?.images?.length) showPreview();
     if (state.candidates.length && (state.criteria.name || state.criteria.category || state.criteria.specs)) {
-      const raw = match.screen(state.candidates, { ...state.criteria, specs: '', mode: 'alternative', hasImage: false, hasReference: false });
-      report = annotateReport(raw, state.criteria);
+      report = ImageGrabSubstituteMatch.screen(state.candidates, state.criteria);
       render();
     }
   }
@@ -133,17 +90,18 @@
     const c = criteria();
     if (!c.name && !c.category && !c.specs && !state.reference) throw Error('请填写名称、品类、规格或上传图片');
     state.criteria = c; state.selected = [];
-    const raw = match.screen(state.candidates, { ...c, specs: '', mode: 'alternative', hasImage: false, hasReference: false });
-    report = annotateReport(raw, c);
+    const reply = await send('SOURCING_SUBSTITUTE_GET');
+    state.candidates = reply.state.candidates;
+    report = ImageGrabSubstituteMatch.screen(state.candidates, c);
     state.candidates = report.all;
     await persist({ criteria: c, candidates: state.candidates, selected: [] });
     if (!report.shortlist.length && report.review.length) $('#substitute-result-view').value = 'review';
     render();
-    status(`已完成规格替代标注：优先 ${report.shortlist.length} 件；同品牌与不同品牌候选均保留，详情页再核对规格。`);
+    status(`已完成规格替代标注：优先 ${report.shortlist.length} 件；品牌缺失保留为未识别；规格按已知条件逐项核对，缺项不会算作一致。`);
   }
   async function fromPool() { const reply = await send('SOURCING_SUBSTITUTE_FROM_POOL'); await load(); status(`已读取商品池记录；独立候选共 ${reply.total} 件。`); }
   async function clearPool() { await send('SOURCING_SUBSTITUTE_CLEAR'); report = null; await load(); $('#substitute-results').textContent = '本分支候选已清空，其他寻源分支保留。'; status('规格替代寻源候选已清空。'); }
-  async function selectTop() { if (!report) throw Error('请先标注并筛选'); state.selected = report.shortlist.slice(0, Number($('#substitute-limit').value) || 20).map(row => row.url); await persist({ selected: state.selected }); render(); status(`已勾选 ${state.selected.length} 件候选。`); }
+  async function selectTop() { if (!report) throw Error('请先标注并筛选'); state.selected = report.queue.map(row => row.url); await persist({ selected: state.selected }); render(); status(`已勾选前 ${state.selected.length} 件可继续核对的候选（优先候选在前，待核对在后；不含已排除项），不代表已经确认匹配。`); }
   async function admit(type) { if (!state.selected.length) throw Error('请先勾选候选'); const reply = await send(type, { urls: state.selected }); $('#substitute-job-status').textContent = type.endsWith('ENRICH') ? `详情补全任务已启动：${reply.count} 件` : `已加入商品池：${reply.count} 件；保留规格替代证据。`; }
   function exportJson() { const blob = new Blob([JSON.stringify({ ...state, report, exportedAt: new Date().toISOString(), identity: '规格替代寻源候选，不等于同款认证' }, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = 'ImageGrab_规格替代寻源.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
   const action = (id, fn) => $(id).addEventListener('click', async () => { const button = $(id); button.disabled = true; try { await fn(); } catch (error) { status(error.message); } finally { button.disabled = false; } });
@@ -164,5 +122,17 @@
   for (const id of ['#substitute-name','#substitute-brand','#substitute-category','#substitute-specs','#substitute-match-mode','#substitute-limit']) $(id).addEventListener('change', () => { report = null; state.selected = []; persist({ criteria: criteria(), selected: [] }).catch(error => status(error.message)); });
   $('#substitute-result-view').addEventListener('change', render);
   $('#substitute-results').addEventListener('change', async event => { const url = event.target.dataset.url; if (!url) return; state.selected = event.target.checked ? [...new Set([...state.selected, url])] : state.selected.filter(item => item !== url); try { await persist({ selected: state.selected }); } catch (error) { status(error.message); } });
+  let refreshTimer;
+  chrome.storage.onChanged?.addListener((changes, area) => {
+    if (area !== 'local' || !changes.imagegrabResearchData) return;
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(async () => {
+      try {
+        const reply = await send('SOURCING_SUBSTITUTE_GET');
+        state.candidates = reply.state.candidates;
+        if (report) { report = ImageGrabSubstituteMatch.screen(state.candidates, criteria()); render(); }
+      } catch (error) { status(error.message); }
+    }, 250);
+  });
   (async () => { try { await load(); await tabs(); } catch (error) { status(error.message); } })();
 })();

@@ -1,0 +1,233 @@
+{
+  "checkedAt": "2026-11-18T18:41:18.278Z",
+  "method": "Existing ordinary Chrome 157 via background CDP; website page reload and authenticated API readback",
+  "sync": {
+    "status": "同步完成：446 个商品、446 条入池货源、224 条独立寻源候选关联",
+    "created": 19,
+    "updated": 427
+  },
+  "page": {
+    "url": "http://47.94.215.192:8000/static/frontend/goods/ImageGrabYou",
+    "title": "Vite App",
+    "text": "👤 youhancheng\n管理员\n当前用户组\nadmin\njixiang最高管理员专属\n消息\n清缓存·更新版本\n退出登录\nIMAGEGRAB / RESEARCH\n1688_you\n\n围绕原产品查看候选货源，寻找补充资料或可替代的商品。\n\n读取中…\n寻源目标\n5\n货源档案\n446\n已补全详情\n434\n待补全 / 部分完成\n12\n寻源目标\n榜单商品\n待归属\n全部档案\n搜索\n原产品 / 搜索输入\n5 项\n图片寻源\n目标品牌未提供 · 60 个候选\n规格未提供 · 1 次搜索条件\n桶装 黑色 小皮筋\n目标品牌未提供 · 110 个候选\n规格未提供 · 1 次搜索条件\n桶装 黑色 小皮筋\n目标品牌未提供 · 2 个候选\n规格未提供 · 1 次搜索条件\n亮亮照明 LED 全塑料筒灯 12W\n亮亮照明 · 55 个候选\n12W · 2 次搜索条件\n亮亮照明 LED 全塑料筒灯 12W\n亮亮照明 · 20 个候选\n12W · 1 次搜索条件\n上一页\n1 / 1\n下一页\n\n选择原产品查看候选货源。\n\n最近上报的采集状态\n⌂\n首页\n☷\n待办\n＋\n登记\n▦\n商品\n◎\n管理\n⇄\n1688\n◇\n1688_you\n◎\n看板\n◇\n生图",
+    "metrics": [
+      "5",
+      "446",
+      "434",
+      "12"
+    ],
+    "has446": true
+  },
+  "api": {
+    "list": {
+      "status": 200,
+      "metrics": {
+        "requests": 5,
+        "products": 446,
+        "offers": 446,
+        "complete": 434,
+        "pending": 12
+      },
+      "count": 5,
+      "targetSummary": [
+        {
+          "title": "图片寻源",
+          "candidate_count": 60
+        },
+        {
+          "title": "桶装 黑色 小皮筋",
+          "candidate_count": 110
+        },
+        {
+          "title": "桶装 黑色 小皮筋",
+          "candidate_count": 2
+        },
+        {
+          "title": "亮亮照明 LED 全塑料筒灯 12W",
+          "candidate_count": 55
+        },
+        {
+          "title": "亮亮照明 LED 全塑料筒灯 12W",
+          "candidate_count": 20
+        }
+      ]
+    },
+    "target": {
+      "id": 5,
+      "title": "亮亮照明 LED 全塑料筒灯 12W",
+      "candidate_count": 55,
+      "candidate_counts": {
+        "priority": 6,
+        "review": 23,
+        "excluded": 25,
+        "unassessed": 1,
+        "total": 55,
+        "admitted": 23,
+        "planned": 20
+      },
+      "limit": 20,
+      "candidates": [
+        {
+          "title": "开尔照明led筒灯4w6w8w12w18w24w嵌入式家用客厅天花灯筒灯洞灯",
+          "url": "https://detail.1688.com/offer/612337510815.html",
+          "stage": "priority",
+          "admitted": true,
+          "planned_rank": 1,
+          "customer_service_url": false
+        },
+        {
+          "title": "理星照明LED超薄筒灯白光暖光中光嵌入式家装商铺15W18W12W面板灯",
+          "url": "https://detail.1688.com/offer/762373020938.html",
+          "stage": "priority",
+          "admitted": true,
+          "planned_rank": 2,
+          "customer_service_url": false
+        },
+        {
+          "title": "LED筒灯批发嵌入式天花桶灯2.5寸3.5寸4寸6寸5W9W12W18W开孔灯",
+          "url": "https://detail.1688.com/offer/616683079278.html",
+          "stage": "priority",
+          "admitted": true,
+          "planned_rank": 3,
+          "customer_service_url": false
+        },
+        {
+          "title": "工厂直销批发led筒灯嵌入式洞灯4寸12W圆形6寸18W开孔15cm孔灯15W",
+          "url": "https://detail.1688.com/offer/703283527875.html",
+          "stage": "priority",
+          "admitted": true,
+          "planned_rank": 4,
+          "customer_service_url": false
+        },
+        {
+          "title": "三雄极光照明led筒灯超薄嵌入式暗装客厅过道酒店走廊孔灯pvc星景",
+          "url": "https://detail.1688.com/offer/836529863230.html",
+          "stage": "priority",
+          "admitted": true,
+          "planned_rank": 5,
+          "customer_service_url": false
+        },
+        {
+          "title": "欧普LED筒灯4-5-6寸开孔12W-13-14-15-16-17-18cm超薄嵌入式桶灯",
+          "url": "https://detail.1688.com/offer/894281522468.html",
+          "stage": "priority",
+          "admitted": true,
+          "planned_rank": 6,
+          "customer_service_url": false
+        },
+        {
+          "title": "顺冠led筒灯嵌入式2.5寸4寸12w6寸20w孔灯商场天花灯客厅筒灯",
+          "url": "https://detail.1688.com/offer/908936072431.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 7,
+          "customer_service_url": false
+        },
+        {
+          "title": "110V宽压筒灯led嵌入式台湾崁灯12W4寸美国通用电压15瓦同款展会",
+          "url": "https://detail.1688.com/offer/918611193026.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 8,
+          "customer_service_url": false
+        },
+        {
+          "title": "led筒灯开孔4寸5寸3寸6寸9W孔灯12W18w15公分8cm天花灯工程款",
+          "url": "https://detail.1688.com/offer/939884633962.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 9,
+          "customer_service_url": false
+        },
+        {
+          "title": "源头厂LED嵌入式塑料超薄筒灯方形面板灯led嵌入式筒灯吊顶天花灯",
+          "url": "https://detail.1688.com/offer/964986627823.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 10,
+          "customer_service_url": false
+        },
+        {
+          "title": "工厂直销批发led筒灯嵌入式洞灯4寸12W圆形6寸18W开孔15cm孔灯15W",
+          "url": "https://detail.1688.com/offer/966912575473.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 11,
+          "customer_service_url": false
+        },
+        {
+          "title": "雷士led筒灯4寸5寸8W12W15W嵌入式天花孔筒灯9204 9205 9206 9208",
+          "url": "https://detail.1688.com/offer/976401509419.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 12,
+          "customer_service_url": false
+        },
+        {
+          "title": "商用LED嵌入式筒灯高亮节能商铺商场超市工厂办公室天花工程照明",
+          "url": "https://detail.1688.com/offer/1032546997688.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 13,
+          "customer_service_url": false
+        },
+        {
+          "title": "led筒灯超薄嵌入式暗装商场服装店铺工程照明灯全白圆形天花灯",
+          "url": "https://detail.1688.com/offer/1051046951901.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 14,
+          "customer_service_url": false
+        },
+        {
+          "title": "led照明超薄明装筒灯圆形小吸顶过道入户走廊玄关灯酒店装修室",
+          "url": "https://detail.1688.com/offer/1086140657786.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 15,
+          "customer_service_url": false
+        },
+        {
+          "title": "嵌入式天花灯白色射灯批发工程照明商用客厅超薄家用高亮LED筒灯",
+          "url": "https://detail.1688.com/offer/726606032983.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 16,
+          "customer_service_url": false
+        },
+        {
+          "title": "雷士照明LED筒灯嵌入式式NLED91225 9123 91235 9124N 9125 9126N",
+          "url": "https://detail.1688.com/offer/978062714832.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 17,
+          "customer_service_url": false
+        },
+        {
+          "title": "黑色筒灯led嵌入式店铺商用家用天花灯4寸12公分过道7.5开孔射灯",
+          "url": "https://detail.1688.com/offer/1000587306405.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 18,
+          "customer_service_url": false
+        },
+        {
+          "title": "定制led防眩筒灯98显过道厨房孔灯三色嵌入式灯天花无主筒灯",
+          "url": "https://detail.1688.com/offer/1066065600101.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 19,
+          "customer_service_url": false
+        },
+        {
+          "title": "LED全光谱筒灯嵌入式全尺寸家用天花灯洗墙深杯防眩筒射灯",
+          "url": "https://detail.1688.com/offer/1081348002581.html",
+          "stage": "review",
+          "admitted": false,
+          "planned_rank": 20,
+          "customer_service_url": false
+        }
+      ]
+    }
+  }
+}

@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=path.resolve(__dirname,'../..');
 const context=vm.createContext({URL,crypto:require('node:crypto').webcrypto});
-for(const file of ['sourcing-match.js','sourcing-store.js','offer-data.js','detail-job.js'])vm.runInContext(fs.readFileSync(path.join(root,'imagegrab-extension',file),'utf8'),context);
+for(const file of ['sourcing-match.js','sourcing-requests.js','sourcing-store.js','offer-data.js','detail-job.js'])vm.runInContext(fs.readFileSync(path.join(root,'imagegrab-extension',file),'utf8'),context);
 const match=context.ImageGrabSourcingMatch,clone=x=>JSON.parse(JSON.stringify(x));
 const offer=(id,title,more={})=>({url:`https://detail.1688.com/offer/${id}.html`,title,...more});
 test('two sourcing channels deduplicate tracking URLs and retain both provenance records',()=>{
@@ -22,6 +22,18 @@ test('specification substitute sourcing uses an independent pool and preserves r
  const admitted=await substitute.admit(['https://detail.1688.com/offer/92.html']);
  assert.equal(admitted.count,1);assert.equal(store.imagegrabResearchData.offers[0].sourcingEvidence.identity,'规格替代候选，尚未确认同款');
  assert.equal(store.imagegrabResearchData.offers[0].sourcingEvidence.brandRelation,'different');assert.equal(store.imagegrabResearchData.offers[0].sourcingEvidence.targetSpecStatus,'included');
+});
+test('admitted candidates keep an explicit parent sourcing request and preserve multiple queries',async()=>{
+ const store={imagegrabResearchData:{products:[],offers:[],certificates:[],sourcingRequests:[]}};
+ const api={storage:{local:{get:async key=>({[key]:clone(store[key]??null)}),set:async value=>Object.assign(store,clone(value))}}};
+ const pool=context.ImageGrabSourcingStore.create(api,match);
+ await pool.update({criteria:{name:'亮亮照明 LED 筒灯',brand:'亮亮照明',specs:'12W',category:'筒灯'},reference:{image:'data:image/png;base64,AAAA'}});
+ await pool.add([offer(99,'开尔照明 LED 筒灯 12W',{brand:'开尔照明'})],{channel:'name'});
+ const result=await pool.admit(['https://detail.1688.com/offer/99.html']);
+ assert.equal(result.count,1);
+ assert.equal(store.imagegrabResearchData.sourcingRequests.length,1);
+ assert.equal(store.imagegrabResearchData.offers[0].sourcingRequests.length,1);
+ assert.equal(store.imagegrabResearchData.offers[0].sourcingRequests[0].requestId,store.imagegrabResearchData.sourcingRequests[0].id);
 });
 test('category and visible specification conflicts exclude unrelated goods without padding the shortlist',()=>{
  const r=match.screen([offer(1,'亮亮照明 LED 嵌入式筒灯 5W 95mm'),offer(2,'亮亮照明 LED 灯泡 5W'),offer(3,'绿色包装胶带'),offer(4,'LED 筒灯 12W 95mm')],{name:'亮亮照明LED',category:'筒灯',specs:'5W 95mm',exclude:'胶带 电池',limit:10});

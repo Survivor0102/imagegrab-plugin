@@ -66,7 +66,7 @@
   const save = async () => {
     const job = (await chrome.storage.local.get(JOB_KEY))[JOB_KEY];
     if (job?.status === 'running') throw Error('详情补全期间请先停止任务再编辑档案');
-    return chrome.storage.local.set({ [STORAGE_KEY]: { products: state.products, offers: state.offers, certificates: state.certificates, selectedId: state.selectedId } });
+    return chrome.storage.local.set({ [STORAGE_KEY]: { products: state.products, offers: state.offers, certificates: state.certificates, sourcingRequests: state.sourcingRequests || [], selectedId: state.selectedId } });
   };
 
   function renderDetailJob() {
@@ -404,7 +404,7 @@
   $('#offer-filter-detail').addEventListener('change', event => { state.offerDetail = event.target.value; render(); });
   $('#offer-filter-shipping').addEventListener('change', event => { state.offerShipping = event.target.value; render(); });
   $('#offer-filter-customer').addEventListener('change', event => { state.offerCustomer = event.target.value; render(); });
-  $('#export-button').addEventListener('click', () => download('imagegrab-research-backup.json', JSON.stringify({ schemaVersion: 2, exportedAt: new Date().toISOString(), products: state.products, offers: state.offers, certificates: state.certificates }, null, 2), 'application/json'));
+  $('#export-button').addEventListener('click', () => download('imagegrab-research-backup.json', JSON.stringify({ schemaVersion: 3, exportedAt: new Date().toISOString(), products: state.products, offers: state.offers, certificates: state.certificates, sourcingRequests: state.sourcingRequests || [] }, null, 2), 'application/json'));
   $('#csv-button').addEventListener('click', () => {
     const headers = ['商品名','品牌','类目','来源','排名','榜单类别','商品大类','采集地区','榜单参数','1688类目ID','商品链接','图片链接','规格参数','产地','供应商','供应商主页','货源链接','价格','起订量','页面销量','供应商地区','认证类型','证书编号','核验状态','核验来源','发货地','价格说明','商品参数JSON','规格报价JSON','图片角色JSON','销量来源JSON','视频链接','客服链接','客服账号','客服会员ID','客服采集来源','客服采集时间'];
     const rows = state.products.flatMap(p => { const offers = state.offers.filter(o => o.productId === p.id); const certs = state.certificates.filter(c => c.productId === p.id); const scope = p.scope || {}; return (offers.length ? offers : [{}]).flatMap(o => (certs.length ? certs : [{}]).map(c => [p.title,p.brand,p.category,p.sourceType,p.rank,scope.rankingLabel || '',scope.categoryName || '',scope.countryName || '',scope.rankingName || '',scope.cateId || '',p.sourceUrl,(p.images||[]).join(' '),p.specs,p.origin,o.supplierName,o.supplierUrl,o.url,o.priceText,o.moqText,o.salesText,o.location,c.type,c.number,c.status,c.evidenceUrl,o.shipFrom,o.priceContext,JSON.stringify(o.details?.attributes||[]),JSON.stringify(o.details?.skus||[]),JSON.stringify(o.details?.media||[]),JSON.stringify(o.salesObservations||[]),(p.videoUrls||[]).join(' '),safeUrl(customerServiceFor(o)?.url),customerServiceFor(o)?.loginId,customerServiceFor(o)?.memberId,customerServiceFor(o)?.source,customerServiceFor(o)?.capturedAt])); });
@@ -414,7 +414,7 @@
   $('#import-button').addEventListener('click', () => $('#import-file').click());
   $('#import-file').addEventListener('change', async event => {
     const file = event.target.files[0]; if (!file) return;
-    try { const data = JSON.parse(await file.text()); if (!Array.isArray(data.products) || !Array.isArray(data.offers) || !Array.isArray(data.certificates)) throw new Error('JSON 结构不匹配'); state.products = data.products; state.offers = data.offers; state.certificates = data.certificates; offerData.migrate(state); await save(); render(); toast('备份已导入'); }
+    try { const data = JSON.parse(await file.text()); if (!Array.isArray(data.products) || !Array.isArray(data.offers) || !Array.isArray(data.certificates)) throw new Error('JSON 结构不匹配'); state.products = data.products; state.offers = data.offers; state.certificates = data.certificates; state.sourcingRequests = Array.isArray(data.sourcingRequests) ? data.sourcingRequests : []; offerData.migrate(state); await save(); render(); toast('备份已导入'); }
     catch (error) { toast(`导入失败：${error.message}`); }
     event.target.value = '';
   });
@@ -426,6 +426,7 @@
     if (changes[STORAGE_KEY]) {
       const saved = changes[STORAGE_KEY].newValue || {};
       state.products = saved.products || []; state.offers = saved.offers || []; state.certificates = saved.certificates || [];
+      state.sourcingRequests = saved.sourcingRequests || [];
     }
     if (changes[STORAGE_KEY] || changes[JOB_KEY]) render();
   });
@@ -435,6 +436,7 @@
     state.products = Array.isArray(saved.products) ? saved.products : [];
     state.offers = Array.isArray(saved.offers) ? saved.offers : [];
     state.certificates = Array.isArray(saved.certificates) ? saved.certificates : [];
+    state.sourcingRequests = Array.isArray(saved.sourcingRequests) ? saved.sourcingRequests : [];
     state.selectedId = state.products.some(p => p.id === saved.selectedId) ? saved.selectedId : '';
     if (detailJob?.status !== 'running' && offerData.migrate(state)) await save();
     if (rankingScope) {

@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-11-18T13:18:23.689Z",
+  "kind": "Existing ordinary Chrome extension: actual installed version, saved candidate rendered in real workbench; no new search or detail task",
+  "version": "1.11.2",
+  "rendered": "加入本次选择\n品牌关系：疑似不同品牌\n目标规格：规格证据不足\n\n已核对 1/2 项 · 缺失 1 项 · 冲突 0 项\n\n理星照明LED超薄筒灯白光暖光中光嵌入式家装商铺15W18W12W面板灯\n\n¥8.9 · 兰山区顺冠神州光科亚明照明灯具厂\n\n排序分 41 / 100 · 1688原始顺序 58\n\n标题命中品类；名称命中 4/9 个片段；标题品牌线索：理星照明；目标品牌：亮亮照明；疑似不同品牌，待详情核验；功率命中：12W（搜索商品标题线索）；目标未提供：安装方式、开孔、电压；不能据此确认可直接替代\n\n材质待核对：塑料\n\n名称搜索 · 候选，尚未确认同款\n\n打开货源 ↗",
+  "bodyHasWrongTargetMessage": false,
+  "dataComparison": [
+    {
+      "key": "imagegrabDetailJob",
+      "unchanged": true
+    },
+    {
+      "key": "imagegrabResearchData",
+      "unchanged": false
+    },
+    {
+      "key": "imagegrabSourcingAutoRun",
+      "unchanged": true
+    },
+    {
+      "key": "imagegrabSourcingData",
+      "unchanged": true
+    },
+    {
+      "key": "imagegrabSourcingSubstituteData",
+      "unchanged": true
+    }
+  ],
+  "status": "passed"
+}

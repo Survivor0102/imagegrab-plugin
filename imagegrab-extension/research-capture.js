@@ -10,8 +10,8 @@
   sessionStorage.setItem(TAB_TOKEN_KEY, tabToken);
   const OFFER_URL = /(?:detail\.1688\.com\/offer\/|offer\.1688\.com\/offer\/|1688\.com\/offer\/)/i;
   const RANKING_URL = /air\.1688\.com\/kapp\/1688-global\/sales\/ranking/i;
-  const PRICE = /(?:¥|￥)\s*[\d,.]+(?:\s*[-~至]\s*(?:¥|￥)?\s*[\d,.]+)?/;
-  const SALES = /(?:成交\s*[\d,.]+\s*(?:笔|件)?|\d[\d,.]*(?:万|千|K|M)?\+?\s*(?:人付款|人已付款|笔成交|件成交|件已售|人收货|月销量))/i;
+  const PRICE = /(?:¥|￥)\s*\d+(?:,\d{3})*(?:\s*\.\s*\d+)?(?:\s*[-~至]\s*(?:¥|￥)?\s*\d+(?:,\d{3})*(?:\s*\.\s*\d+)?)?/;
+  const SALES = /(?:成交\s*[\d,.]+\s*(?:笔|件)?|已售\s*[\d,.]+\s*(?:万|千|K|M)?\+?\s*件|\d[\d,.]*(?:万|千|K|M)?\+?\s*(?:人付款|人已付款|笔成交|件成交|件已售|人收货|月销量))/i;
   const MOQ = /(?:起批|起订|\d+\s*(?:件|个|套|箱)起批)/;
   const RANK = /(?:第\s*(\d{1,4})\s*名|(?:^|\s)#\s*(\d{1,4})|TOP\s*(\d{1,4}))/i;
 
@@ -24,6 +24,16 @@
   function supplierFrom(node) {
     const link = [...node.querySelectorAll('a[href]')].find(a => /(?:shop|company|dianpu|wangpu).*1688\.com|\.1688\.com\/page\//i.test(a.href));
     return { name: text(link), url: link?.href || '' };
+  }
+
+  function compactPrice(value) { return String(value || '').replace(/\s+/g, ''); }
+  function supplierText(lines, title) {
+    const suffix = /(?:工厂|公司|旗舰店|专营店|专卖店|店|商行|批发部|经营部|商贸|厂)$/;
+    return [...lines].reverse().map(value => String(value || '').trim()).find(value => value && value !== title && value.length >= 3 && value.length <= 80 && !PRICE.test(value) && !SALES.test(value) && suffix.test(value)) || '';
+  }
+  function brandClue(title) {
+    const match = String(title || '').match(/^([\u4e00-\u9fffA-Za-z0-9·&]{2,20}(?:照明|灯具|电器|家居|科技|服饰|母婴|美妆))/);
+    return match?.[1] || '';
   }
 
   function rankingPage() { return RANKING_URL.test(location.href); }
@@ -51,12 +61,13 @@
     const body = text(card);
     const lines = (card.innerText || '').split(/\n+/).map(x => x.trim()).filter(Boolean);
     const title = anchor.getAttribute('title') || anchor.getAttribute('aria-label') || lines.find(line => line.length > 8 && !PRICE.test(line) && !SALES.test(line) && !MOQ.test(line)) || text(anchor);
-    const priceText = body.match(PRICE)?.[0] || '';
+    const priceText = compactPrice(body.match(PRICE)?.[0] || '');
     const salesText = body.match(SALES)?.[0] || '';
     const moqText = body.match(MOQ)?.[0] || '';
     const supplier = supplierFrom(card);
+    const supplierName = supplier.name || supplierText(lines, title);
     const rankMatch = body.match(RANK);
-    return { title: title.slice(0, 180), url: anchor.href, images: imageUrls(card), priceText, salesText, moqText, rank: rankMatch?.[1] || rankMatch?.[2] || rankMatch?.[3] || '', supplierName: supplier.name, supplierUrl: supplier.url, visibleText: body.slice(0, 900) };
+    return { title: title.slice(0, 180), url: anchor.href, images: imageUrls(card), priceText, salesText, moqText, rank: rankMatch?.[1] || rankMatch?.[2] || rankMatch?.[3] || '', supplierName, supplierUrl: supplier.url, brandClue: brandClue(title), visibleText: body.slice(0, 900) };
   }
   // Current image-search cards navigate through JS instead of ordinary offer anchors.
   // Read only the offer ID and fields attached to each actual rendered offer card.
@@ -75,11 +86,13 @@
       const salesText = [...(salesArea?.querySelectorAll('[class*="descText--"]') || [])].map(text)
         .find(value => /^\d[\d,.]*(?:万|千)?\+?件$/.test(value)) || '';
       const supplier = supplierFrom(card);
+      const lines = (card.innerText || '').split(/\n+/).map(x => x.trim()).filter(Boolean);
+      const shopName = text(card.querySelector('[class*="shopName--"]')) || supplier.name || supplierText(lines, title);
       return {title: title.slice(0,180), url:`https://detail.1688.com/offer/${renderId}.html`, images,
-        priceText: PRICE.test(price) ? price.match(PRICE)[0] : '', salesText,
+        priceText: PRICE.test(price) ? compactPrice(price.match(PRICE)[0]) : '', salesText,
         moqText: body.match(/\d+\s*(?:件|个|套|箱)起批/)?.[0] || '',
-        supplierName: text(card.querySelector('[class*="shopName--"]')) || supplier.name,
-        supplierUrl:supplier.url, visibleText:body.slice(0,900)};
+        supplierName: shopName,
+        supplierUrl:supplier.url, brandClue: brandClue(title), visibleText:body.slice(0,900)};
     }).filter(Boolean);
   }
   async function collect() {
@@ -211,7 +224,7 @@
           if (products.has(row.url)) {
             const existing = products.get(row.url);
             existing.images = [...new Set([...(existing.images || []), ...row.images])].slice(0, 8);
-            for (const key of ['title', 'priceText', 'salesText', 'moqText', 'rank', 'supplierName', 'supplierUrl', 'visibleText']) if (!existing[key] && row[key]) existing[key] = row[key];
+            for (const key of ['title', 'priceText', 'salesText', 'moqText', 'rank', 'supplierName', 'supplierUrl', 'brandClue', 'visibleText']) if (!existing[key] && row[key]) existing[key] = row[key];
           } else if (products.size < AUTO_LIMIT) products.set(row.url, row);
         }
         job.products = [...products.values()];

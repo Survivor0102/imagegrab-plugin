@@ -1,0 +1,56 @@
+{
+  "version": "1.11.2",
+  "plugin_tests": {
+    "total": 108,
+    "pass": 108,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "python_tests": {
+    "total": 4,
+    "pass": 4
+  },
+  "source_snapshot_files": 52,
+  "package_matches_snapshot": true,
+  "real_ordinary_chrome": {
+    "version": "1.11.2",
+    "plugin_card": "passed",
+    "website_card": "passed"
+  },
+  "data_preservation": {
+    "products": 427,
+    "offers": 427,
+    "manual_candidates": 110,
+    "auto_candidates": 60,
+    "substitute_candidates": 54,
+    "candidate_pools_unchanged": true,
+    "detail_job_unchanged": true,
+    "archive_changes": [
+      [
+        "/offers/0/sourcingEvidence/evaluatedAt",
+        1795007667416,
+        1795007891345
+      ],
+      [
+        "/offers/1/sourcingEvidence/evaluatedAt",
+        1795007667416,
+        1795007891345
+      ],
+      [
+        "/offers/2/sourcingEvidence/evaluatedAt",
+        1795007667417,
+        1795007891346
+      ]
+    ]
+  },
+  "network_check": {
+    "standalone_browser_fetch": "timed out; not reported as successful API verification today",
+    "server_local_backend_http": 200,
+    "server_local_frontend_http": 200,
+    "public_direct_no_proxy_http": 200,
+    "real_website_ui": "passed"
+  },
+  "database": "No schema migration or business data write for 1.11.2 display recovery",
+  "github": "Not pushed in this task"
+}

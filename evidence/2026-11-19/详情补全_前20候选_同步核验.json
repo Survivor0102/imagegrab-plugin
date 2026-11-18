@@ -1,0 +1,80 @@
+{
+  "checkedAt": "2026-11-18T18:47:06.276Z",
+  "browser": "普通 Chrome 157，后台 CDP，复用已有连接；未重新搜索、未关闭浏览器、未切换课程浏览器",
+  "localDetailJob": {
+    "status": "complete",
+    "reason": "详情补全完成",
+    "total": 20,
+    "newlyCompleted": 18,
+    "alreadyCompleteAndSkipped": 2,
+    "failed": 0,
+    "paused": 0,
+    "localCandidateCounts": {
+      "products": 446,
+      "offers": 446,
+      "manual": 110,
+      "auto": 0,
+      "substitute": 54
+    }
+  },
+  "sync": {
+    "origin": "http://47.94.215.192:8000",
+    "products": 446,
+    "offers": 446,
+    "independentCandidateLinks": 224,
+    "createdProducts": 19,
+    "createdOffers": 19,
+    "updatedProducts": 427,
+    "updatedOffers": 427
+  },
+  "website": {
+    "pageMetricsAfterReload": [
+      "5",
+      "446",
+      "434",
+      "12"
+    ],
+    "apiMetrics": {
+      "requests": 5,
+      "products": 446,
+      "offers": 446,
+      "complete": 434,
+      "pending": 12
+    },
+    "targetRequestId": 18,
+    "targetTitle": "亮亮照明 LED 全塑料筒灯 12W",
+    "criteria": {
+      "mode": "alternative",
+      "name": "亮亮照明 LED 全塑料筒灯 12W",
+      "brand": "亮亮照明",
+      "limit": 20,
+      "specs": "12W",
+      "category": "筒灯 灯具照明",
+      "matchMode": "exact",
+      "substitute": true
+    },
+    "candidateCounts": {
+      "priority": 0,
+      "review": 0,
+      "excluded": 0,
+      "unassessed": 20,
+      "total": 20,
+      "admitted": 20,
+      "planned": 0
+    },
+    "candidateCount": 20,
+    "detailComplete": 20,
+    "customerServiceCaptured": 20,
+    "shippingOriginCaptured": 19,
+    "skuCaptured": 20,
+    "mediaCaptured": 20,
+    "materialOrOtherSpecConflicts": 14,
+    "uiNote": "网站的这条 20 候选记录已写入详情字段；候选阶段字段当前仍显示为 unassessed，不能把它解释成已完成匹配判定。"
+  },
+  "evidenceFiles": [
+    "runtime/1688-you/detail-top20-after-20261119.json",
+    "runtime/1688-you/sync-status-20261119.json",
+    "evidence/2026-11-19/1688_you_详情补全同步_普通Chrome核验.json",
+    "evidence/2026-11-19/1688_you_亮亮照明_前20候选_网站API核验.json"
+  ]
+}

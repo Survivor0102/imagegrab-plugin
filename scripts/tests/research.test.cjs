@@ -126,6 +126,37 @@ test('1688 page capture reads visible listing fields and opens the local researc
   }
 });
 
+test('listing capture handles split decimals and unlinked suppliers without crossing cards', { timeout: 30000 }, async () => {
+  const browser = await chromium.launch({ executablePath: chromePath, headless: true });
+  try {
+    const page = await browser.newPage();
+    await page.route('https://fixture.test/**', route => route.fulfill({ body: '<!doctype html><body></body>' }));
+    await page.goto('https://fixture.test/split-card-fields');
+    await page.setContent(`<main>
+      <article><a title="理星照明 LED筒灯 12W" href="https://detail.1688.com/offer/762373020938.html"><img src="https://img.example.test/lamp.jpg"><span style="display:block">理星照明 LED筒灯 12W</span></a><div>¥ <span>8</span> <span>.9</span></div><div>已售200+件</div><div>兰山区顺冠神州光科亚明照明灯具厂</div></article>
+      <article><a title="测试收纳盒" href="https://detail.1688.com/offer/987654321.html"><img src="https://img.example.test/box.jpg"><span style="display:block">测试收纳盒</span></a><div>¥ 21 .5</div><div>已售32件</div></article>
+    </main>`);
+    await page.evaluate(() => {
+      window.chrome = { storage: { local: { get: async () => ({}) } }, runtime: { sendMessage(message, callback) { window.__capture = message; callback({ ok: true }); } } };
+    });
+    await page.addScriptTag({ path: path.join(root, 'imagegrab-extension/research-capture.js') });
+    await page.locator('#imagegrab-research-button').click();
+    const { products } = await page.evaluate(() => window.__capture);
+    assert.equal(products.length, 2);
+    assert.equal(products[0].priceText, '¥8.9');
+    assert.equal(products[0].salesText, '已售200+件');
+    assert.equal(products[0].supplierName, '兰山区顺冠神州光科亚明照明灯具厂');
+    assert.equal(products[0].brandClue, '理星照明');
+    assert.equal(products[0].supplierUrl, '');
+    assert.equal(products[1].priceText, '¥21.5');
+    assert.equal(products[1].salesText, '已售32件');
+    assert.equal(products[1].supplierName, '');
+    assert.equal(products[1].brandClue, '');
+  } finally {
+    await browser.close();
+  }
+});
+
 test('automatic capture follows visible pagination, deduplicates products, and stops at the end', { timeout: 30000 }, async () => {
   const browser = await chromium.launch({ executablePath: chromePath, headless: true });
   try {

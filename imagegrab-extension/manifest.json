@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
   "name": "图提取 · ImageGrab",
-  "version": "1.9.8",
+  "version": "1.11.2",
   "description": "本机识别商品截图，搜索候选货源并整理选品与供应商档案。",
   "permissions": ["activeTab", "scripting", "downloads", "storage", "tabs", "unlimitedStorage", "alarms"],
-  "optional_host_permissions": ["https://*.alicdn.com/*"],
+  "optional_host_permissions": ["https://*.alicdn.com/*", "https://shopserve.xin/*", "https://www.shopserve.xin/*"],
   "host_permissions": [
     "*://*.taobao.com/*", "*://*.tmall.com/*", "*://*.1688.com/*", "*://*.jd.com/*",
-    "*://*.pinduoduo.com/*", "*://*.yangkeduo.com/*"
+    "*://*.pinduoduo.com/*", "*://*.yangkeduo.com/*", "http://47.94.215.192/*"
   ],
   "background": { "service_worker": "background.js" },
   "content_security_policy": { "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'" },
