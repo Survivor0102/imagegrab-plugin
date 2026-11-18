@@ -50,6 +50,17 @@ test('current detail capture overrides an obsolete affirmative comparison during
   assert.equal(result.links[0].evidence.targetSpecStatus, 'excluded');
 });
 
+test('admitted offers carry substitute stage and planned rank during synchronization', () => {
+  const state = { criteria: { name: '全塑筒灯', specs: '12W', substitute: true, matchMode: 'exact', limit: 20 },
+    candidates: [{ title: '全塑筒灯 12W', url: 'https://detail.1688.com/offer/123.html' }, { title: '全塑筒灯 18W', url: 'https://detail.1688.com/offer/124.html' }] };
+  const request = helper.snapshot(state, 'substitute');
+  const archive = { sourcingRequests: [request], offers: [{ productId: 'p', url: state.candidates[0].url,
+    sourcingRequests: [{ requestId: request.id, evidence: { criteria: state.criteria } }] }] };
+  const result = helper.collect(archive, { imagegrabSourcingSubstituteData: state });
+  const link = result.links.find(row => row.url.endsWith('/123.html'));
+  assert.equal(link.stage, 'priority'); assert.equal(link.plannedRank, 1); assert.equal(link.score >= 0, true);
+});
+
 test('synchronization places products and offers before requests, and all links after requests', () => {
   const a = helper.snapshot(target), data = { products: [{ id: 'p' }], sourcingRequests: [a],
     offers: [{ productId: 'p', url: 'https://detail.1688.com/offer/123.html', sourcingRequests: [{ requestId: a.id, evidence: { criteria: a.criteria } }] }] };

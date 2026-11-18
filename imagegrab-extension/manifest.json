@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "图提取 · ImageGrab",
-  "version": "1.11.2",
+  "version": "1.11.3",
   "description": "本机识别商品截图，搜索候选货源并整理选品与供应商档案。",
   "permissions": ["activeTab", "scripting", "downloads", "storage", "tabs", "unlimitedStorage", "alarms"],
   "optional_host_permissions": ["https://*.alicdn.com/*", "https://shopserve.xin/*", "https://www.shopserve.xin/*"],

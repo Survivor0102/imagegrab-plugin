@@ -27,7 +27,7 @@
   }
   const POOL_KEYS = ['imagegrabSourcingData', 'imagegrabSourcingAutoRun', 'imagegrabSourcingSubstituteData'];
   function collect(data, pools = {}) {
-    const requests = new Map((data.sourcingRequests || []).map(r => [r.id, copy(r)])), links = [];
+    const requests = new Map((data.sourcingRequests || []).map(r => [r.id, copy(r)])), links = [], candidateMeta = new Map();
     for (const offer of data.offers || []) {
       const memberships = offer.sourcingRequests || [];
       if (memberships.length) {
@@ -75,16 +75,24 @@
       for (const row of all) {
         const url = canonical(row.url); if (!url) continue;
         const offer = offersByUrl.get(url);
+        const stage = row.status === 'excluded' ? 'excluded' : row.status === 'candidate' ? 'priority' : 'review';
+        const plannedRank = planned.get(url) || null;
+        candidateMeta.set(`${request.id}|${url}`, { stage, plannedRank, score: Number.isFinite(row.score) ? row.score : null });
         candidates.set(`${request.id}|${url}`, {
           requestId: request.id, url, ...(offer ? { productId: offer.productId } : {}),
           candidate: copy(row), evidence: { ...Object.fromEntries(['brandRelation', 'brandEvidence', 'targetSpecStatus', 'specComparison', 'specDifference', 'reasons', 'missing', 'excluded', 'sources', 'evaluation'].filter(key => row[key] !== undefined).map(key => [key, copy(row[key])])), criteria: copy(state.criteria), comparisonCriteria: copy(state.criteria) },
-          stage: row.status === 'excluded' ? 'excluded' : row.status === 'candidate' ? 'priority' : 'review',
-          plannedRank: planned.get(url) || null, score: Number.isFinite(row.score) ? row.score : null,
+          stage, plannedRank, score: Number.isFinite(row.score) ? row.score : null,
           poolKey: key, observedAt: state.updatedAt || state.finishedAt || state.startedAt || null,
         });
       }
     }
-    return { requests: [...requests.values()], links, candidates: [...candidates.values()] };
+    const enrichedLinks = links.map(link => {
+      const meta = candidateMeta.get(`${link.requestId}|${canonical(link.url)}`);
+      if (meta) return { ...link, ...meta };
+      const fallback = link.evidence?.targetSpecStatus === 'excluded' ? 'excluded' : link.evidence?.targetSpecStatus === 'included' ? 'priority' : 'review';
+      return { ...link, stage: fallback, plannedRank: null, score: null };
+    });
+    return { requests: [...requests.values()], links: enrichedLinks, candidates: [...candidates.values()] };
   }
   globalThis.ImageGrabSourcingRequests = { snapshot, collect, canonical, POOL_KEYS };
 })();

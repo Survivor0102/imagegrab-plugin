@@ -75,7 +75,8 @@ with transaction.atomic():
     target = {'id': 'fixture-request', 'title': 'fixture-target', 'criteria': {'name': 'fixture-target', 'brand': '亮亮照明', 'specs': '12W'},
               'reference': {'image': 'data:image/png;base64,AAAA'}, 'provenance': 'recorded-input'}
     membership = {'requestId': target['id'], 'productId': 'p1', 'url': payload['offers'][0]['url'],
-                  'evidence': {'criteria': target['criteria'], 'targetSpecStatus': 'included'}}
+                  'evidence': {'criteria': target['criteria'], 'targetSpecStatus': 'included'},
+                  'stage': 'priority', 'plannedRank': 1, 'score': 96}
     batch = {'client_id': payload['client_id'], 'requests': [target], 'links': [membership]}
     for _ in range(2):
         reply = request('POST', admin, batch)
@@ -85,6 +86,7 @@ with transaction.atomic():
     result = request('GET', admin, query=f'?request_id={root.id}').data['data']
     assert result['reference']['image'] == target['reference']['image']
     assert len(result['candidates']) == 1 and result['candidates'][0]['evidence']['targetSpecStatus'] == 'included'
+    assert result['candidates'][0]['stage'] == 'priority' and result['candidates'][0]['planned_rank'] == 1
     assert result['candidates'][0]['evidence']['brandRelation'] == 'unknown'
     assert result['candidates'][0]['details']['skus'][0]['value'] == '12W 白光'
     assert result['candidates'][0]['certificates'][0]['status'] == 'unverified'

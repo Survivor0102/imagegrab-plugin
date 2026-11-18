@@ -305,7 +305,18 @@ class ImageGrabYouView(APIView):
                 offer = ImageGrabYouOffer.objects.filter(product__client_id=client_id, product__external_id=text(item.get('productId'), 160), source_key=key).first()
                 if not target or not offer:
                     raise ValidationError('寻源目标或对应货源尚未同步')
-                ImageGrabYouCandidate.objects.update_or_create(request=target, candidate_key=key, defaults={'offer': offer, 'evidence': obj(item.get('evidence'))})
+                existing = ImageGrabYouCandidate.objects.filter(request=target, candidate_key=key).first()
+                payload = dict(existing.payload) if existing else {}
+                if item.get('stage') is not None:
+                    stage = text(item.get('stage'))
+                    if stage not in ('priority', 'review', 'excluded'):
+                        raise ValidationError('候选状态无效')
+                    rank = item.get('plannedRank')
+                    if rank is not None and (isinstance(rank, bool) or not isinstance(rank, int) or not 1 <= rank <= 50 or stage == 'excluded'):
+                        raise ValidationError('候选补全顺序无效')
+                    payload.update(stage=stage, plannedRank=rank, score=item.get('score'))
+                ImageGrabYouCandidate.objects.update_or_create(request=target, candidate_key=key,
+                    defaults={'offer': offer, 'evidence': obj(item.get('evidence')), 'payload': payload})
             for item in candidates:
                 if not isinstance(item, dict):
                     raise ValidationError('独立候选格式无效')

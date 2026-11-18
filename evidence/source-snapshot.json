@@ -1,5 +1,5 @@
 {
-  "extension_version": "1.11.2",
+  "extension_version": "1.11.3",
   "snapshot_kind": "ImageGrab source integrity snapshot; see validation notes for synthetic tests and live-site status",
   "files": [
     {
@@ -55,7 +55,7 @@
     {
       "path": "imagegrab-extension/manifest.json",
       "bytes": 1325,
-      "sha256": "d941557502acf85a1c4720e7449b88f807c8193e96b2b2d7a10f1485775a3448"
+      "sha256": "298a2261f87df99429bd10caf7248eb21d5584305659f322ae44d2db649a8560"
     },
     {
       "path": "imagegrab-extension/ocr/LICENSE.tessdata_best",
@@ -209,8 +209,8 @@
     },
     {
       "path": "imagegrab-extension/sourcing-requests.js",
-      "bytes": 6170,
-      "sha256": "881d4321d612b09df85806bb7faf9f19bd9f54e479f6d524e183ded7ecce11f2"
+      "bytes": 6794,
+      "sha256": "4de94dd0fc0c307350c436b0b89e1530812be6c3692e15601f2dfdd569baa849"
     },
     {
       "path": "imagegrab-extension/sourcing-results.js",
